@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ .Title }} | {{ .Site.Title }}</title>
+
+    {{- with .Description -}}
+    <meta name="description" content="{{ . }}">
+    {{- else -}}
+    <meta name="description" content="{{ .Site.Params.description }}">
+    {{- end -}}
+
+    {{- with .Site.Params.meta.keywords -}}
+    <meta name="keywords" content="{{ . }}">
+    {{- end -}}
+
+    {{- with .Site.Params.favicon -}}
+    <link rel="icon" href="{{ . | relURL }}">
+    {{- end -}}
+
+    <!-- Advertorial CSS -->
+    {{ $css := resources.Get "css/advertorial/landing.css" }}
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+
+    {{- block "custom_head" . -}}{{- end -}}
+</head>
+<body>
+    {{- partial "advertorial/sticky-header.html" . -}}
+
+    {{- block "main" . -}}{{- end -}}
+
+    {{- block "scripts" . -}}
+    <script>
+        // Sticky header visibility on scroll
+        window.addEventListener('scroll', function() {
+            const stickyHeader = document.getElementById('stickyHeader');
+            if (stickyHeader) {
+                if (window.scrollY > 300) {
+                    stickyHeader.classList.add('visible');
+                } else {
+                    stickyHeader.classList.remove('visible');
+                }
+            }
+        });
+
+        // Dynamic date
+        function updateDates() {
+            const date = new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            const dateElements = document.querySelectorAll('#current-date, #current-date-2');
+            dateElements.forEach(element => {
+                if (element) {
+                    element.textContent = date;
+                }
+            });
+        }
+
+        // Run on load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateDates);
+        } else {
+            updateDates();
+        }
+    </script>
+    {{- end -}}
+</body>
+</html>

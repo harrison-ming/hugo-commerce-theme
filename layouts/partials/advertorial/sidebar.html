@@ -1,0 +1,28 @@
+{{- $checkoutURL := .Site.Params.advertorial.checkout_url | default "/checkout" -}}
+{{- $productImage := .Site.Params.advertorial.product_image | default "/images/product.png" -}}
+
+<div class="sidebar-card">
+    <h3>Recommended:</h3>
+    <div class="stars">★★★★★</div>
+    <div class="rating">4.9 | 12847 Reviews</div>
+    <p style="color: #19AF42; text-align: center; margin: 15px 0;">
+        <strong>{{ .Site.Params.advertorial.product_name | default "FengShui Bracelet™" }}</strong>
+    </p>
+    <ul class="feature-list">
+        <li><span class="checkmark">✓</span> Wealth & Fortune Blessing</li>
+        <li><span class="checkmark">✓</span> Family Protection</li>
+        <li><span class="checkmark">✓</span> Authentic Sacred Decree</li>
+        <li><span class="checkmark">✓</span> Adjustable one-size bracelet</li>
+        <li><span class="checkmark">✓</span> 90-day guarantee</li>
+    </ul>
+    <img src="{{ $productImage }}" alt="Product">
+    <div class="stock-alert" style="font-size: 13px; padding: 15px; margin: 15px 0; background: linear-gradient(135deg, #FFE5B4 0%, #FFD89B 100%);">
+        <div class="stock-alert-content">
+            <div style="font-size: 14px; font-weight: bold; color: #2C3E50;">🔥 SALE ACTIVE</div>
+            <div style="font-size: 11px; margin-top: 5px; color: #2C3E50;">70% OFF NOW</div>
+        </div>
+    </div>
+    <a href="{{ $checkoutURL }}" style="display: block; background: linear-gradient(135deg, #3FA026 0%, #5ED54B 100%); color: white; text-align: center; padding: 15px; text-decoration: none; border-radius: 25px; margin-top: 15px; font-weight: bold; font-size: 15px; box-shadow: 0 4px 15px rgba(63, 160, 38, 0.4);">
+        🔥 Check Availability >>
+    </a>
+</div>

@@ -1,0 +1,12 @@
+{{- $checkoutURL := .Site.Params.advertorial.checkout_url | default "/checkout" -}}
+
+<div class="sticky-header visible" id="stickyHeader">
+    <div class="sticky-header-content">
+        <div class="stock-warning">
+            <span class="alert-icon">🔥</span>
+            <span>LIMITED TIME</span>
+        </div>
+        <div class="sale-badge">SALE NOW ON</div>
+        <a href="{{ $checkoutURL }}" class="sticky-cta">CLAIM 70% OFF →</a>
+    </div>
+</div>
