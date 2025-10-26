@@ -1,0 +1,229 @@
+# FAQ Configuration
+# 常见问题配置文件
+#
+# 使用方法：
+# 1. 显示所有问题：
+#    {{< faq >}}
+#
+# 2. 按分类筛选：
+#    {{< faq category="product" >}}
+#
+# 3. 限制显示数量：
+#    {{< faq limit=5 >}}
+#
+# 4. 不同布局：
+#    {{< faq layout="compact" >}}  # 紧凑布局
+#    {{< faq layout="card" >}}     # 卡片布局
+
+# 问题分类定义
+[categories]
+product = "Product Information"
+shipping = "Shipping & Delivery"
+payment = "Payment & Pricing"
+support = "Customer Support"
+general = "General Questions"
+
+# 常见问题列表
+[[items]]
+id = "what-is-decree"
+question = "What exactly is a Celestial Decree?"
+answer = """
+A Celestial Decree is a handcrafted spiritual artifact blessed through ancient rituals.
+Each decree is carefully prepared by trained practitioners and infused with positive energy
+to help attract good fortune, protection, and abundance into your life.
+"""
+category = "product"
+featured = true
+order = 1
+
+[[items]]
+id = "how-does-it-work"
+question = "How does the Celestial Decree work?"
+answer = """
+The decree works through the principles of energy alignment and intention setting.
+When you place it in your home or workspace, it acts as a focal point for positive energy,
+helping to align your environment with your goals and aspirations. Many users report
+feeling a shift in their luck and opportunities within days of receiving their decree.
+"""
+category = "product"
+featured = true
+order = 2
+
+[[items]]
+id = "where-to-place"
+question = "Where should I place my Celestial Decree?"
+answer = """
+For best results, place your decree in a prominent location where you'll see it daily:
+- Above your front door for home protection
+- On your desk for career and financial success
+- In your bedroom for relationship harmony
+- In your living room for family blessings
+
+Avoid placing it in dark, cluttered, or neglected areas.
+"""
+category = "product"
+featured = true
+order = 3
+
+[[items]]
+id = "how-long-shipping"
+question = "How long does shipping take?"
+answer = """
+We offer FREE worldwide shipping on all orders:
+- USA: 5-10 business days
+- Canada: 7-14 business days
+- International: 10-21 business days
+
+You'll receive a tracking number via email once your order ships.
+"""
+category = "shipping"
+featured = true
+order = 4
+
+[[items]]
+id = "tracking-number"
+question = "Will I receive a tracking number?"
+answer = """
+Yes! Once your order ships, you'll automatically receive an email with:
+- Your tracking number
+- Direct link to track your package
+- Estimated delivery date
+
+If you don't receive this email within 48 hours of ordering, please check your spam folder
+or contact our support team.
+"""
+category = "shipping"
+order = 5
+
+[[items]]
+id = "payment-methods"
+question = "What payment methods do you accept?"
+answer = """
+We accept all major payment methods:
+- Credit Cards (Visa, Mastercard, American Express, Discover)
+- Debit Cards
+- PayPal
+- Apple Pay
+- Google Pay
+
+All payments are processed securely through encrypted connections.
+"""
+category = "payment"
+order = 6
+
+[[items]]
+id = "is-it-safe"
+question = "Is my payment information safe?"
+answer = """
+Absolutely! We use industry-standard SSL encryption to protect all payment information.
+We never store your credit card details on our servers. All transactions are processed
+through secure, PCI-compliant payment gateways.
+"""
+category = "payment"
+order = 7
+
+[[items]]
+id = "money-back-guarantee"
+question = "Do you offer a money-back guarantee?"
+answer = """
+Yes! We offer a 60-day satisfaction guarantee. If you're not completely satisfied with
+your Celestial Decree for any reason, simply return it within 60 days for a full refund.
+No questions asked.
+
+However, 99.2% of our customers keep their decrees and order more for friends and family!
+"""
+category = "payment"
+featured = true
+order = 8
+
+[[items]]
+id = "contact-support"
+question = "How can I contact customer support?"
+answer = """
+Our support team is available 7 days a week:
+- Email: support@example.com (response within 24 hours)
+- Live Chat: Available on our website 9am-9pm EST
+- Phone: 1-800-XXX-XXXX (Mon-Fri, 9am-6pm EST)
+
+We're here to help with any questions or concerns!
+"""
+category = "support"
+order = 9
+
+[[items]]
+id = "multiple-decrees"
+question = "Can I order multiple decrees?"
+answer = """
+Yes! In fact, we recommend it. Many customers order multiple decrees to:
+- Protect different areas of their home
+- Give as gifts to family and friends
+- Keep one at home and one at work
+
+That's why we offer discounted Family Packs and Ultimate Abundance Packs with significant savings.
+"""
+category = "product"
+order = 10
+
+[[items]]
+id = "how-long-last"
+question = "How long does a Celestial Decree last?"
+answer = """
+With proper care, your Celestial Decree will last indefinitely. The blessings and energy
+infused into each decree are permanent and do not expire. Many of our customers have kept
+their decrees for years and continue to experience their benefits.
+
+Simply keep it clean and in a respectful location to maintain its effectiveness.
+"""
+category = "product"
+order = 11
+
+[[items]]
+id = "gift-wrapping"
+question = "Do you offer gift wrapping?"
+answer = """
+Yes! During checkout, you can select our premium gift wrapping option for just $5.
+Your decree will arrive in an elegant presentation box with a ribbon, perfect for gifting.
+
+You can also include a personalized message card at no extra charge.
+"""
+category = "shipping"
+order = 12
+
+[[items]]
+id = "international-shipping"
+question = "Do you ship internationally?"
+answer = """
+Yes! We ship to over 150 countries worldwide with FREE shipping. International deliveries
+typically take 10-21 business days depending on your location and customs processing.
+
+Note: Customers are responsible for any import duties or taxes required by their country.
+"""
+category = "shipping"
+order = 13
+
+[[items]]
+id = "bulk-orders"
+question = "Do you offer bulk or corporate orders?"
+answer = """
+Yes! We offer special pricing for bulk orders (20+ decrees) and corporate gifting programs.
+Please contact our sales team at corporate@example.com for a custom quote and volume discounts.
+"""
+category = "general"
+order = 14
+
+[[items]]
+id = "authenticity"
+question = "How do I know my decree is authentic?"
+answer = """
+Every authentic Celestial Decree comes with:
+- A unique serial number
+- Certificate of Authenticity
+- Verification seal
+- Instructions for use and care
+
+You can verify your decree's authenticity on our website using the serial number.
+Beware of counterfeits sold on unauthorized websites!
+"""
+category = "product"
+featured = true
+order = 15

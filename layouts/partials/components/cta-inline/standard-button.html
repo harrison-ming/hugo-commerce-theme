@@ -1,0 +1,87 @@
+{{- /*
+  Standard CTA 按钮 - 标准尺寸按钮，用于内容中段
+
+  参数:
+    . (dict) - 参数字典
+      text (string) - 按钮文字 (required)
+      link (string) - 按钮链接 (required)
+      icon (string) - 图标/emoji，默认 ""
+      theme (string) - 颜色主题: "green" | "blue" | "red" | "purple"，默认 "green"
+      width (string) - 宽度: "full" | "auto" | "contained"，默认 "auto"
+      align (string) - 对齐: "center" | "left" | "right"，默认 "center"
+      buttonClass (string) - 额外的 CSS 类名
+
+  用法示例:
+    {{- partial "components/cta-inline/standard-button" (dict
+      "text" "Claim Your Decree Now"
+      "link" "/checkout"
+      "icon" "✨"
+      "theme" "green") -}}
+*/ -}}
+
+{{- $text := .text -}}
+{{- $link := .link -}}
+{{- $icon := .icon | default "" -}}
+{{- $theme := .theme | default "green" -}}
+{{- $width := .width | default "auto" -}}
+{{- $align := .align | default "center" -}}
+{{- $buttonClass := .buttonClass | default "" -}}
+
+{{- /* 定义颜色主题 Tailwind 类 */ -}}
+{{- $bgClasses := "" -}}
+{{- $borderClasses := "" -}}
+{{- $shadowClasses := "" -}}
+{{- $hoverClasses := "" -}}
+
+{{- if eq $theme "green" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-green-600 to-green-500" -}}
+  {{- $borderClasses = "border-3 border-green-700" -}}
+  {{- $shadowClasses = "shadow-xl shadow-green-500/40" -}}
+  {{- $hoverClasses = "hover:shadow-2xl hover:shadow-green-500/50 hover:scale-105" -}}
+{{- else if eq $theme "blue" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-blue-600 to-blue-500" -}}
+  {{- $borderClasses = "border-3 border-blue-700" -}}
+  {{- $shadowClasses = "shadow-xl shadow-blue-500/40" -}}
+  {{- $hoverClasses = "hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105" -}}
+{{- else if eq $theme "red" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-red-600 to-red-500" -}}
+  {{- $borderClasses = "border-3 border-red-700" -}}
+  {{- $shadowClasses = "shadow-xl shadow-red-500/40" -}}
+  {{- $hoverClasses = "hover:shadow-2xl hover:shadow-red-500/50 hover:scale-105" -}}
+{{- else if eq $theme "purple" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-purple-600 to-purple-500" -}}
+  {{- $borderClasses = "border-3 border-purple-700" -}}
+  {{- $shadowClasses = "shadow-xl shadow-purple-500/40" -}}
+  {{- $hoverClasses = "hover:shadow-2xl hover:shadow-purple-500/50 hover:scale-105" -}}
+{{- end -}}
+
+{{- /* 定义宽度类 */ -}}
+{{- $widthClasses := "" -}}
+{{- if eq $width "full" -}}
+  {{- $widthClasses = "w-full block" -}}
+{{- else if eq $width "contained" -}}
+  {{- $widthClasses = "inline-block md:min-w-[400px]" -}}
+{{- else -}}
+  {{- $widthClasses = "inline-block" -}}
+{{- end -}}
+
+{{- /* 定义对齐类 */ -}}
+{{- $alignClasses := "" -}}
+{{- if eq $align "center" -}}
+  {{- $alignClasses = "text-center" -}}
+{{- else if eq $align "left" -}}
+  {{- $alignClasses = "text-left" -}}
+{{- else if eq $align "right" -}}
+  {{- $alignClasses = "text-right" -}}
+{{- end -}}
+
+<!-- Standard CTA Button Wrapper -->
+<div class="cta-standard-wrapper my-8 {{ $alignClasses }}">
+  <a href="{{ $link }}"
+     class="cta-standard-button {{ $widthClasses }} font-bold rounded-lg transition-all duration-300 text-white text-base md:text-lg py-4 px-8 {{ $bgClasses }} {{ $borderClasses }} {{ $shadowClasses }} {{ $hoverClasses }} {{ $buttonClass }}">
+    {{- if $icon -}}
+      <span class="inline-block mr-2 text-xl">{{ $icon }}</span>
+    {{- end -}}
+    <span>{{ $text }}</span>
+  </a>
+</div>

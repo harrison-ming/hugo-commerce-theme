@@ -1,0 +1,80 @@
+# Pricing Plans Configuration
+# 定价方案配置文件
+#
+# 布局切换示例：
+# 1. 完整卡片布局（默认）：
+#    {{< pricing-section >}}
+#    {{< pricing-section layout="card" columns=3 >}}
+#
+# 2. 极简卡片布局：
+#    {{< pricing-section layout="minimal" columns=4 >}}
+#    {{< pricing-section layout="minimal" columns=5 showTagline=true >}}
+#
+# 3. 表格布局（即将推出）：
+#    {{< pricing-section layout="table" >}}
+
+[[plans]]
+id = "single"
+name = "Single Decree"
+icon = "🥉"
+tagline = "Perfect for personal blessing"
+originalPrice = 198
+price = 99
+currency = "$"
+save = 99
+badge = ""
+badgeColor = ""
+features = [
+  "1 Celestial Decree",
+  "Handcrafted & Blessed",
+  "Divine Protection",
+  "Free Worldwide Shipping"
+]
+ctaText = "👉 Claim Your Decree Now"
+ctaLink = "/checkout"
+ctaTheme = "green"
+
+[[plans]]
+id = "family"
+name = "Family Protection Pack"
+icon = "🥈"
+tagline = "Bless your home and loved ones"
+originalPrice = 396
+price = 169
+currency = "$"
+save = 227
+saveNote = "Best Value!"
+badge = "MOST POPULAR!"
+badgeColor = "blue"
+features = [
+  "2 Celestial Decrees",
+  "Double the Blessings",
+  "Protect Multiple Spaces",
+  "Free Worldwide Shipping"
+]
+ctaText = "👉 Claim Family Pack Now"
+ctaLink = "/checkout"
+ctaTheme = "blue"
+highlight = true
+
+[[plans]]
+id = "ultimate"
+name = "Ultimate Abundance Pack"
+icon = "🥇"
+tagline = "Maximum protection for your entire household"
+originalPrice = 594
+price = 249
+currency = "$"
+save = 345
+saveNote = "Ultimate Blessing!"
+badge = "MAXIMUM ENERGY!"
+badgeColor = "purple"
+features = [
+  "3 Celestial Decrees",
+  "Triple Divine Energy",
+  "Complete Home Protection",
+  "Free Worldwide Shipping"
+]
+ctaText = "👉 Claim Ultimate Pack Now"
+ctaLink = "/checkout"
+ctaTheme = "purple"

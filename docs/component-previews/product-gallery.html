@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery Component - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; }
+        .preview-container { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', monospace; font-size: 0.875rem; }
+
+        /* Carousel styles */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Product Gallery Component</h1>
+            <p class="text-gray-600">产品图片画廊组件 - 多种展示布局</p>
+            <div class="mt-4"><a href="index.html" class="text-blue-600 hover:underline">← 返回组件列表</a></div>
+        </div>
+
+        <!-- Thumbnail Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Thumbnail Layout（缩略图布局）</h2>
+            <p class="text-gray-600 mb-4">经典的产品页布局：大主图 + 缩略图切换</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="product-gallery-thumbnail my-8 max-w-2xl mx-auto">
+                    <!-- Main Image -->
+                    <div class="main-image-container mb-4 relative rounded-xl overflow-hidden border-2 border-gray-200 bg-gray-100">
+                        <div class="aspect-square">
+                            <img id="gallery-main-image" src="https://placehold.co/600x600/e2e8f0/94a3b8?text=Product+Main" alt="Product Main" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+
+                    <!-- Thumbnails Grid -->
+                    <div class="thumbnails-grid grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+                        <button class="thumbnail-item border-2 border-blue-500 aspect-square rounded-lg overflow-hidden transition-all duration-300" onclick="changeMainImage('https://placehold.co/600x600/e2e8f0/94a3b8?text=Product+Main', this)">
+                            <img src="https://placehold.co/150x150/e2e8f0/94a3b8?text=Main" class="w-full h-full object-cover" />
+                        </button>
+                        <button class="thumbnail-item border-2 border-gray-200 hover:border-gray-400 aspect-square rounded-lg overflow-hidden transition-all duration-300" onclick="changeMainImage('https://placehold.co/600x600/dbeafe/3b82f6?text=Front+Detail', this)">
+                            <img src="https://placehold.co/150x150/dbeafe/3b82f6?text=Front" class="w-full h-full object-cover" />
+                        </button>
+                        <button class="thumbnail-item border-2 border-gray-200 hover:border-gray-400 aspect-square rounded-lg overflow-hidden transition-all duration-300" onclick="changeMainImage('https://placehold.co/600x600/fef3c7/f59e0b?text=Back+Detail', this)">
+                            <img src="https://placehold.co/150x150/fef3c7/f59e0b?text=Back" class="w-full h-full object-cover" />
+                        </button>
+                        <button class="thumbnail-item border-2 border-gray-200 hover:border-gray-400 aspect-square rounded-lg overflow-hidden transition-all duration-300" onclick="changeMainImage('https://placehold.co/600x600/dcfce7/22c55e?text=Packaging', this)">
+                            <img src="https://placehold.co/150x150/dcfce7/22c55e?text=Pack" class="w-full h-full object-cover" />
+                        </button>
+                        <button class="thumbnail-item border-2 border-gray-200 hover:border-gray-400 aspect-square rounded-lg overflow-hidden transition-all duration-300" onclick="changeMainImage('https://placehold.co/600x600/fce7f3/ec4899?text=In+Use', this)">
+                            <img src="https://placehold.co/150x150/fce7f3/ec4899?text=Use" class="w-full h-full object-cover" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; product-gallery &gt;}}
+
+# 显示图片标题
+{{&lt; product-gallery showCaptions=true &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Grid Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Grid Layout（网格布局）</h2>
+            <p class="text-gray-600 mb-4">网格展示所有图片，适合浏览产品细节</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="product-gallery-grid grid grid-cols-2 md:grid-cols-3 gap-4 my-8">
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/e2e8f0/94a3b8?text=Product+1" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/dbeafe/3b82f6?text=Product+2" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/fef3c7/f59e0b?text=Product+3" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/dcfce7/22c55e?text=Product+4" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/fce7f3/ec4899?text=Product+5" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                        <div class="aspect-square overflow-hidden bg-gray-100">
+                            <img src="https://placehold.co/400x400/ede9fe/8b5cf6?text=Product+6" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; product-gallery layout="grid" &gt;}}
+
+# 4列网格
+{{&lt; product-gallery layout="grid" columns=4 &gt;}}
+
+# 2列网格
+{{&lt; product-gallery layout="grid" columns=2 &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Carousel Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Carousel Layout（轮播布局）</h2>
+            <p class="text-gray-600 mb-4">横向滚动轮播，移动端友好</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="product-gallery-carousel relative my-8">
+                    <div class="carousel-container overflow-x-auto snap-x snap-mandatory flex gap-4 scrollbar-hide pb-4">
+                        <div class="carousel-item flex-none w-full md:w-2/3 lg:w-1/2 snap-center">
+                            <div class="relative rounded-xl overflow-hidden border-2 border-gray-200">
+                                <div class="aspect-square bg-gray-100">
+                                    <img src="https://placehold.co/600x600/e2e8f0/94a3b8?text=Slide+1" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item flex-none w-full md:w-2/3 lg:w-1/2 snap-center">
+                            <div class="relative rounded-xl overflow-hidden border-2 border-gray-200">
+                                <div class="aspect-square bg-gray-100">
+                                    <img src="https://placehold.co/600x600/dbeafe/3b82f6?text=Slide+2" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item flex-none w-full md:w-2/3 lg:w-1/2 snap-center">
+                            <div class="relative rounded-xl overflow-hidden border-2 border-gray-200">
+                                <div class="aspect-square bg-gray-100">
+                                    <img src="https://placehold.co/600x600/fef3c7/f59e0b?text=Slide+3" class="w-full h-full object-cover" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-center text-sm text-gray-500">
+                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                        </svg>
+                        Swipe to see more
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; product-gallery layout="carousel" &gt;}}
+
+# 带标题的轮播
+{{&lt; product-gallery layout="carousel" showCaptions=true &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Component Parameters -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">组件参数说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">参数</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">类型</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">默认值</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">说明</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr><td class="px-6 py-4 text-sm font-mono">layout</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">"thumbnail"</td><td class="px-6 py-4 text-sm">thumbnail | grid | carousel</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">columns</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">3</td><td class="px-6 py-4 text-sm">网格列数（2|3|4）</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">showCaptions</td><td class="px-6 py-4 text-sm">bool</td><td class="px-6 py-4 text-sm">false</td><td class="px-6 py-4 text-sm">显示图片标题</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">aspectRatio</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">"square"</td><td class="px-6 py-4 text-sm">square | landscape | portrait</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Features -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">核心特性</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">3种布局</strong>
+                        <p class="text-gray-600 text-sm">Thumbnail（缩略图）、Grid（网格）、Carousel（轮播）</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">交互切换</strong>
+                        <p class="text-gray-600 text-sm">缩略图布局支持点击切换主图</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">响应式设计</strong>
+                        <p class="text-gray-600 text-sm">自动适配移动端、平板、桌面</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">CSS Scroll Snap</strong>
+                        <p class="text-gray-600 text-sm">轮播使用原生滚动，无需 JavaScript</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">数据驱动</strong>
+                        <p class="text-gray-600 text-sm">所有图片集中在 data/product-gallery.toml</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">悬停效果</strong>
+                        <p class="text-gray-600 text-sm">网格布局图片放大、边框高亮</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        function changeMainImage(src, element) {
+            // Update main image
+            const mainImage = document.getElementById('gallery-main-image');
+            mainImage.src = src;
+
+            // Update thumbnail borders
+            const thumbnails = document.querySelectorAll('.thumbnail-item');
+            thumbnails.forEach(thumb => {
+                thumb.classList.remove('border-blue-500');
+                thumb.classList.add('border-gray-200');
+            });
+            element.classList.remove('border-gray-200');
+            element.classList.add('border-blue-500');
+        }
+    </script>
+</body>
+</html>

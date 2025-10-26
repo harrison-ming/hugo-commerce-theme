@@ -1,0 +1,143 @@
+{{- /*
+FAQ Component - 常见问题组件
+
+用法：
+  {{< faq >}}
+  {{< faq category="product" >}}
+  {{< faq layout="compact" >}}
+  {{< faq featuredOnly=true >}}
+
+参数：
+  - layout: 布局样式 (default|compact|card)，默认 "default"
+  - category: 按分类筛选 (product|shipping|payment|support|general)
+  - featuredOnly: 只显示精选问题 (true|false)，默认 false
+  - limit: 限制显示数量
+  - showCategory: 显示分类标签 (true|false)，默认 false
+  - columns: 卡片布局的列数 (2|3)，默认 2
+*/ -}}
+
+{{- $faq := .Site.Data.faq -}}
+{{- $items := $faq.items -}}
+{{- $categories := $faq.categories -}}
+
+{{- /* 参数获取 */ -}}
+{{- $layout := .layout | default "default" -}}
+{{- $category := .category | default "" -}}
+{{- $featuredOnly := .featuredOnly | default false -}}
+{{- $limit := .limit | default 999 -}}
+{{- $showCategory := .showCategory | default false -}}
+{{- $columns := .columns | default 2 -}}
+
+{{- /* 筛选逻辑 */ -}}
+{{- $filteredItems := slice -}}
+{{- range $item := $items -}}
+  {{- $matchCategory := or (eq $category "") (eq $item.category $category) -}}
+  {{- $matchFeatured := or (not $featuredOnly) $item.featured -}}
+  {{- if and $matchCategory $matchFeatured -}}
+    {{- $filteredItems = $filteredItems | append $item -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 按 order 排序并限制数量 */ -}}
+{{- $filteredItems = sort $filteredItems "order" -}}
+{{- $filteredItems = first $limit $filteredItems -}}
+
+{{- if not $filteredItems -}}
+  <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 my-8">
+    <p class="text-yellow-800">⚠️ No FAQ items found</p>
+  </div>
+{{- else -}}
+
+{{- /* 生成唯一 ID 前缀 */ -}}
+{{- $uniqueId := now.Unix -}}
+
+{{- if eq $layout "compact" -}}
+  {{- /* 紧凑布局 - 简洁的手风琴 */ -}}
+  <div class="faq-compact space-y-3 my-8">
+    {{- range $index, $item := $filteredItems -}}
+    {{- $itemId := printf "faq-%d-%d" $uniqueId $index -}}
+    <details class="faq-item group bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
+      <summary class="faq-question cursor-pointer px-4 py-3 font-semibold text-gray-900 flex items-center justify-between list-none select-none hover:bg-gray-50 rounded-lg transition-colors">
+        <span class="flex-1 pr-4">{{ $item.question }}</span>
+        <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </summary>
+      <div class="faq-answer px-4 pb-4 pt-2 text-gray-700 text-sm leading-relaxed">
+        {{ $item.answer | markdownify }}
+        {{- if $showCategory -}}
+        <div class="mt-3">
+          <span class="inline-block px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs">
+            {{ index $categories $item.category }}
+          </span>
+        </div>
+        {{- end -}}
+      </div>
+    </details>
+    {{- end -}}
+  </div>
+
+{{- else if eq $layout "card" -}}
+  {{- /* 卡片布局 - 2列或3列网格 */ -}}
+  {{- $gridCols := "md:grid-cols-2" -}}
+  {{- if eq $columns 3 -}}
+    {{- $gridCols = "md:grid-cols-2 lg:grid-cols-3" -}}
+  {{- end -}}
+
+  <div class="faq-cards grid grid-cols-1 {{ $gridCols }} gap-6 my-8">
+    {{- range $index, $item := $filteredItems -}}
+    {{- $itemId := printf "faq-%d-%d" $uniqueId $index -}}
+    <details class="faq-card group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+      <summary class="faq-question cursor-pointer font-bold text-lg text-gray-900 flex items-start justify-between list-none select-none mb-3">
+        <span class="flex-1 pr-4">{{ $item.question }}</span>
+        <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </summary>
+      <div class="faq-answer text-gray-700 leading-relaxed">
+        {{ $item.answer | markdownify }}
+        {{- if $showCategory -}}
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <span class="inline-block px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">
+            {{ index $categories $item.category }}
+          </span>
+        </div>
+        {{- end -}}
+      </div>
+    </details>
+    {{- end -}}
+  </div>
+
+{{- else -}}
+  {{- /* 默认布局 - 标准手风琴 */ -}}
+  <div class="faq-default space-y-4 my-8">
+    {{- range $index, $item := $filteredItems -}}
+    {{- $itemId := printf "faq-%d-%d" $uniqueId $index -}}
+    <details class="faq-item group bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 transition-all duration-300">
+      <summary class="faq-question cursor-pointer px-6 py-5 font-bold text-lg text-gray-900 flex items-center justify-between list-none select-none hover:bg-gray-50 transition-colors">
+        <span class="flex-1 pr-4">
+          {{- if $item.featured -}}
+          <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+          {{- end -}}
+          {{ $item.question }}
+        </span>
+        <div class="flex items-center gap-3">
+          {{- if $showCategory -}}
+          <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+            {{ index $categories $item.category }}
+          </span>
+          {{- end -}}
+          <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </summary>
+      <div class="faq-answer px-6 pb-6 pt-2 text-gray-700 leading-relaxed border-t border-gray-100">
+        {{ $item.answer | markdownify }}
+      </div>
+    </details>
+    {{- end -}}
+  </div>
+{{- end -}}
+
+{{- end -}}{{- /* 结束 items 判断 */ -}}

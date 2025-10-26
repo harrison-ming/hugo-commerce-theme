@@ -1,0 +1,108 @@
+{{- /*
+  Pricing Comparison Shortcode
+
+  Displays original price, current price, and savings
+
+  Usage:
+    {{< pricing-comparison original="99.97" current="29.97" >}}
+
+  Or with percentage:
+    {{< pricing-comparison original="99.97" current="29.97" discount_percent="70" >}}
+*/ -}}
+
+{{- $original := .Get "original" | float -}}
+{{- $current := .Get "current" | float -}}
+{{- $currency := .Get "currency" | default "$" -}}
+{{- $savings := sub $original $current -}}
+{{- $discountPercent := .Get "discount_percent" -}}
+
+{{- if not $discountPercent -}}
+  {{- $discountPercent = printf "%.0f" (mul (div $savings $original) 100) -}}
+{{- end -}}
+
+<div class="pricing-comparison">
+  <div class="price-row">
+    <span class="price-label">Regular Price:</span>
+    <span class="price-original"><s>{{ $currency }}{{ $original }}</s></span>
+  </div>
+  <div class="price-row price-current-row">
+    <span class="price-label">Today's Price:</span>
+    <span class="price-current"><strong>{{ $currency }}{{ $current }}</strong></span>
+  </div>
+  <div class="price-row price-savings-row">
+    <span class="price-label">You Save:</span>
+    <span class="price-savings">{{ $currency }}{{ printf "%.2f" $savings }} ({{ $discountPercent }}% OFF)</span>
+  </div>
+</div>
+
+<style>
+.pricing-comparison {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #3FA026;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  max-width: 500px;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+.price-row:not(:last-child) {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.price-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.price-original {
+  color: #999;
+  font-size: 18px;
+}
+
+.price-current-row {
+  background: rgba(63, 160, 38, 0.1);
+  margin: 0 -20px;
+  padding: 12px 20px;
+}
+
+.price-current {
+  color: #3FA026;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.price-savings-row {
+  font-weight: 600;
+}
+
+.price-savings {
+  color: #dc3545;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .pricing-comparison {
+    padding: 15px;
+  }
+
+  .price-row {
+    font-size: 14px;
+  }
+
+  .price-current {
+    font-size: 24px;
+  }
+
+  .price-savings {
+    font-size: 16px;
+  }
+}
+</style>

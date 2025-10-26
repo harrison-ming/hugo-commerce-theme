@@ -1,0 +1,60 @@
+{{- /*
+  功能列表组件 - 显示产品功能特性列表
+
+  参数:
+    . (dict) - 参数字典
+      features (slice) - 功能列表数组 (required)
+        示例: (slice "Wealth & Fortune" "Family Protection")
+      icon (string) - 图标字符，默认 "✓"
+      iconColor (string) - 图标颜色，默认 "#3FA026" (绿色)
+      variant (string) - 样式变体: "default" | "compact" | "minimal"
+      listClass (string) - 自定义列表容器类名
+
+  用法示例:
+    {{- partial "components/cta-sidebar/feature-list" (dict
+      "features" (slice
+        "Wealth & Fortune Blessing"
+        "Family Protection"
+        "Authentic Sacred Decree"
+        "90-day guarantee")
+      "icon" "✓"
+      "iconColor" "#3FA026"
+      "variant" "default") -}}
+*/ -}}
+
+{{- $features := .features -}}
+{{- $icon := .icon | default "✓" -}}
+{{- $iconColor := .iconColor | default "#3FA026" -}}
+{{- $variant := .variant | default "default" -}}
+{{- $listClass := .listClass | default "" -}}
+
+{{- if $features -}}
+  {{- if eq $variant "minimal" -}}
+    {{- /* 极简版：内联显示，用逗号分隔 */ -}}
+    <div class="text-center text-xs text-gray-600 mb-3 {{ $listClass }}">
+      {{ delimit $features " • " }}
+    </div>
+
+  {{- else if eq $variant "compact" -}}
+    {{- /* 紧凑版：更小的字体和间距 */ -}}
+    <ul class="space-y-1.5 mb-3 {{ $listClass }}">
+      {{- range $features -}}
+      <li class="flex items-center text-xs text-gray-700">
+        <span class="mr-2 flex-shrink-0 text-sm" style="color: {{ $iconColor }};">{{ $icon }}</span>
+        <span>{{ . }}</span>
+      </li>
+      {{- end -}}
+    </ul>
+
+  {{- else -}}
+    {{- /* 默认版：标准尺寸 */ -}}
+    <ul class="space-y-2 mb-4 {{ $listClass }}">
+      {{- range $features -}}
+      <li class="flex items-center text-sm text-gray-800">
+        <span class="mr-2 flex-shrink-0 text-base font-semibold" style="color: {{ $iconColor }};">{{ $icon }}</span>
+        <span>{{ . }}</span>
+      </li>
+      {{- end -}}
+    </ul>
+  {{- end -}}
+{{- end -}}

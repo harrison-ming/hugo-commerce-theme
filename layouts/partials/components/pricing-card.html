@@ -1,0 +1,200 @@
+{{- /*
+  Pricing Card 组件 - 产品定价卡片
+
+  参数:
+    . (dict) - 参数字典
+      plans (slice) - 定价方案数组，从 site.Data.pricing.plans 读取
+      layout (string) - 布局: "card" | "minimal" | "table"，默认 "card"
+      columns (int) - 列数: 2 | 3 | 4 | 5，默认 3
+      containerClass (string) - 容器额外类名
+
+      Minimal 布局专用参数:
+        showIcon (bool) - 是否显示图标，默认 true
+        showTagline (bool) - 是否显示副标题，默认 false
+        compactSpacing (bool) - 是否使用紧凑间距，默认 false
+
+  用法示例:
+    {{- partial "components/pricing-card" (dict
+      "plans" site.Data.pricing.plans
+      "layout" "card"
+      "columns" 3) -}}
+
+    {{- partial "components/pricing-card" (dict
+      "layout" "minimal"
+      "columns" 4
+      "showIcon" true
+      "showTagline" false) -}}
+*/ -}}
+
+{{- $plans := .plans | default site.Data.pricing.plans -}}
+{{- $layout := .layout | default "card" -}}
+{{- $columns := .columns | default 3 -}}
+{{- $containerClass := .containerClass | default "" -}}
+
+{{- if not $plans -}}
+  <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 my-8">
+    <p class="text-yellow-800">⚠️ No pricing plans found. Please configure data/pricing.toml</p>
+  </div>
+{{- else -}}
+
+{{- /* 根据 layout 参数调用不同的组件 */ -}}
+{{- if eq $layout "minimal" -}}
+  {{- $showIcon := .showIcon -}}
+  {{- if eq $showIcon nil -}}{{- $showIcon = true -}}{{- end -}}
+  {{- $showTagline := .showTagline -}}
+  {{- if eq $showTagline nil -}}{{- $showTagline = false -}}{{- end -}}
+  {{- $compactSpacing := .compactSpacing -}}
+  {{- if eq $compactSpacing nil -}}{{- $compactSpacing = false -}}{{- end -}}
+
+  {{- partial "components/pricing-card-minimal" (dict
+    "plans" $plans
+    "columns" $columns
+    "showIcon" $showIcon
+    "showTagline" $showTagline
+    "compactSpacing" $compactSpacing) -}}
+{{- else if eq $layout "table" -}}
+  {{- $showIcon := .showIcon -}}
+  {{- if eq $showIcon nil -}}{{- $showIcon = true -}}{{- end -}}
+  {{- $showBadge := .showBadge -}}
+  {{- if eq $showBadge nil -}}{{- $showBadge = true -}}{{- end -}}
+  {{- $showTagline := .showTagline -}}
+  {{- if eq $showTagline nil -}}{{- $showTagline = true -}}{{- end -}}
+
+  {{- partial "components/pricing-card-table" (dict
+    "plans" $plans
+    "showIcon" $showIcon
+    "showBadge" $showBadge
+    "showTagline" $showTagline) -}}
+{{- else -}}
+  {{- /* 默认使用卡片布局 */ -}}
+
+{{- /* 定义响应式列数类 */ -}}
+{{- $gridCols := "" -}}
+{{- if eq $columns 2 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2" -}}
+{{- else if eq $columns 3 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" -}}
+{{- else if eq $columns 4 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-4" -}}
+{{- end -}}
+
+<!-- Pricing Cards Container -->
+<div class="pricing-section my-12 {{ $containerClass }}">
+  <div class="pricing-grid grid {{ $gridCols }} gap-6 lg:gap-8">
+
+    {{- range $index, $plan := $plans -}}
+    {{- $isHighlight := $plan.highlight | default false -}}
+    {{- $badgeColor := $plan.badgeColor | default "blue" -}}
+
+    {{- /* 定义徽章颜色类 */ -}}
+    {{- $badgeBg := "" -}}
+    {{- $badgeText := "" -}}
+    {{- if eq $badgeColor "blue" -}}
+      {{- $badgeBg = "bg-blue-500" -}}
+      {{- $badgeText = "text-white" -}}
+    {{- else if eq $badgeColor "purple" -}}
+      {{- $badgeBg = "bg-purple-500" -}}
+      {{- $badgeText = "text-white" -}}
+    {{- else if eq $badgeColor "green" -}}
+      {{- $badgeBg = "bg-green-500" -}}
+      {{- $badgeText = "text-white" -}}
+    {{- else -}}
+      {{- $badgeBg = "bg-gray-500" -}}
+      {{- $badgeText = "text-white" -}}
+    {{- end -}}
+
+    {{- /* CTA 按钮主题颜色 */ -}}
+    {{- $ctaTheme := $plan.ctaTheme | default "green" -}}
+    {{- $ctaBg := "" -}}
+    {{- $ctaBorder := "" -}}
+    {{- $ctaShadow := "" -}}
+    {{- if eq $ctaTheme "blue" -}}
+      {{- $ctaBg = "bg-gradient-to-br from-blue-600 to-blue-500" -}}
+      {{- $ctaBorder = "border-blue-700" -}}
+      {{- $ctaShadow = "shadow-blue-500/30 hover:shadow-blue-500/40" -}}
+    {{- else if eq $ctaTheme "purple" -}}
+      {{- $ctaBg = "bg-gradient-to-br from-purple-600 to-purple-500" -}}
+      {{- $ctaBorder = "border-purple-700" -}}
+      {{- $ctaShadow = "shadow-purple-500/30 hover:shadow-purple-500/40" -}}
+    {{- else -}}
+      {{- $ctaBg = "bg-gradient-to-br from-green-600 to-green-500" -}}
+      {{- $ctaBorder = "border-green-700" -}}
+      {{- $ctaShadow = "shadow-green-500/30 hover:shadow-green-500/40" -}}
+    {{- end -}}
+
+    <!-- Pricing Card -->
+    <div class="pricing-card bg-white rounded-2xl shadow-lg {{ if $isHighlight }}shadow-2xl border-4 {{ $ctaBorder }}{{ else }}border border-gray-200{{ end }} p-6 lg:p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 relative">
+
+      {{- /* 徽章 */ -}}
+      {{- if $plan.badge -}}
+      <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+        <span class="{{ $badgeBg }} {{ $badgeText }} px-4 py-1.5 rounded-full text-xs font-bold uppercase shadow-lg">
+          {{ $plan.badge }}
+        </span>
+      </div>
+      {{- end -}}
+
+      {{- /* 图标 */ -}}
+      {{- if $plan.icon -}}
+      <div class="text-5xl mb-4 text-center">{{ $plan.icon }}</div>
+      {{- end -}}
+
+      {{- /* 产品名称 */ -}}
+      <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 text-center">
+        {{ $plan.name }}
+      </h3>
+
+      {{- /* 标语 */ -}}
+      {{- if $plan.tagline -}}
+      <p class="text-gray-600 text-center mb-6">{{ $plan.tagline }}</p>
+      {{- end -}}
+
+      {{- /* 价格 */ -}}
+      <div class="pricing-amount text-center mb-4">
+        {{- if $plan.originalPrice -}}
+        <div class="text-gray-400 line-through text-lg mb-1">
+          {{ $plan.currency }}{{ $plan.originalPrice }}
+        </div>
+        {{- end -}}
+        <div class="flex items-center justify-center gap-2">
+          <span class="text-4xl lg:text-5xl font-bold text-gray-900">
+            {{ $plan.currency }}{{ $plan.price }}
+          </span>
+        </div>
+      </div>
+
+      {{- /* 节省金额 */ -}}
+      {{- if $plan.save -}}
+      <div class="text-center mb-6">
+        <span class="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-bold">
+          SAVE {{ $plan.currency }}{{ $plan.save }}{{ if $plan.saveNote }} — {{ $plan.saveNote }}{{ end }}
+        </span>
+      </div>
+      {{- end -}}
+
+      {{- /* 功能列表 */ -}}
+      {{- if $plan.features -}}
+      <ul class="space-y-3 mb-8">
+        {{- range $plan.features -}}
+        <li class="flex items-start text-gray-700">
+          <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+          <span class="text-sm lg:text-base">{{ . }}</span>
+        </li>
+        {{- end -}}
+      </ul>
+      {{- end -}}
+
+      {{- /* CTA 按钮 */ -}}
+      <a href="{{ $plan.ctaLink }}"
+         class="block w-full text-center font-bold rounded-lg transition-all duration-300 text-white py-4 px-6 text-base {{ $ctaBg }} border-2 {{ $ctaBorder }} shadow-lg {{ $ctaShadow }} hover:scale-105">
+        {{ $plan.ctaText }}
+      </a>
+
+    </div>
+    {{- end -}}
+
+  </div>
+</div>
+
+{{- end -}}{{- /* 结束 layout 判断 */ -}}
+{{- end -}}{{- /* 结束 $plans 判断 */ -}}

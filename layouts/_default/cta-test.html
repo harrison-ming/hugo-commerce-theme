@@ -1,0 +1,74 @@
+{{ define "main" }}
+<div class="max-w-6xl mx-auto px-6 py-12">
+  <h1 class="text-4xl font-bold mb-8 text-center">CTA Sidebar Component - Variants Test</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <!-- Default Variant -->
+    <div>
+      <h2 class="text-2xl font-bold mb-4 text-center">Default</h2>
+      {{- partial "components/cta-sidebar" (dict
+        "productName" "Celestial Decree™"
+        "ctaLink" "/checkout"
+        "ctaText" "Claim Your Decree Now >>"
+        "showReviews" true
+        "rating" 4.9
+        "reviewCount" 12847
+        "reviewText" "Reviews"
+        "headerText" "Recommended:"
+        "features" (slice
+          "Wealth & Fortune Blessing"
+          "Family Protection"
+          "Authentic Sacred Decree"
+          "90-day guarantee")
+        "imagePath" "/product/images/real-decree-main.jpg"
+        "imageAlt" "Celestial Decree"
+        "variant" "default"
+        "buttonTheme" "green") -}}
+    </div>
+
+    <!-- Compact Variant -->
+    <div>
+      <h2 class="text-2xl font-bold mb-4 text-center">Compact</h2>
+      {{- partial "components/cta-sidebar" (dict
+        "productName" "Celestial Decree™"
+        "ctaLink" "/checkout"
+        "ctaText" "Get It Now >>"
+        "showReviews" true
+        "rating" 4.9
+        "reviewCount" 12847
+        "features" (slice
+          "Wealth & Fortune"
+          "Family Protection"
+          "90-day guarantee")
+        "imagePath" "/product/images/real-decree-main.jpg"
+        "variant" "compact"
+        "buttonTheme" "blue") -}}
+    </div>
+
+    <!-- Minimal Variant -->
+    <div>
+      <h2 class="text-2xl font-bold mb-4 text-center">Minimal</h2>
+      {{- partial "components/cta-sidebar" (dict
+        "productName" "Celestial Decree™"
+        "ctaLink" "/checkout"
+        "ctaText" "Buy Now"
+        "showReviews" true
+        "rating" 4.9
+        "reviewCount" 12847
+        "features" (slice
+          "Protected"
+          "Blessed"
+          "Guaranteed")
+        "showImage" false
+        "variant" "minimal"
+        "buttonTheme" "purple") -}}
+    </div>
+
+  </div>
+
+  <div class="mt-12 text-center">
+    <a href="/" class="text-blue-600 hover:underline">← Back to Home</a>
+  </div>
+</div>
+{{ end }}

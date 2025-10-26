@@ -1,0 +1,80 @@
+{{- $priceId := .Get "price_id" | default "" -}}
+{{- $label := .Get "label" | default "Buy Now" -}}
+{{- $mode := .Get "mode" | default "payment" -}}
+{{- $size := .Get "size" | default "normal" -}}
+{{- $btnClass := "inline-block px-8 py-4 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl" -}}
+{{- if eq $size "large" -}}
+  {{- $btnClass = "inline-block px-12 py-6 text-xl text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl" -}}
+{{- end -}}
+
+<div class="text-center my-8">
+  <button
+    id="checkout-button-{{ $priceId }}"
+    class="{{ $btnClass }} bg-green-600 hover:bg-green-700"
+    style="background-color: #3FA026;"
+    onmouseover="this.style.backgroundColor='#5ED54B'"
+    onmouseout="this.style.backgroundColor='#3FA026'"
+  >
+    {{ $label }}
+  </button>
+</div>
+
+{{- if $priceId -}}
+<!-- Stripe Checkout via Cloudflare Worker -->
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  (function() {
+    var checkoutButton = document.getElementById('checkout-button-{{ $priceId }}');
+    var workerUrl = '{{ site.Params.stripe.worker_url | default "https://aura-checkout.YOUR-SUBDOMAIN.workers.dev" }}';
+
+    checkoutButton.addEventListener('click', async function() {
+      // 显示加载状态
+      checkoutButton.disabled = true;
+      checkoutButton.innerHTML = 'Loading...';
+
+      try {
+        // 调用 Cloudflare Worker 创建 Checkout Session
+        const response = await fetch(workerUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            priceId: '{{ $priceId }}',
+            quantity: 1,
+            // 可选: 添加客户邮箱和订单元数据
+            // customerEmail: 'customer@example.com',
+            // metadata: { orderId: 'ORDER-123' }
+          }),
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Failed to create checkout session');
+        }
+
+        const { url } = await response.json();
+
+        // 重定向到 Stripe Checkout
+        window.location.href = url;
+
+      } catch (error) {
+        console.error('Checkout error:', error);
+        alert('支付初始化失败: ' + error.message);
+        checkoutButton.disabled = false;
+        checkoutButton.innerHTML = '{{ $label }}';
+      }
+    });
+  })();
+</script>
+{{- else -}}
+<!-- 没有提供price_id，显示占位按钮 -->
+<script>
+  (function() {
+    var button = document.getElementById('checkout-button-');
+    button.addEventListener('click', function() {
+      alert('请在 hugo.toml 中配置 Stripe API 密钥，并在 shortcode 中提供 price_id 参数');
+    });
+  })();
+</script>
+{{- end -}}

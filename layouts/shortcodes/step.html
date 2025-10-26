@@ -1,0 +1,24 @@
+{{- /*
+  Step Item Shortcode (used within steps shortcode)
+
+  Usage:
+    {{< step number="1" title="Cleanse Your Bracelet" image="/images/step1.jpg" >}}
+    Place it under moonlight overnight or rinse with clean water
+    {{< /step >}}
+*/ -}}
+
+{{- $number := .Get "number" -}}
+{{- $title := .Get "title" -}}
+{{- $image := .Get "image" -}}
+{{- $content := .Inner | markdownify -}}
+
+<div class="step-item">
+  <div class="step-number">{{ $number }}</div>
+  {{- with $image -}}
+    <div class="step-image">
+      <img src="{{ . }}" alt="{{ $title }}" loading="lazy">
+    </div>
+  {{- end -}}
+  <h3 class="step-title">{{ $title }}</h3>
+  <div class="step-description">{{ $content }}</div>
+</div>

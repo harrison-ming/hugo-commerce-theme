@@ -1,0 +1,86 @@
+{{- /*
+  Info Box Shortcode
+
+  Displays a highlighted information box with optional icon
+
+  Usage:
+    {{< info-box title="Important Note" icon="⚠️" >}}
+    This is an important message that needs attention.
+    {{< /info-box >}}
+
+  Parameters:
+    - title: Box title (optional)
+    - icon: Emoji or icon to display (optional)
+    - type: "info" (blue), "warning" (yellow), "success" (green), "danger" (red)
+    - bg_color: Custom background color (overrides type)
+    - border_color: Custom border color
+*/ -}}
+
+{{- $content := .Inner | markdownify -}}
+{{- $title := .Get "title" -}}
+{{- $icon := .Get "icon" -}}
+{{- $type := .Get "type" | default "warning" -}}
+
+{{- $colors := dict
+  "info" (dict "bg" "#E3F2FD" "border" "#2196F3" "text" "#0D47A1")
+  "warning" (dict "bg" "#FFF9C4" "border" "#FFC107" "text" "#F57F17")
+  "success" (dict "bg" "#E8F5E9" "border" "#4CAF50" "text" "#1B5E20")
+  "danger" (dict "bg" "#FFEBEE" "border" "#F44336" "text" "#B71C1C")
+-}}
+
+{{- $colorScheme := index $colors $type -}}
+{{- $bgColor := .Get "bg_color" | default $colorScheme.bg -}}
+{{- $borderColor := .Get "border_color" | default $colorScheme.border -}}
+{{- $textColor := .Get "text_color" | default $colorScheme.text -}}
+
+<div class="info-box info-box-{{ $type }}" style="background-color: {{ $bgColor }}; border-color: {{ $borderColor }}; color: {{ $textColor }};">
+  {{- if or $icon $title -}}
+  <div class="info-box-header">
+    {{- with $icon -}}<span class="info-box-icon">{{ . }}</span>{{- end -}}
+    {{- with $title -}}<strong class="info-box-title">{{ . }}</strong>{{- end -}}
+  </div>
+  {{- end -}}
+  <div class="info-box-content">
+    {{ $content }}
+  </div>
+</div>
+
+<style>
+.info-box {
+  padding: 16px 20px;
+  border-left: 4px solid;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.info-box-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.info-box-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.info-box-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.info-box-content {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-box-content p:last-child {
+  margin-bottom: 0;
+}
+
+.info-box-content ul {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+</style>

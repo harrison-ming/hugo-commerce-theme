@@ -1,0 +1,65 @@
+# Hugo Commerce Theme - Configuration Template
+# This file is for theme development only
+# Actual sites should copy this to their root directory
+
+baseURL = "https://example.com"
+title = "Hugo Commerce Theme"
+# theme = "hugo-commerce-theme"  # 使用 Hugo Modules 时不需要此行
+languageCode = "en-us"
+defaultContentLanguage = "en"
+
+# Hugo version requirement and module configuration
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.112.0"
+
+  # Theme can be imported as a module
+  # [[module.imports]]
+  #   path = "github.com/yourusername/hugo-commerce-theme"
+
+# Disable unnecessary kinds for a single-page product site
+disableKinds = ["taxonomy", "term", "RSS", "sitemap"]
+
+# Markdown settings
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow HTML in markdown
+      hardWraps = true  # Convert line breaks to <br>
+
+# Build settings
+[build]
+  writeStats = true
+  [[build.cachebusters]]
+    source = "assets/watching/hugo_stats\\.json"
+    target = "css"
+  [[build.cachebusters]]
+    source = "(postcss|tailwind)\\.config\\.js"
+    target = "css"
+
+# Parameters for the theme
+[params]
+  # Site metadata
+  description = "Your product description"
+  keywords = ["product", "ecommerce", "landing page"]
+
+  # Branding (will be overridden by data files in actual sites)
+  [params.brand]
+    name = "Your Product"
+    tagline = "Your product tagline"
+    primary_color = "#3FA026"
+    accent_color = "#FEF5C4"
+
+  # Payment settings (example - use environment variables in production)
+  [params.stripe]
+    publishable_key = "pk_test_..."
+    worker_url = "https://api.example.com"
+
+  # Analytics
+  [params.analytics]
+    google_analytics_id = ""
+
+  # Footer
+  [params.footer]
+    copyright = "© 2024 Your Company. All rights reserved."

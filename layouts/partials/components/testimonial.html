@@ -1,0 +1,179 @@
+{{- /*
+  Testimonial Component - 客户评价组件
+
+  参数:
+    . (dict) - 参数字典
+      items (slice) - 评价数组，从 site.Data.testimonials.items 读取
+      layout (string) - 布局: "list" | "grid" | "cards"，默认 "list"
+      columns (int) - 列数（grid/cards 布局）: 1 | 2 | 3，默认 2
+      showAvatar (bool) - 是否显示头像，默认 true
+      showRating (bool) - 是否显示星级，默认 true
+      featuredOnly (bool) - 只显示精选评价，默认 false
+      limit (int) - 限制显示数量，默认显示全部
+
+  用法示例:
+    {{- partial "components/testimonial" (dict
+      "items" site.Data.testimonials.items
+      "layout" "list") -}}
+
+    {{- partial "components/testimonial" (dict
+      "layout" "grid"
+      "columns" 2
+      "featuredOnly" true) -}}
+*/ -}}
+
+{{- $allItems := .items | default site.Data.testimonials.items -}}
+{{- $layout := .layout | default "list" -}}
+{{- $columns := .columns | default 2 -}}
+{{- $showAvatar := .showAvatar -}}
+{{- if eq $showAvatar nil -}}{{- $showAvatar = true -}}{{- end -}}
+{{- $showRating := .showRating -}}
+{{- if eq $showRating nil -}}{{- $showRating = true -}}{{- end -}}
+{{- $featuredOnly := .featuredOnly | default false -}}
+{{- $limit := .limit | default 999 -}}
+
+{{- /* 过滤评价 */ -}}
+{{- $items := slice -}}
+{{- if $featuredOnly -}}
+  {{- range $allItems -}}
+    {{- if .featured -}}
+      {{- $items = $items | append . -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $items = $allItems -}}
+{{- end -}}
+
+{{- /* 限制数量 */ -}}
+{{- if lt $limit (len $items) -}}
+  {{- $items = first $limit $items -}}
+{{- end -}}
+
+{{- if not $items -}}
+  <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 my-8">
+    <p class="text-yellow-800">⚠️ No testimonials found. Please configure data/testimonials.toml</p>
+  </div>
+{{- else -}}
+
+{{- /* List 布局 - 默认布局，垂直列表 */ -}}
+{{- if eq $layout "list" -}}
+
+<div class="testimonials-list space-y-6 my-8">
+  {{- range $item := $items -}}
+  <div class="testimonial-item flex flex-row items-start gap-3 md:gap-4 bg-white p-4 md:p-5 rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300" style="display: flex !important; flex-direction: row !important; align-items: flex-start !important; gap: 1rem !important;">
+
+    {{- if and $showAvatar $item.avatar -}}
+    <div class="w-12 h-12 md:w-14 md:h-14 flex-shrink-0 overflow-hidden rounded-full border-2 border-gray-200" style="flex-shrink: 0 !important; width: 3rem !important; height: 3rem !important; overflow: hidden !important; border-radius: 50% !important;">
+      <img src="{{ $item.avatar }}"
+           alt="{{ $item.name }}"
+           class="w-full h-full object-cover" style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;" />
+    </div>
+    {{- end -}}
+
+    <div class="flex-1 min-w-0" style="flex: 1 !important;">
+      <div class="flex items-center gap-2 mb-2 flex-wrap">
+        <span class="font-semibold text-gray-900 text-sm md:text-base">{{ $item.name }}</span>
+        {{- if $item.location -}}
+        <span class="text-gray-500 text-xs md:text-sm">{{ $item.location }}</span>
+        {{- end -}}
+        {{- if and $showRating $item.rating -}}
+        <span class="text-yellow-400 text-sm">
+          {{- range seq $item.rating -}}⭐{{- end -}}
+        </span>
+        {{- end -}}
+      </div>
+      <blockquote class="text-gray-700 italic text-sm md:text-base leading-relaxed">
+        "{{ $item.quote }}"
+      </blockquote>
+    </div>
+
+  </div>
+  {{- end -}}
+</div>
+
+{{- /* Grid 布局 - 网格布局，多列 */ -}}
+{{- else if eq $layout "grid" -}}
+
+{{- $gridCols := "grid-cols-1" -}}
+{{- if eq $columns 2 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2" -}}
+{{- else if eq $columns 3 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-3" -}}
+{{- end -}}
+
+<div class="testimonials-grid grid {{ $gridCols }} gap-6 my-8">
+  {{- range $item := $items -}}
+  <div class="testimonial-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300">
+
+    <div class="flex items-center gap-3 mb-4">
+      {{- if and $showAvatar $item.avatar -}}
+      <img src="{{ $item.avatar }}"
+           alt="{{ $item.name }}"
+           class="w-12 h-12 rounded-full object-cover border-2 border-gray-200" />
+      {{- end -}}
+      <div class="flex-1 min-w-0">
+        <div class="font-semibold text-gray-900 text-sm truncate">{{ $item.name }}</div>
+        {{- if $item.location -}}
+        <div class="text-gray-500 text-xs">{{ $item.location }}</div>
+        {{- end -}}
+      </div>
+      {{- if and $showRating $item.rating -}}
+      <div class="text-yellow-400 text-sm flex-shrink-0">
+        {{- range seq $item.rating -}}⭐{{- end -}}
+      </div>
+      {{- end -}}
+    </div>
+
+    <blockquote class="text-gray-700 italic text-sm leading-relaxed">
+      "{{ $item.quote }}"
+    </blockquote>
+
+  </div>
+  {{- end -}}
+</div>
+
+{{- /* Cards 布局 - 卡片布局，带阴影和更大间距 */ -}}
+{{- else if eq $layout "cards" -}}
+
+{{- $gridCols := "grid-cols-1" -}}
+{{- if eq $columns 2 -}}
+  {{- $gridCols = "grid-cols-1 lg:grid-cols-2" -}}
+{{- else if eq $columns 3 -}}
+  {{- $gridCols = "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" -}}
+{{- end -}}
+
+<div class="testimonials-cards grid {{ $gridCols }} gap-8 my-12">
+  {{- range $item := $items -}}
+  <div class="testimonial-card-large bg-gradient-to-br from-white to-gray-50 p-8 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 border border-gray-100">
+
+    {{- if and $showRating $item.rating -}}
+    <div class="text-yellow-400 text-lg mb-4">
+      {{- range seq $item.rating -}}⭐{{- end -}}
+    </div>
+    {{- end -}}
+
+    <blockquote class="text-gray-800 italic text-base md:text-lg leading-relaxed mb-6">
+      "{{ $item.quote }}"
+    </blockquote>
+
+    <div class="flex items-center gap-4 pt-4 border-t border-gray-200">
+      {{- if and $showAvatar $item.avatar -}}
+      <img src="{{ $item.avatar }}"
+           alt="{{ $item.name }}"
+           class="w-14 h-14 rounded-full object-cover border-2 border-gray-300" />
+      {{- end -}}
+      <div>
+        <div class="font-bold text-gray-900">{{ $item.name }}</div>
+        {{- if $item.location -}}
+        <div class="text-gray-600 text-sm">{{ $item.location }}</div>
+        {{- end -}}
+      </div>
+    </div>
+
+  </div>
+  {{- end -}}
+</div>
+
+{{- end -}}{{- /* 结束 layout 判断 */ -}}
+
+{{- end -}}{{- /* 结束 $items 判断 */ -}}

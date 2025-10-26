@@ -1,0 +1,59 @@
+<main id="main" class="w-full max-w-screen-xl mx-auto">
+  <div class="px-6">
+    {{ if .IsHome }}
+    <!-- Homepage Layout: Two Column with Sticky Sidebar -->
+    <div class="min-h-screen w-full mx-auto" style="display: flex; gap: 2rem; max-width: 1400px;">
+      <!-- Main Content -->
+      <div id="content-wrapper" class="flex-1" style="max-width: 900px;">
+        <div id="content">
+          <div class="flex">
+            <div class="pb-16 w-full pt-12">
+              <div class="homepage-content prose w-full max-w-3xl mx-auto mb-6">
+                {{ .Content }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky Sidebar (Right Column) -->
+      <aside class="sidebar-container" style="flex: 0 0 340px; padding-top: 3rem;">
+        {{- partial "components/cta-sidebar" (dict
+          "productName" "Celestial Decree™"
+          "ctaLink" "/checkout"
+          "ctaText" "Claim Your Decree Now >>"
+          "showReviews" true
+          "rating" 4.9
+          "reviewCount" 12847
+          "reviewText" "Reviews"
+          "headerText" "Recommended:"
+          "features" (slice
+            "Wealth & Fortune Blessing"
+            "Family Protection"
+            "Authentic Sacred Decree"
+            "90-day guarantee")
+          "imagePath" "/product/images/real-decree-main.jpg"
+          "imageAlt" "Celestial Decree"
+          "variant" "default"
+          "buttonTheme" "green") -}}
+      </aside>
+    </div>
+    {{ else }}
+    <!-- Other Pages: Original Single Column Layout -->
+    <div
+      id="content-wrapper"
+      class="min-h-screen w-full sm:max-w-2xl max-w-3xl mx-auto"
+    >
+      <div id="content">
+        <div class="flex">
+          <div class="pb-16 w-full pt-12">
+            <div class="homepage-content prose w-full max-w-3xl mx-auto mb-6">
+              {{ .Content }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</main>

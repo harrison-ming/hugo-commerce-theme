@@ -1,0 +1,25 @@
+<div class="cta-button-wrapper" style="text-align: center; margin: 40px 0;">
+  <a href="{{ .Get "url" | default "/checkout" }}"
+     class="cta-button"
+     style="display: inline-block;
+            background: linear-gradient(135deg, #3FA026 0%, #5ED54B 100%);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 18px 48px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 3px solid #2D7A1A;
+            box-shadow: 0 10px 25px rgba(63, 160, 38, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;">
+    {{ .Inner | markdownify }}
+  </a>
+</div>
+
+<style>
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(63, 160, 38, 0.5);
+}
+</style>

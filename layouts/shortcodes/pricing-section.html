@@ -1,0 +1,53 @@
+{{- /*
+  Pricing Section Shortcode
+
+  Renders pricing cards from data/pricing.toml
+
+  Parameters:
+    layout (string) - Layout style: "card" | "minimal" | "table", default "card"
+    columns (int) - Number of columns: 2 | 3 | 4 | 5, default 3 (card) or 4 (minimal)
+    showIcon (bool) - Show icons (minimal only), default true
+    showTagline (bool) - Show taglines (minimal only), default false
+    compactSpacing (bool) - Use compact spacing (minimal only), default false
+
+  Usage:
+    {{< pricing-section >}}
+    {{< pricing-section layout="minimal" columns=4 >}}
+    {{< pricing-section layout="minimal" columns=5 showTagline=true >}}
+*/ -}}
+
+{{- $layout := .Get "layout" | default "card" -}}
+{{- $columns := .Get "columns" -}}
+{{- if not $columns -}}
+  {{- if eq $layout "minimal" -}}
+    {{- $columns = 4 -}}
+  {{- else -}}
+    {{- $columns = 3 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $showIcon := .Get "showIcon" -}}
+{{- $showIconBool := true -}}
+{{- if eq $showIcon "false" -}}
+  {{- $showIconBool = false -}}
+{{- end -}}
+
+{{- $showTagline := .Get "showTagline" -}}
+{{- $showTaglineBool := false -}}
+{{- if eq $showTagline "true" -}}
+  {{- $showTaglineBool = true -}}
+{{- end -}}
+
+{{- $compactSpacing := .Get "compactSpacing" -}}
+{{- $compactSpacingBool := false -}}
+{{- if eq $compactSpacing "true" -}}
+  {{- $compactSpacingBool = true -}}
+{{- end -}}
+
+{{- partial "components/pricing-card" (dict
+  "plans" site.Data.pricing.plans
+  "layout" $layout
+  "columns" (int $columns)
+  "showIcon" $showIconBool
+  "showTagline" $showTaglineBool
+  "compactSpacing" $compactSpacingBool) -}}

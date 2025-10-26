@@ -1,0 +1,52 @@
+# Testimonials Configuration
+# 客户评价配置文件
+#
+# 使用方法：
+# {{< testimonials >}}
+# {{< testimonials layout="grid" columns=2 >}}
+# {{< testimonials layout="slider" >}}
+
+[[items]]
+id = "robert-m"
+name = "Robert M."
+location = "Arizona"
+avatar = "/product/images/avatars/avatar-robert.jpg"
+rating = 5
+quote = "Skeptic here. I ordered one just to prove my buddy wrong. Within 18 days I won $8,500 in a raffle I forgot I entered, and my student loan got mysteriously reduced by $12,000 due to an 'administrative review.' Coincidence? Maybe. But I'm keeping this decree forever."
+featured = true
+
+[[items]]
+id = "amanda-s"
+name = "Amanda S."
+location = "Washington"
+avatar = "/product/images/avatars/avatar-amanda.jpg"
+rating = 5
+quote = "My marriage was falling apart. Bills everywhere. No hope. I got 2 decrees — one for me, one for my husband. Within a month, he got promoted, I got a freelance contract, and we're closer than we've been in years. This thing is REAL."
+featured = true
+
+[[items]]
+id = "james-l"
+name = "James L."
+location = "Nevada"
+avatar = "/product/images/avatars/avatar-james.jpg"
+rating = 5
+quote = "I've always been unlucky. Always. Car accidents, job losses, health problems — you name it. Since placing this decree in my home, it's like the curse lifted. Nothing bad has happened in 2 months. That might not sound like much, but for me, it's a miracle."
+featured = true
+
+[[items]]
+id = "jennifer-m"
+name = "Jennifer M."
+location = "New York"
+avatar = "/product/images/avatars/avatar-female.jpg"
+rating = 5
+quote = "I bought 3 decrees — one for my home, one for my office, and one for my mother. Within a month, all three of us experienced positive changes. My mom called crying happy tears because she won $5,000 on a scratch ticket. She hadn't won anything in 30 years."
+featured = false
+
+[[items]]
+id = "matthew-p"
+name = "Matthew P."
+location = "Illinois"
+avatar = "/product/images/avatars/avatar-male.jpg"
+rating = 5
+quote = "I waited 2 weeks before placing mine. Biggest mistake. The moment I finally hung it by my front door, opportunities started flowing. New clients, unexpected checks, even my health improved. Don't wait like I did."
+featured = false

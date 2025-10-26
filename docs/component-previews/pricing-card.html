@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Card Component - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; }
+        .preview-container { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', monospace; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Pricing Card Component</h1>
+            <p class="text-gray-600">定价卡片组件 - 数据驱动的产品定价展示</p>
+            <div class="mt-4"><a href="index.html" class="text-blue-600 hover:underline">← 返回组件列表</a></div>
+        </div>
+
+        <!-- Full Pricing Cards (3-column) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">3-Column Layout（3列布局）</h2>
+            <p class="text-gray-600 mb-4">标准的3列定价卡片布局，包含徽章、图标、价格对比</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <!-- Pricing Section -->
+                <div class="pricing-section my-12">
+                    <div class="pricing-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+                        <!-- Single Decree -->
+                        <div class="pricing-card bg-white rounded-2xl shadow-lg border border-gray-200 p-6 lg:p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 relative">
+                            <div class="text-5xl mb-4 text-center">🥉</div>
+                            <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 text-center">Single Decree</h3>
+                            <p class="text-gray-600 text-center mb-6">Perfect for personal blessing</p>
+
+                            <div class="pricing-amount text-center mb-4">
+                                <div class="text-gray-400 line-through text-lg mb-1">$198</div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-4xl lg:text-5xl font-bold text-gray-900">$99</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <span class="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-bold">SAVE $99</span>
+                            </div>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">1 Celestial Decree</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Handcrafted & Blessed</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Divine Protection</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Free Worldwide Shipping</span>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="block w-full text-center font-bold rounded-lg transition-all duration-300 text-white py-4 px-6 text-base bg-gradient-to-br from-green-600 to-green-500 border-2 border-green-700 shadow-lg shadow-green-500/30 hover:shadow-green-500/40 hover:scale-105">
+                                👉 Claim Your Decree Now
+                            </a>
+                        </div>
+
+                        <!-- Family Protection Pack -->
+                        <div class="pricing-card bg-white rounded-2xl shadow-lg shadow-2xl border-4 border-blue-700 p-6 lg:p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 relative">
+                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                                <span class="bg-blue-500 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase shadow-lg">MOST POPULAR!</span>
+                            </div>
+
+                            <div class="text-5xl mb-4 text-center">🥈</div>
+                            <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 text-center">Family Protection Pack</h3>
+                            <p class="text-gray-600 text-center mb-6">Bless your home and loved ones</p>
+
+                            <div class="pricing-amount text-center mb-4">
+                                <div class="text-gray-400 line-through text-lg mb-1">$396</div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-4xl lg:text-5xl font-bold text-gray-900">$169</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <span class="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-bold">SAVE $227 — Best Value!</span>
+                            </div>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">2 Celestial Decrees</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Double the Blessings</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Protect Multiple Spaces</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Free Worldwide Shipping</span>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="block w-full text-center font-bold rounded-lg transition-all duration-300 text-white py-4 px-6 text-base bg-gradient-to-br from-blue-600 to-blue-500 border-2 border-blue-700 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40 hover:scale-105">
+                                👉 Claim Family Pack Now
+                            </a>
+                        </div>
+
+                        <!-- Ultimate Abundance Pack -->
+                        <div class="pricing-card bg-white rounded-2xl shadow-lg border border-gray-200 p-6 lg:p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 relative">
+                            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                                <span class="bg-purple-500 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase shadow-lg">MAXIMUM ENERGY!</span>
+                            </div>
+
+                            <div class="text-5xl mb-4 text-center">🥇</div>
+                            <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 text-center">Ultimate Abundance Pack</h3>
+                            <p class="text-gray-600 text-center mb-6">Maximum protection for your entire household</p>
+
+                            <div class="pricing-amount text-center mb-4">
+                                <div class="text-gray-400 line-through text-lg mb-1">$594</div>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-4xl lg:text-5xl font-bold text-gray-900">$249</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-6">
+                                <span class="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-bold">SAVE $345 — Ultimate Blessing!</span>
+                            </div>
+
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">3 Celestial Decrees</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Triple Divine Energy</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Complete Home Protection</span>
+                                </li>
+                                <li class="flex items-start text-gray-700">
+                                    <span class="text-green-600 mr-3 flex-shrink-0 text-lg">✅</span>
+                                    <span class="text-sm lg:text-base">Free Worldwide Shipping</span>
+                                </li>
+                            </ul>
+
+                            <a href="#" class="block w-full text-center font-bold rounded-lg transition-all duration-300 text-white py-4 px-6 text-base bg-gradient-to-br from-purple-600 to-purple-500 border-2 border-purple-700 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/40 hover:scale-105">
+                                👉 Claim Ultimate Pack Now
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; pricing-section &gt;}}
+
+# 或者自定义列数
+{{&lt; pricing-section columns=2 &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Data Configuration -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">数据配置（data/pricing.toml）</h2>
+            <p class="text-gray-600 mb-4">所有定价信息都存储在 TOML 文件中，便于管理和更新</p>
+            <div class="code-block">[[plans]]
+id = "single"
+name = "Single Decree"
+icon = "🥉"
+tagline = "Perfect for personal blessing"
+originalPrice = 198
+price = 99
+currency = "$"
+save = 99
+features = [
+  "1 Celestial Decree",
+  "Handcrafted & Blessed",
+  "Divine Protection",
+  "Free Worldwide Shipping"
+]
+ctaText = "👉 Claim Your Decree Now"
+ctaLink = "/checkout"
+ctaTheme = "green"
+
+[[plans]]
+id = "family"
+name = "Family Protection Pack"
+icon = "🥈"
+tagline = "Bless your home and loved ones"
+originalPrice = 396
+price = 169
+save = 227
+saveNote = "Best Value!"
+badge = "MOST POPULAR!"
+badgeColor = "blue"
+ctaTheme = "blue"
+highlight = true
+# ... features ...
+
+[[plans]]
+id = "ultimate"
+name = "Ultimate Abundance Pack"
+icon = "🥇"
+originalPrice = 594
+price = 249
+save = 345
+saveNote = "Ultimate Blessing!"
+badge = "MAXIMUM ENERGY!"
+badgeColor = "purple"
+ctaTheme = "purple"
+# ... features ...</div>
+        </div>
+
+        <!-- Component Parameters -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">组件参数说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">参数</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">类型</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">默认值</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">说明</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-mono">plans</td>
+                        <td class="px-6 py-4 text-sm">slice</td>
+                        <td class="px-6 py-4 text-sm">site.Data.pricing.plans</td>
+                        <td class="px-6 py-4 text-sm">定价方案数组</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-mono">layout</td>
+                        <td class="px-6 py-4 text-sm">string</td>
+                        <td class="px-6 py-4 text-sm">"card"</td>
+                        <td class="px-6 py-4 text-sm">card | table | minimal</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-mono">columns</td>
+                        <td class="px-6 py-4 text-sm">int</td>
+                        <td class="px-6 py-4 text-sm">3</td>
+                        <td class="px-6 py-4 text-sm">2 | 3 | 4（列数）</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Plan Object Fields -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">定价方案字段说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">字段</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">类型</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">必需</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">说明</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr><td class="px-6 py-4 text-sm font-mono">id</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">唯一标识符</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">name</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">产品名称</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">icon</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">emoji 图标</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">tagline</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">副标题</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">originalPrice</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">原价（划线）</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">price</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">当前价格</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">currency</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">货币符号</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">save</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">节省金额</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">saveNote</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">节省说明</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">badge</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">徽章文字</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">badgeColor</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">blue | purple | green</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">highlight</td><td class="px-6 py-4 text-sm">bool</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">是否高亮边框</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">features</td><td class="px-6 py-4 text-sm">array</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">功能列表</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">ctaText</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">按钮文字</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">ctaLink</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">是</td><td class="px-6 py-4 text-sm">按钮链接</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">ctaTheme</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">否</td><td class="px-6 py-4 text-sm">green | blue | purple</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Features -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">核心特性</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">数据驱动</strong>
+                        <p class="text-gray-600 text-sm">所有定价信息集中在 data/pricing.toml，便于管理和更新</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">响应式设计</strong>
+                        <p class="text-gray-600 text-sm">自动适配移动端、平板、桌面，1/2/3 列布局</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">多主题支持</strong>
+                        <p class="text-gray-600 text-sm">绿色/蓝色/紫色按钮主题，匹配不同产品定位</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">徽章系统</strong>
+                        <p class="text-gray-600 text-sm">支持"MOST POPULAR"、"MAXIMUM ENERGY"等徽章，突出重点方案</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">价格对比</strong>
+                        <p class="text-gray-600 text-sm">原价划线 + 当前价 + 节省金额，清晰展示优惠</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">悬停效果</strong>
+                        <p class="text-gray-600 text-sm">scale-105 + 阴影增强，提升交互体验</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Minimal Layout (4-column) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Minimal Layout - 4 Columns（极简布局 - 4列）</h2>
+            <p class="text-gray-600 mb-4">极简风格，只显示核心信息：图标、名称、价格、按钮</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="pricing-section-minimal my-12">
+                    <div class="pricing-grid-minimal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                        <!-- Single Decree -->
+                        <div class="pricing-card-minimal bg-white rounded-xl border-2 border-gray-200 p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 text-center">
+                            <div class="text-4xl mb-3">🥉</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Single Decree</h3>
+                            <div class="pricing-amount mb-4">
+                                <div class="text-gray-400 line-through text-sm mb-1">$198</div>
+                                <div class="text-3xl font-bold text-green-600 mb-1">$99</div>
+                                <div class="text-xs text-gray-500">Save $99</div>
+                            </div>
+                            <a href="#" class="block w-full text-center font-semibold rounded-lg transition-all duration-300 text-white py-3 px-4 text-sm bg-gradient-to-br from-green-600 to-green-500 border-2 border-green-700 shadow-md shadow-green-500/20 hover:shadow-green-500/40 hover:scale-105">
+                                👉 Claim Your Decree Now
+                            </a>
+                        </div>
+
+                        <!-- Family Protection Pack -->
+                        <div class="pricing-card-minimal bg-white rounded-xl border-2 border-gray-200 p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 text-center">
+                            <div class="text-4xl mb-3">🥈</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Family Protection Pack</h3>
+                            <div class="pricing-amount mb-4">
+                                <div class="text-gray-400 line-through text-sm mb-1">$396</div>
+                                <div class="text-3xl font-bold text-blue-600 mb-1">$169</div>
+                                <div class="text-xs text-gray-500">Save $227</div>
+                            </div>
+                            <a href="#" class="block w-full text-center font-semibold rounded-lg transition-all duration-300 text-white py-3 px-4 text-sm bg-gradient-to-br from-blue-600 to-blue-500 border-2 border-blue-700 shadow-md shadow-blue-500/20 hover:shadow-blue-500/40 hover:scale-105">
+                                👉 Claim Family Pack Now
+                            </a>
+                        </div>
+
+                        <!-- Ultimate Abundance Pack -->
+                        <div class="pricing-card-minimal bg-white rounded-xl border-2 border-gray-200 p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 text-center">
+                            <div class="text-4xl mb-3">🥇</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Ultimate Abundance Pack</h3>
+                            <div class="pricing-amount mb-4">
+                                <div class="text-gray-400 line-through text-sm mb-1">$594</div>
+                                <div class="text-3xl font-bold text-purple-600 mb-1">$249</div>
+                                <div class="text-xs text-gray-500">Save $345</div>
+                            </div>
+                            <a href="#" class="block w-full text-center font-semibold rounded-lg transition-all duration-300 text-white py-3 px-4 text-sm bg-gradient-to-br from-purple-600 to-purple-500 border-2 border-purple-700 shadow-md shadow-purple-500/20 hover:shadow-purple-500/40 hover:scale-105">
+                                👉 Claim Ultimate Pack Now
+                            </a>
+                        </div>
+
+                        <!-- Sample 4th card (for demo) -->
+                        <div class="pricing-card-minimal bg-white rounded-xl border-2 border-gray-200 p-6 hover:border-gray-300 hover:shadow-lg transition-all duration-300 text-center">
+                            <div class="text-4xl mb-3">🎁</div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Gift Set</h3>
+                            <div class="pricing-amount mb-4">
+                                <div class="text-gray-400 line-through text-sm mb-1">$99</div>
+                                <div class="text-3xl font-bold text-red-600 mb-1">$49</div>
+                                <div class="text-xs text-gray-500">Save $50</div>
+                            </div>
+                            <a href="#" class="block w-full text-center font-semibold rounded-lg transition-all duration-300 text-white py-3 px-4 text-sm bg-gradient-to-br from-red-600 to-red-500 border-2 border-red-700 shadow-md shadow-red-500/20 hover:shadow-red-500/40 hover:scale-105">
+                                👉 Buy as Gift
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; pricing-section layout="minimal" columns=4 &gt;}}
+
+# 隐藏图标
+{{&lt; pricing-section layout="minimal" showIcon=false &gt;}}
+
+# 显示副标题
+{{&lt; pricing-section layout="minimal" showTagline=true &gt;}}
+
+# 紧凑间距（5列）
+{{&lt; pricing-section layout="minimal" columns=5 compactSpacing=true &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Table Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Table Layout（表格布局）</h2>
+            <p class="text-gray-600 mb-4">经典的价格对比表格，横向对比所有方案的功能差异</p>
+
+            <div class="bg-gray-50 p-6 rounded overflow-x-auto">
+                <div class="pricing-table-wrapper overflow-x-auto -mx-4 sm:mx-0">
+                    <table class="pricing-table w-full min-w-[800px] border-collapse bg-white rounded-xl shadow-lg overflow-hidden">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-gray-50 to-gray-100">
+                                <th class="p-6 text-left align-top w-1/4 border-b-2 border-gray-200">
+                                    <div class="text-lg font-bold text-gray-900">Plans Comparison</div>
+                                    <div class="text-sm text-gray-500 mt-1">Choose the perfect plan for you</div>
+                                </th>
+                                <th class="p-6 text-center align-top border-b-2 border-gray-200">
+                                    <div class="text-4xl mb-2">🥉</div>
+                                    <div class="font-bold text-xl text-gray-900 mb-1">Single Decree</div>
+                                    <div class="text-sm text-gray-500 mb-3">Perfect for personal blessing</div>
+                                    <div class="my-4">
+                                        <div class="text-sm text-gray-400 line-through">$198</div>
+                                        <div class="text-4xl font-bold text-gray-900">$99</div>
+                                        <div class="text-sm font-semibold text-green-600 mt-1">Save $99</div>
+                                    </div>
+                                </th>
+                                <th class="p-6 text-center align-top border-b-2 border-blue-300 bg-blue-50">
+                                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-blue-600 text-white">MOST POPULAR!</div>
+                                    <div class="text-4xl mb-2">🥈</div>
+                                    <div class="font-bold text-xl text-gray-900 mb-1">Family Protection Pack</div>
+                                    <div class="text-sm text-gray-500 mb-3">Bless your home and loved ones</div>
+                                    <div class="my-4">
+                                        <div class="text-sm text-gray-400 line-through">$396</div>
+                                        <div class="text-4xl font-bold text-gray-900">$169</div>
+                                        <div class="text-sm font-semibold text-green-600 mt-1">Save $227</div>
+                                    </div>
+                                </th>
+                                <th class="p-6 text-center align-top border-b-2 border-gray-200">
+                                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3 bg-purple-600 text-white">MAXIMUM ENERGY!</div>
+                                    <div class="text-4xl mb-2">🥇</div>
+                                    <div class="font-bold text-xl text-gray-900 mb-1">Ultimate Abundance Pack</div>
+                                    <div class="text-sm text-gray-500 mb-3">Maximum protection for your household</div>
+                                    <div class="my-4">
+                                        <div class="text-sm text-gray-400 line-through">$594</div>
+                                        <div class="text-4xl font-bold text-gray-900">$249</div>
+                                        <div class="text-sm font-semibold text-green-600 mt-1">Save $345</div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-4 text-left font-medium text-gray-700">1 Celestial Decree</td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center bg-blue-50/50">
+                                    <span class="text-gray-300">—</span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span class="text-gray-300">—</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-4 text-left font-medium text-gray-700">Handcrafted & Blessed</td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center bg-blue-50/50">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-4 text-left font-medium text-gray-700">Divine Protection</td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center bg-blue-50/50">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                                <td class="p-4 text-left font-medium text-gray-700">Free Worldwide Shipping</td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center bg-blue-50/50">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                                <td class="p-4 text-center">
+                                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr class="bg-gray-50">
+                                <td class="p-6"></td>
+                                <td class="p-6 text-center">
+                                    <a href="#" class="block w-full px-6 py-4 text-white font-bold rounded-lg bg-gradient-to-br from-green-600 to-green-500 border-2 border-green-700 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:scale-105 transition-all duration-300 text-center">
+                                        👉 Claim Your Decree Now
+                                    </a>
+                                </td>
+                                <td class="p-6 text-center bg-blue-50">
+                                    <a href="#" class="block w-full px-6 py-4 text-white font-bold rounded-lg bg-gradient-to-br from-blue-600 to-blue-500 border-2 border-blue-700 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 text-center">
+                                        👉 Claim Family Pack Now
+                                    </a>
+                                </td>
+                                <td class="p-6 text-center">
+                                    <a href="#" class="block w-full px-6 py-4 text-white font-bold rounded-lg bg-gradient-to-br from-purple-600 to-purple-500 border-2 border-purple-700 shadow-lg shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300 text-center">
+                                        👉 Claim Ultimate Pack Now
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-4 text-center text-sm text-gray-500 sm:hidden">
+                    <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Swipe left to see all plans
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; pricing-section layout="table" &gt;}}
+
+# 不显示图标
+{{&lt; pricing-section layout="table" showIcon=false &gt;}}
+
+# 不显示徽章
+{{&lt; pricing-section layout="table" showBadge=false &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Layout Comparison -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">布局对比</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">特性</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Card 布局</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Minimal 布局</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table 布局</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">适用场景</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">完整产品展示</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">快速浏览、多规格产品</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">功能对比、详细分析</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">默认列数</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">3</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">4</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">所有方案（横向）</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">显示内容</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">图标、名称、副标题、价格、功能列表、徽章、按钮</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">图标、名称、价格、按钮（可选副标题）</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">表头（价格）+ 功能对比矩阵 + 按钮</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">布局方向</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">垂直卡片</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">垂直卡片</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">横向表格</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">视觉风格</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">详细、重视觉冲击</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">简洁、轻量、现代</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">专业、结构化、对比清晰</td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">推荐用途</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">产品落地页、详细对比</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">选择器、快速选型、侧边栏</td>
+                        <td class="px-6 py-4 text-sm text-gray-700">B2B产品、企业定价页、功能对比页</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

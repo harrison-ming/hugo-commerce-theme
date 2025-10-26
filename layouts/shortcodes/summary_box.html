@@ -1,0 +1,35 @@
+{{- /*
+  Summary Box Shortcode - 提示框/高亮框的 Markdown 接口
+
+  注意：这是向后兼容的包装器，内部调用新的 callout 组件
+
+  参数:
+    variant (string) - 样式变体: warning | info | success | danger | highlight，默认 "warning"
+    icon (string) - 图标/emoji，默认根据 variant 自动选择
+    title (string) - 可选标题
+    size (string) - 尺寸: normal | large | compact，默认 "normal"
+
+  用法示例:
+    {{< summary_box >}}
+    ⚠️ **Important:** This is a warning message.
+    {{< /summary_box >}}
+
+    {{< summary_box variant="success" icon="✅" title="Success!" >}}
+    Your order has been confirmed.
+    {{< /summary_box >}}
+*/ -}}
+
+{{- $variant := .Get "variant" | default "warning" -}}
+{{- $icon := .Get "icon" | default "" -}}
+{{- $title := .Get "title" | default "" -}}
+{{- $size := .Get "size" | default "normal" -}}
+
+{{- /* 调用新的 callout 组件 */ -}}
+{{- partial "components/callout" (dict
+  "content" .Inner
+  "variant" $variant
+  "icon" $icon
+  "title" $title
+  "size" $size
+  "shadow" true
+  "border" "solid") -}}

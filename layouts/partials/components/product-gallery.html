@@ -1,0 +1,182 @@
+{{- /*
+Product Gallery Component - 产品图片画廊组件
+
+用法：
+  {{< product-gallery >}}
+  {{< product-gallery layout="grid" >}}
+  {{< product-gallery layout="carousel" >}}
+
+参数：
+  - layout: 布局样式 (thumbnail|grid|carousel)，默认 "thumbnail"
+  - columns: 网格列数 (2|3|4)，默认 3
+  - showCaptions: 显示图片标题 (true|false)，默认 false
+  - aspectRatio: 宽高比 (square|landscape|portrait)，默认 "square"
+*/ -}}
+
+{{- $gallery := .Site.Data.product_gallery -}}
+{{- $images := $gallery.images -}}
+{{- $settings := $gallery.settings -}}
+
+{{- /* 参数获取 */ -}}
+{{- $layout := .layout | default "thumbnail" -}}
+{{- $columns := .columns | default 3 -}}
+{{- $showCaptions := .showCaptions | default false -}}
+{{- $aspectRatio := .aspectRatio | default "square" -}}
+
+{{- /* 排序图片 */ -}}
+{{- $images = sort $images "order" -}}
+
+{{- if not $images -}}
+  <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 my-8">
+    <p class="text-yellow-800">⚠️ No product images found</p>
+  </div>
+{{- else -}}
+
+{{- /* 宽高比类 */ -}}
+{{- $ratioClass := "aspect-square" -}}
+{{- if eq $aspectRatio "landscape" -}}
+  {{- $ratioClass = "aspect-video" -}}
+{{- else if eq $aspectRatio "portrait" -}}
+  {{- $ratioClass = "aspect-[3/4]" -}}
+{{- end -}}
+
+{{- if eq $layout "grid" -}}
+  {{- /* 网格布局 */ -}}
+  {{- $gridCols := "md:grid-cols-3" -}}
+  {{- if eq $columns 2 -}}
+    {{- $gridCols = "md:grid-cols-2" -}}
+  {{- else if eq $columns 4 -}}
+    {{- $gridCols = "md:grid-cols-2 lg:grid-cols-4" -}}
+  {{- end -}}
+
+  <div class="product-gallery-grid grid grid-cols-2 {{ $gridCols }} gap-4 my-8">
+    {{- range $image := $images -}}
+    <div class="gallery-item group relative overflow-hidden rounded-lg border-2 border-gray-200 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+      <div class="{{ $ratioClass }} overflow-hidden bg-gray-100">
+        <img
+          src="{{ $image.src }}"
+          alt="{{ $image.alt }}"
+          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+        />
+      </div>
+      {{- if $showCaptions -}}
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+        <p class="text-white text-sm font-medium">{{ $image.title }}</p>
+      </div>
+      {{- end -}}
+    </div>
+    {{- end -}}
+  </div>
+
+{{- else if eq $layout "carousel" -}}
+  {{- /* 简单轮播布局（使用 CSS scroll-snap） */ -}}
+  <div class="product-gallery-carousel relative my-8">
+    <div class="carousel-container overflow-x-auto snap-x snap-mandatory flex gap-4 scrollbar-hide pb-4">
+      {{- range $image := $images -}}
+      <div class="carousel-item flex-none w-full md:w-2/3 lg:w-1/2 snap-center">
+        <div class="relative rounded-xl overflow-hidden border-2 border-gray-200 hover:border-blue-400 transition-all duration-300">
+          <div class="{{ $ratioClass }} bg-gray-100">
+            <img
+              src="{{ $image.src }}"
+              alt="{{ $image.alt }}"
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          {{- if $showCaptions -}}
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+            <p class="text-white font-medium">{{ $image.title }}</p>
+          </div>
+          {{- end -}}
+        </div>
+      </div>
+      {{- end -}}
+    </div>
+
+    {{- /* 滚动提示 */ -}}
+    <div class="mt-2 text-center text-sm text-gray-500 md:hidden">
+      <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+      </svg>
+      Swipe to see more
+    </div>
+  </div>
+
+  <style>
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+{{- else -}}
+  {{- /* 缩略图 + 主图布局（默认） */ -}}
+  {{- $firstImage := index $images 0 -}}
+
+  <div class="product-gallery-thumbnail my-8">
+    {{- /* 主图区域 */ -}}
+    <div class="main-image-container mb-4 relative rounded-xl overflow-hidden border-2 border-gray-200 bg-gray-100">
+      <div class="{{ $ratioClass }}">
+        <img
+          id="gallery-main-image"
+          src="{{ $firstImage.src }}"
+          alt="{{ $firstImage.alt }}"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      {{- if $showCaptions -}}
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <p id="gallery-main-caption" class="text-white font-medium">{{ $firstImage.title }}</p>
+      </div>
+      {{- end -}}
+    </div>
+
+    {{- /* 缩略图网格 */ -}}
+    <div class="thumbnails-grid grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+      {{- range $index, $image := $images -}}
+      <button
+        class="thumbnail-item group relative aspect-square rounded-lg overflow-hidden border-2 {{ if eq $index 0 }}border-blue-500{{ else }}border-gray-200 hover:border-gray-400{{ end }} transition-all duration-300 cursor-pointer"
+        onclick="changeMainImage('{{ $image.src }}', '{{ $image.alt }}', '{{ $image.title }}', this)"
+      >
+        <img
+          src="{{ $image.src }}"
+          alt="{{ $image.alt }}"
+          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          loading="lazy"
+        />
+      </button>
+      {{- end -}}
+    </div>
+  </div>
+
+  {{- /* JavaScript 交互 */ -}}
+  <script>
+    function changeMainImage(src, alt, title, element) {
+      // 更新主图
+      const mainImage = document.getElementById('gallery-main-image');
+      mainImage.src = src;
+      mainImage.alt = alt;
+
+      // 更新标题（如果显示）
+      const caption = document.getElementById('gallery-main-caption');
+      if (caption) {
+        caption.textContent = title;
+      }
+
+      // 更新缩略图边框
+      const thumbnails = document.querySelectorAll('.thumbnail-item');
+      thumbnails.forEach(thumb => {
+        thumb.classList.remove('border-blue-500');
+        thumb.classList.add('border-gray-200');
+      });
+      element.classList.remove('border-gray-200');
+      element.classList.add('border-blue-500');
+    }
+  </script>
+
+{{- end -}}{{- /* 结束 layout 判断 */ -}}
+{{- end -}}{{- /* 结束 images 判断 */ -}}

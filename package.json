@@ -1,0 +1,24 @@
+{
+  "name": "hugo-commerce-theme",
+  "version": "0.1.0",
+  "description": "A Hugo theme for product landing pages with payment integration",
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo --minify",
+    "clean": "rm -rf public resources"
+  },
+  "keywords": [
+    "hugo",
+    "theme",
+    "ecommerce",
+    "landing-page",
+    "stripe",
+    "tailwind"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
+    "tailwindcss": "^4.1.14"
+  }
+}

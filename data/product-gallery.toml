@@ -1,0 +1,80 @@
+# Product Gallery Configuration
+# 产品图片画廊配置文件
+#
+# 使用方法：
+# 1. 缩略图 + 主图布局：
+#    {{< product-gallery >}}
+#
+# 2. 网格布局：
+#    {{< product-gallery layout="grid" >}}
+#
+# 3. 轮播布局：
+#    {{< product-gallery layout="carousel" >}}
+
+# 产品图片列表
+[[images]]
+id = "main-product"
+src = "/product/images/decree-main.jpg"
+alt = "Celestial Decree - Main View"
+title = "Celestial Decree"
+featured = true
+order = 1
+
+[[images]]
+id = "detail-front"
+src = "/product/images/decree-front.jpg"
+alt = "Front Detail View"
+title = "Detailed Front View"
+order = 2
+
+[[images]]
+id = "detail-back"
+src = "/product/images/decree-back.jpg"
+alt = "Back Detail View"
+title = "Back Side Detail"
+order = 3
+
+[[images]]
+id = "packaging"
+src = "/product/images/decree-packaging.jpg"
+alt = "Premium Packaging"
+title = "Elegant Gift Packaging"
+order = 4
+
+[[images]]
+id = "in-use-1"
+src = "/product/images/decree-home-1.jpg"
+alt = "Displayed Above Door"
+title = "Perfect Above Your Door"
+order = 5
+
+[[images]]
+id = "in-use-2"
+src = "/product/images/decree-home-2.jpg"
+alt = "Displayed on Desk"
+title = "Ideal for Workspace"
+order = 6
+
+[[images]]
+id = "certificate"
+src = "/product/images/certificate.jpg"
+alt = "Certificate of Authenticity"
+title = "Certificate Included"
+order = 7
+
+[[images]]
+id = "size-comparison"
+src = "/product/images/decree-size.jpg"
+alt = "Size Comparison"
+title = "Size Reference"
+order = 8
+
+# 画廊设置
+[settings]
+defaultLayout = "thumbnail"
+enableLightbox = true
+enableZoom = true
+showCaptions = true
+autoPlay = false
+autoPlayInterval = 3000
+transitionSpeed = 500

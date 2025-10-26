@@ -1,0 +1,20 @@
+# Hugo Commerce Theme
+# A Hugo theme for product landing pages and e-commerce sites
+
+name = "Hugo Commerce Theme"
+license = "MIT"
+licenselink = "https://github.com/yourusername/hugo-commerce-theme/blob/main/LICENSE"
+description = "A Hugo theme designed for product landing pages with integrated payment processing"
+homepage = "https://github.com/yourusername/hugo-commerce-theme"
+tags = ["ecommerce", "landing-page", "product", "stripe", "tailwind", "responsive"]
+features = ["Payment Integration", "Product Landing Pages", "Responsive Design", "Stripe Checkout", "Testimonials", "Pricing Tables"]
+min_version = "0.112.0"
+
+[author]
+  name = "Your Name"
+  homepage = "https://yourdomain.com"
+
+[original]
+  name = "Hugo Product Launch"
+  homepage = "https://github.com/janraasch/hugo-product-launch"
+  repo = "https://github.com/janraasch/hugo-product-launch"

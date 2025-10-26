@@ -1,0 +1,68 @@
+{{- /*
+  Trust Bar Shortcode
+
+  Displays a horizontal bar with trust signals/badges
+
+  Usage:
+    {{< trust-bar >}}
+    ✓ Free Worldwide Shipping | ✓ 90-Day Money Back Guarantee | ✓ Handcrafted Quality
+    {{< /trust-bar >}}
+
+  Or with items parameter:
+    {{< trust-bar items="✓ Free Shipping|✓ Secure Checkout|✓ 30-Day Returns" >}}
+*/ -}}
+
+{{- $content := .Inner | trim -}}
+{{- $items := slice -}}
+
+{{- if .Get "items" -}}
+  {{- $items = split (.Get "items") "|" -}}
+{{- else if $content -}}
+  {{- $items = split $content "|" -}}
+{{- end -}}
+
+{{- $bgColor := .Get "bg_color" | default "#3FA026" -}}
+{{- $textColor := .Get "text_color" | default "#ffffff" -}}
+
+<div class="trust-bar" style="background-color: {{ $bgColor }}; color: {{ $textColor }};">
+  <div class="container">
+    <div class="trust-bar-items">
+      {{- range $items -}}
+        <span class="trust-item">{{ trim . }}</span>
+      {{- end -}}
+    </div>
+  </div>
+</div>
+
+<style>
+.trust-bar {
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.trust-bar-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 30px;
+}
+
+.trust-item {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .trust-bar {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+
+  .trust-bar-items {
+    gap: 8px 15px;
+  }
+}
+</style>

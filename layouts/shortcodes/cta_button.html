@@ -1,0 +1,64 @@
+{{- /*
+  CTA Button Shortcode - 正文 CTA 按钮的 Markdown 接口
+
+  参数:
+    url (string) - 按钮链接，默认 "/checkout"
+    icon (string) - 图标/emoji，默认 ""
+    theme (string) - 颜色主题: green | blue | red | purple，默认 "green"
+    size (string) - 尺寸: hero | standard，默认 "hero"
+    width (string) - 宽度: full | auto | contained，默认根据 size 自动设置
+    align (string) - 对齐: center | left | right，默认 "center"
+    shadow (string) - 阴影强度: light | medium | heavy，默认 "heavy"
+    pulse (bool) - 是否脉冲动画，默认 false
+
+  用法示例:
+    {{< cta_button icon="🛡️" theme="green" >}}
+    I Want Divine Protection and Abundance — Claim My Decree Now
+    {{< /cta_button >}}
+
+    {{< cta_button url="/checkout" size="standard" icon="✨" >}}
+    Claim Your Decree Now
+    {{< /cta_button >}}
+*/ -}}
+
+{{- $url := .Get "url" | default "/checkout" -}}
+{{- $icon := .Get "icon" | default "" -}}
+{{- $theme := .Get "theme" | default "green" -}}
+{{- $size := .Get "size" | default "hero" -}}
+{{- $align := .Get "align" | default "center" -}}
+{{- $shadow := .Get "shadow" | default "heavy" -}}
+{{- $pulse := .Get "pulse" | default false -}}
+
+{{- /* 根据 size 自动设置 width */ -}}
+{{- $width := .Get "width" -}}
+{{- if not $width -}}
+  {{- if eq $size "hero" -}}
+    {{- $width = "full" -}}
+  {{- else -}}
+    {{- $width = "auto" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 获取按钮文字（从 shortcode 内容） */ -}}
+{{- $text := .Inner | markdownify | plainify -}}
+
+{{- /* 根据 size 调用不同的组件 */ -}}
+{{- if eq $size "hero" -}}
+  {{- partial "components/cta-inline/hero-button" (dict
+    "text" $text
+    "link" $url
+    "icon" $icon
+    "theme" $theme
+    "width" $width
+    "align" $align
+    "shadow" $shadow
+    "pulse" $pulse) -}}
+{{- else -}}
+  {{- partial "components/cta-inline/standard-button" (dict
+    "text" $text
+    "link" $url
+    "icon" $icon
+    "theme" $theme
+    "width" $width
+    "align" $align) -}}
+{{- end -}}

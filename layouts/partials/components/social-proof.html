@@ -1,0 +1,182 @@
+{{- /*
+Social Proof Component - 社交证明组件
+
+用法：
+  {{< social-proof >}}
+  {{< social-proof layout="inline" >}}
+  {{< social-proof layout="stats" >}}
+  {{< social-proof layout="popup" position="bottom-left" >}}
+
+参数：
+  - layout: 布局样式 (popup|inline|stats)，默认 "popup"
+  - position: 浮动位置 (bottom-right|bottom-left|top-right|top-left)，默认 "bottom-right"
+  - limit: 限制显示数量，默认 5
+  - showAvatar: 显示头像 (true|false)，默认 true
+  - showVerified: 显示验证标记 (true|false)，默认 true
+  - autoRotate: 自动轮播 (true|false)，默认 false (需要 JavaScript)
+*/ -}}
+
+{{- $socialProof := .Site.Data.social_proof -}}
+{{- $activities := $socialProof.activities -}}
+{{- $stats := $socialProof.stats -}}
+
+{{- /* 参数获取 */ -}}
+{{- $layout := .layout | default "popup" -}}
+{{- $position := .position | default "bottom-right" -}}
+{{- $limit := .limit | default 5 -}}
+{{- $showAvatar := .showAvatar | default true -}}
+{{- $showVerified := .showVerified | default true -}}
+
+{{- /* 排序并限制数量 */ -}}
+{{- $activities = sort $activities "order" -}}
+{{- $activities = first $limit $activities -}}
+
+{{- if not $activities -}}
+  <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 my-8">
+    <p class="text-yellow-800">⚠️ No social proof activities found</p>
+  </div>
+{{- else -}}
+
+{{- if eq $layout "stats" -}}
+  {{- /* 统计数字布局 */ -}}
+  <div class="social-proof-stats bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 my-8 border border-blue-200">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-1">{{ $stats.totalOrders | default 0 }}</div>
+        <div class="text-sm text-gray-600">Total Orders</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-green-600 mb-1">{{ $stats.todayOrders | default 0 }}</div>
+        <div class="text-sm text-gray-600">Today's Orders</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-1">{{ $stats.activeViewers | default 0 }}</div>
+        <div class="text-sm text-gray-600">Active Viewers</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-yellow-600 mb-1">{{ $stats.averageRating | default 0 }}</div>
+        <div class="text-sm text-gray-600">Avg Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-indigo-600 mb-1">{{ $stats.totalReviews | default 0 }}</div>
+        <div class="text-sm text-gray-600">Total Reviews</div>
+      </div>
+      <div class="stat-item">
+        <div class="text-3xl md:text-4xl font-bold text-pink-600 mb-1">{{ $stats.satisfactionRate | default 0 }}%</div>
+        <div class="text-sm text-gray-600">Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $layout "inline" -}}
+  {{- /* 行内展示布局 */ -}}
+  <div class="social-proof-inline space-y-3 my-8">
+    {{- range $activity := $activities -}}
+    <div class="proof-item flex items-center gap-3 p-4 bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all duration-300">
+      {{- if and $showAvatar $activity.avatar -}}
+      <img src="{{ $activity.avatar }}" alt="{{ $activity.name }}" class="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-gray-200" />
+      {{- end -}}
+
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="font-semibold text-gray-900 text-sm">{{ $activity.name }}</span>
+          {{- if and $showVerified $activity.verified -}}
+          <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          {{- end -}}
+          <span class="text-gray-500 text-xs">{{ $activity.location }}</span>
+        </div>
+
+        {{- if eq $activity.type "purchase" -}}
+        <p class="text-sm text-gray-700">Purchased <strong>{{ $activity.product }}</strong></p>
+        {{- else if eq $activity.type "review" -}}
+        <p class="text-sm text-gray-700 italic">"{{ $activity.message }}"</p>
+        {{- if $activity.rating -}}
+        <div class="text-yellow-400 text-xs mt-1">
+          {{- range (seq $activity.rating) -}}⭐{{- end -}}
+        </div>
+        {{- end -}}
+        {{- else if eq $activity.type "view" -}}
+        <p class="text-sm text-gray-700">{{ $activity.message }}</p>
+        {{- else -}}
+        <p class="text-sm text-gray-700">{{ $activity.message }}</p>
+        {{- end -}}
+      </div>
+
+      <div class="text-xs text-gray-400 flex-shrink-0">{{ $activity.timeAgo }}</div>
+    </div>
+    {{- end -}}
+  </div>
+
+{{- else -}}
+  {{- /* 浮动弹窗布局 (默认) */ -}}
+  {{- $positionClass := "" -}}
+  {{- if eq $position "bottom-left" -}}
+    {{- $positionClass = "bottom-6 left-6" -}}
+  {{- else if eq $position "top-right" -}}
+    {{- $positionClass = "top-6 right-6" -}}
+  {{- else if eq $position "top-left" -}}
+    {{- $positionClass = "top-6 left-6" -}}
+  {{- else -}}
+    {{- $positionClass = "bottom-6 right-6" -}}
+  {{- end -}}
+
+  <div class="social-proof-popup fixed {{ $positionClass }} z-50 max-w-sm hidden md:block">
+    {{- /* 只显示第一个活动（在实际使用中，可以用 JavaScript 实现轮播） */ -}}
+    {{- $firstActivity := index $activities 0 -}}
+    <div class="proof-popup bg-white rounded-xl shadow-2xl border border-gray-200 p-4 animate-slide-in-right">
+      <div class="flex items-start gap-3">
+        {{- if and $showAvatar $firstActivity.avatar -}}
+        <img src="{{ $firstActivity.avatar }}" alt="{{ $firstActivity.name }}" class="w-12 h-12 rounded-full object-cover flex-shrink-0 border-2 border-gray-200" />
+        {{- end -}}
+
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-bold text-gray-900 text-sm">{{ $firstActivity.name }}</span>
+            {{- if and $showVerified $firstActivity.verified -}}
+            <svg class="w-4 h-4 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+            </svg>
+            {{- end -}}
+          </div>
+          <p class="text-xs text-gray-500 mb-1">{{ $firstActivity.location }}</p>
+
+          {{- if eq $firstActivity.type "purchase" -}}
+          <p class="text-sm text-gray-700 mb-2">Purchased <strong class="text-green-600">{{ $firstActivity.product }}</strong></p>
+          {{- else if eq $firstActivity.type "review" -}}
+          <p class="text-sm text-gray-700 italic mb-1">"{{ $firstActivity.message }}"</p>
+          {{- if $firstActivity.rating -}}
+          <div class="text-yellow-400 text-sm">
+            {{- range (seq $firstActivity.rating) -}}⭐{{- end -}}
+          </div>
+          {{- end -}}
+          {{- else -}}
+          <p class="text-sm text-gray-700">{{ $firstActivity.message }}</p>
+          {{- end -}}
+
+          <p class="text-xs text-gray-400 mt-2">{{ $firstActivity.timeAgo }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{- /* 简单的动画样式（可以移到独立CSS文件） */ -}}
+  <style>
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .animate-slide-in-right {
+      animation: slideInRight 0.5s ease-out;
+    }
+  </style>
+
+{{- end -}}{{- /* 结束 layout 判断 */ -}}
+{{- end -}}{{- /* 结束 activities 判断 */ -}}

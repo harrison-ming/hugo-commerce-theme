@@ -1,0 +1,44 @@
+{{- /*
+Content Block Component
+用于从外部文件加载 Markdown 内容
+
+用法：
+  {{< content-block src="sections/story-intro.md" >}}
+  {{< content-block src="sections/sarah-story.md" class="bg-gray-50 p-8" >}}
+
+参数：
+  - src: Markdown 文件路径（相对于 content/ 目录）
+  - class: 可选的 CSS 类名
+  - id: 可选的 HTML id
+*/ -}}
+
+{{- $src := .Get "src" -}}
+{{- $class := .Get "class" -}}
+{{- $id := .Get "id" -}}
+
+{{- if $src -}}
+  {{- /* 尝试读取文件内容 */ -}}
+  {{- $filePath := printf "content/%s" $src -}}
+  {{- $content := "" -}}
+
+  {{- /* 使用 readFile 读取文件 */ -}}
+  {{- with os.ReadFile $filePath -}}
+    {{- $content = . -}}
+  {{- end -}}
+
+  {{- if $content -}}
+    <div class="content-block {{ with $class }}{{ . }}{{ end }}"{{ with $id }} id="{{ . }}"{{ end }}>
+      {{ $content | markdownify }}
+    </div>
+  {{- else -}}
+    {{- /* 如果文件不存在，渲染内联内容 */ -}}
+    <div class="content-block {{ with $class }}{{ . }}{{ end }}"{{ with $id }} id="{{ . }}"{{ end }}>
+      {{ .Inner | markdownify }}
+    </div>
+  {{- end -}}
+{{- else -}}
+  {{- /* 没有 src 参数，渲染内联内容 */ -}}
+  <div class="content-block {{ with $class }}{{ . }}{{ end }}"{{ with $id }} id="{{ . }}"{{ end }}>
+    {{ .Inner | markdownify }}
+  </div>
+{{- end -}}

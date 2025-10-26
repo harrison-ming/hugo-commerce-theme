@@ -1,0 +1,173 @@
+{{- /*
+  FAQ Accordion Shortcode
+
+  Displays collapsible FAQ items with expand/collapse functionality
+
+  Usage:
+    {{< faq-accordion >}}
+      {{< faq-item question="Is this real Black Obsidian?" >}}
+      100% genuine Black Obsidian volcanic glass. Each stone is hand-selected and authenticated.
+      {{< /faq-item >}}
+      {{< faq-item question="How long to see results?" >}}
+      Results vary by individual. Most customers report changes within 2-4 weeks.
+      {{< /faq-item >}}
+    {{< /faq-accordion >}}
+
+  Or using data parameter:
+    {{< faq-accordion items='
+      - question: "Is this real Black Obsidian?"
+        answer: "100% genuine Black Obsidian volcanic glass."
+      - question: "How long to see results?"
+        answer: "Most customers report changes within 2-4 weeks."
+    ' >}}
+*/ -}}
+
+{{- $items := slice -}}
+{{- $randomID := delimit (shuffle (split (md5 now) "" )) "" | truncate 8 "" -}}
+
+{{- if .Get "items" -}}
+  {{- $items = .Get "items" | transform.Unmarshal -}}
+{{- end -}}
+
+<div class="faq-accordion" id="faq-{{ $randomID }}">
+  {{- if $items -}}
+    {{- range $index, $item := $items -}}
+      <div class="faq-item">
+        <button class="faq-question" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq-{{ $randomID }}-{{ $index }}"
+                aria-expanded="false"
+                aria-controls="faq-{{ $randomID }}-{{ $index }}">
+          <span>{{ $item.question }}</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </button>
+        <div id="faq-{{ $randomID }}-{{ $index }}" class="faq-answer collapse">
+          <div class="faq-answer-content">
+            {{ $item.answer | markdownify }}
+          </div>
+        </div>
+      </div>
+    {{- end -}}
+  {{- else -}}
+    {{- .Inner -}}
+  {{- end -}}
+</div>
+
+<style>
+.faq-accordion {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.faq-item {
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 20px 50px 20px 0;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question:hover {
+  color: #3FA026;
+}
+
+.faq-question[aria-expanded="true"] {
+  color: #3FA026;
+}
+
+.faq-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-question[aria-expanded="true"] .faq-icon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.faq-answer {
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.faq-answer-content {
+  padding: 0 0 20px 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.faq-answer-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Fallback for browsers without Bootstrap collapse */
+.faq-answer:not(.show) {
+  display: none;
+}
+
+.faq-answer.show {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .faq-question {
+    font-size: 16px;
+    padding: 15px 40px 15px 0;
+  }
+
+  .faq-answer-content {
+    font-size: 14px;
+  }
+}
+</style>
+
+<script>
+// Simple collapse functionality (if Bootstrap is not available)
+(function() {
+  if (typeof bootstrap === 'undefined') {
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', function() {
+        const target = document.querySelector(this.getAttribute('data-bs-target'));
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+        // Close all other items
+        document.querySelectorAll('.faq-question').forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
+          const t = document.querySelector(btn.getAttribute('data-bs-target'));
+          if (t) t.classList.remove('show');
+        });
+
+        // Toggle current item
+        if (!isExpanded) {
+          this.setAttribute('aria-expanded', 'true');
+          target.classList.add('show');
+        }
+      });
+    });
+  }
+})();
+</script>

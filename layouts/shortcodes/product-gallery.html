@@ -1,0 +1,41 @@
+{{- /*
+Product Gallery Shortcode - 产品图片画廊 Shortcode 包装器
+
+用法示例：
+  1. 缩略图 + 主图（默认）：
+     {{< product-gallery >}}
+
+  2. 网格布局（3列）：
+     {{< product-gallery layout="grid" >}}
+
+  3. 网格布局（4列）：
+     {{< product-gallery layout="grid" columns=4 >}}
+
+  4. 轮播布局：
+     {{< product-gallery layout="carousel" >}}
+
+  5. 显示图片标题：
+     {{< product-gallery showCaptions=true >}}
+
+  6. 横向宽高比：
+     {{< product-gallery layout="grid" aspectRatio="landscape" >}}
+*/ -}}
+
+{{- $layout := .Get "layout" | default "thumbnail" -}}
+{{- $columns := .Get "columns" | default 3 -}}
+{{- $aspectRatio := .Get "aspectRatio" | default "square" -}}
+
+{{- /* 布尔参数处理 */ -}}
+{{- $showCaptionsParam := .Get "showCaptions" -}}
+{{- $showCaptions := false -}}
+{{- if eq $showCaptionsParam "true" -}}
+  {{- $showCaptions = true -}}
+{{- end -}}
+
+{{- /* 调用 Product Gallery 组件 */ -}}
+{{- partial "components/product-gallery" (dict
+  "Site" .Site
+  "layout" $layout
+  "columns" $columns
+  "showCaptions" $showCaptions
+  "aspectRatio" $aspectRatio) -}}

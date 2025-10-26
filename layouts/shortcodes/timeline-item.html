@@ -1,0 +1,21 @@
+{{- /*
+  Timeline Item Shortcode (used within timeline shortcode)
+
+  Usage:
+    {{< timeline-item week="Week 1" title="Small Wins" >}}
+    Found $20 in an old jacket, got a surprise discount
+    {{< /timeline-item >}}
+*/ -}}
+
+{{- $label := .Get "week" | default (.Get "label") -}}
+{{- $title := .Get "title" -}}
+{{- $content := .Inner | markdownify -}}
+
+<div class="timeline-item">
+  <div class="timeline-marker"></div>
+  <div class="timeline-content">
+    <strong class="timeline-label">{{ $label }}</strong>
+    {{- with $title -}}<h4>{{ . }}</h4>{{- end -}}
+    <div>{{ $content }}</div>
+  </div>
+</div>

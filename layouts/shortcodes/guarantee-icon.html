@@ -1,0 +1,26 @@
+{{- /*
+  Single Guarantee Icon (used within guarantees-icons)
+
+  Usage:
+    {{< guarantee-icon icon="🚚" text="Free Shipping" / >}}
+
+  Or with SVG:
+    {{< guarantee-icon text="Free Shipping" >}}
+    <svg>...</svg>
+    {{< /guarantee-icon >}}
+*/ -}}
+
+{{- $icon := .Get "icon" -}}
+{{- $text := .Get "text" -}}
+{{- $svgContent := .Inner -}}
+
+<div class="guarantee-item">
+  <div class="guarantee-icon">
+    {{- if $icon -}}
+      {{ $icon }}
+    {{- else if $svgContent -}}
+      {{ $svgContent | safeHTML }}
+    {{- end -}}
+  </div>
+  <span class="guarantee-text">{{ $text }}</span>
+</div>

@@ -1,0 +1,48 @@
+{{- /*
+Social Proof Shortcode - 社交证明 Shortcode 包装器
+
+用法示例：
+  1. 浮动弹窗（右下角）：
+     {{< social-proof >}}
+
+  2. 浮动弹窗（左下角）：
+     {{< social-proof position="bottom-left" >}}
+
+  3. 行内展示：
+     {{< social-proof layout="inline" >}}
+
+  4. 统计数字：
+     {{< social-proof layout="stats" >}}
+
+  5. 限制显示数量：
+     {{< social-proof layout="inline" limit=3 >}}
+
+  6. 不显示头像：
+     {{< social-proof layout="inline" showAvatar=false >}}
+*/ -}}
+
+{{- $layout := .Get "layout" | default "popup" -}}
+{{- $position := .Get "position" | default "bottom-right" -}}
+{{- $limit := .Get "limit" | default 5 -}}
+
+{{- /* 布尔参数处理 */ -}}
+{{- $showAvatarParam := .Get "showAvatar" -}}
+{{- $showAvatar := true -}}
+{{- if eq $showAvatarParam "false" -}}
+  {{- $showAvatar = false -}}
+{{- end -}}
+
+{{- $showVerifiedParam := .Get "showVerified" -}}
+{{- $showVerified := true -}}
+{{- if eq $showVerifiedParam "false" -}}
+  {{- $showVerified = false -}}
+{{- end -}}
+
+{{- /* 调用 Social Proof 组件 */ -}}
+{{- partial "components/social-proof" (dict
+  "Site" .Site
+  "layout" $layout
+  "position" $position
+  "limit" $limit
+  "showAvatar" $showAvatar
+  "showVerified" $showVerified) -}}

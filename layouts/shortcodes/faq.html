@@ -1,0 +1,60 @@
+{{- /*
+FAQ Shortcode - 常见问题 Shortcode 包装器
+
+用法示例：
+  1. 显示所有问题（默认布局）：
+     {{< faq >}}
+
+  2. 只显示精选问题：
+     {{< faq featuredOnly=true >}}
+
+  3. 按分类筛选：
+     {{< faq category="product" >}}
+     {{< faq category="shipping" >}}
+
+  4. 紧凑布局：
+     {{< faq layout="compact" >}}
+
+  5. 卡片布局（2列）：
+     {{< faq layout="card" >}}
+
+  6. 卡片布局（3列）：
+     {{< faq layout="card" columns=3 >}}
+
+  7. 显示分类标签：
+     {{< faq showCategory=true >}}
+
+  8. 限制显示数量：
+     {{< faq limit=5 >}}
+
+  9. 组合使用：
+     {{< faq category="product" featuredOnly=true limit=3 >}}
+*/ -}}
+
+{{- $layout := .Get "layout" | default "default" -}}
+{{- $category := .Get "category" | default "" -}}
+{{- $limit := .Get "limit" | default 999 -}}
+{{- $columns := .Get "columns" | default 2 -}}
+
+{{- /* 布尔参数处理 */ -}}
+{{- $featuredOnlyParam := .Get "featuredOnly" -}}
+{{- $featuredOnly := false -}}
+{{- if eq $featuredOnlyParam "true" -}}
+  {{- $featuredOnly = true -}}
+{{- end -}}
+
+{{- $showCategoryParam := .Get "showCategory" -}}
+{{- $showCategory := false -}}
+{{- if eq $showCategoryParam "true" -}}
+  {{- $showCategory = true -}}
+{{- end -}}
+
+{{- /* 调用 FAQ 组件 */ -}}
+{{- partial "components/faq" (dict
+  "Site" .Site
+  "layout" $layout
+  "category" $category
+  "featuredOnly" $featuredOnly
+  "limit" $limit
+  "showCategory" $showCategory
+  "columns" $columns) -}}

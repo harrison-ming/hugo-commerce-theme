@@ -1,0 +1,30 @@
+{{- /*
+  FAQ Item Shortcode (used within faq-accordion)
+
+  Usage:
+    {{< faq-item question="Is this real Black Obsidian?" >}}
+    100% genuine Black Obsidian volcanic glass. Each stone is hand-selected.
+    {{< /faq-item >}}
+*/ -}}
+
+{{- $question := .Get "question" -}}
+{{- $answer := .Inner | markdownify -}}
+{{- $randomID := delimit (shuffle (split (md5 $question) "" )) "" | truncate 8 "" -}}
+
+<div class="faq-item">
+  <button class="faq-question" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#faq-{{ $randomID }}"
+          aria-expanded="false"
+          aria-controls="faq-{{ $randomID }}">
+    <span>{{ $question }}</span>
+    <svg class="faq-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none"/>
+    </svg>
+  </button>
+  <div id="faq-{{ $randomID }}" class="faq-answer collapse">
+    <div class="faq-answer-content">
+      {{ $answer }}
+    </div>
+  </div>
+</div>

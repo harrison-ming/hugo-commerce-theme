@@ -1,0 +1,69 @@
+{{- /*
+  评价徽章组件 - 显示星级评分和评价数量
+
+  参数:
+    . (dict) - 参数字典
+      rating (float) - 评分数字，如 4.9 (required)
+      reviewCount (int) - 评价数量，如 12847 (required)
+      reviewText (string) - 评价文本，默认 "Reviews"
+      showStars (bool) - 是否显示星星，默认 true
+      starColor (string) - 星星颜色，默认 "#facc15"
+      headerText (string) - 顶部文字，如 "Recommended:"
+      variant (string) - 样式变体: "default" | "compact" | "minimal"
+
+  用法示例:
+    {{- partial "components/cta-sidebar/review-badge" (dict
+      "rating" 4.9
+      "reviewCount" 12847
+      "reviewText" "Reviews"
+      "showStars" true
+      "headerText" "Recommended:"
+      "variant" "default") -}}
+*/ -}}
+
+{{- $rating := .rating -}}
+{{- $reviewCount := .reviewCount -}}
+{{- $reviewText := .reviewText | default "Reviews" -}}
+{{- $showStars := .showStars | default true -}}
+{{- $starColor := .starColor | default "#facc15" -}}
+{{- $headerText := .headerText | default "" -}}
+{{- $variant := .variant | default "default" -}}
+
+{{- if eq $variant "minimal" -}}
+  {{- /* 极简版：只显示评分数字 */ -}}
+  <div class="text-center mb-2">
+    <span class="text-sm font-semibold text-gray-700">{{ $rating }}</span>
+    <span class="text-xs text-gray-500">({{ $reviewCount }})</span>
+  </div>
+
+{{- else if eq $variant "compact" -}}
+  {{- /* 紧凑版：星星 + 评分 */ -}}
+  <div class="text-center mb-3">
+    {{- if $showStars -}}
+    <div class="flex justify-center items-center gap-1 mb-1">
+      <span class="text-lg" style="color: {{ $starColor }};">⭐⭐⭐⭐⭐</span>
+    </div>
+    {{- end -}}
+    <p class="text-xs text-gray-600">
+      <strong class="text-gray-800">{{ $rating }}</strong> | <strong class="text-gray-800">{{ printf "%d" $reviewCount }}</strong> {{ $reviewText }}
+    </p>
+  </div>
+
+{{- else -}}
+  {{- /* 默认版：完整显示 */ -}}
+  <div class="text-center mb-3">
+    {{- if $headerText -}}
+    <h3 class="text-xl font-bold text-gray-900 mb-1">{{ $headerText }}</h3>
+    {{- end -}}
+
+    {{- if $showStars -}}
+    <div class="flex justify-center items-center mb-1" style="color: {{ $starColor }}; font-size: 1.25rem;">
+      ⭐⭐⭐⭐⭐
+    </div>
+    {{- end -}}
+
+    <p class="text-gray-600 text-sm">
+      <strong class="text-gray-900">{{ $rating }}</strong> | <strong class="text-gray-900">{{ printf "%d" $reviewCount }}</strong> {{ $reviewText }}
+    </p>
+  </div>
+{{- end -}}

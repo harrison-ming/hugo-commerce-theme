@@ -1,0 +1,118 @@
+{{- /*
+  Minimal Pricing Card Component
+
+  极简定价卡片 - 只显示核心信息：价格、名称、按钮
+  适用场景：简洁风格、单一产品多规格、快速浏览
+
+  Parameters:
+    .plans (slice) - 定价方案数组，默认从 site.Data.pricing.plans 读取
+    .columns (int) - 列数：2 | 3 | 4 | 5，默认 4
+    .showIcon (bool) - 是否显示图标，默认 true
+    .showTagline (bool) - 是否显示副标题，默认 false
+    .compactSpacing (bool) - 是否使用紧凑间距，默认 false
+*/ -}}
+
+{{- $plans := .plans | default site.Data.pricing.plans -}}
+{{- $columns := .columns | default 4 -}}
+{{- $showIcon := .showIcon | default true -}}
+{{- $showTagline := .showTagline | default false -}}
+{{- $compactSpacing := .compactSpacing | default false -}}
+
+{{- /* 根据列数设置网格类 */ -}}
+{{- $gridCols := "lg:grid-cols-4" -}}
+{{- if eq $columns 2 -}}
+  {{- $gridCols = "lg:grid-cols-2" -}}
+{{- else if eq $columns 3 -}}
+  {{- $gridCols = "lg:grid-cols-3" -}}
+{{- else if eq $columns 5 -}}
+  {{- $gridCols = "lg:grid-cols-5" -}}
+{{- end -}}
+
+{{- /* 间距设置 */ -}}
+{{- $spacing := "my-12" -}}
+{{- $gap := "gap-6" -}}
+{{- $padding := "p-6" -}}
+{{- if $compactSpacing -}}
+  {{- $spacing = "my-6" -}}
+  {{- $gap = "gap-4" -}}
+  {{- $padding = "p-4" -}}
+{{- end -}}
+
+<div class="pricing-section-minimal {{ $spacing }}">
+  <div class="pricing-grid-minimal grid grid-cols-1 md:grid-cols-2 {{ $gridCols }} {{ $gap }}">
+
+    {{- range $plan := $plans -}}
+
+    {{- /* 主题颜色映射 */ -}}
+    {{- $bgClasses := "bg-gradient-to-br from-green-600 to-green-500" -}}
+    {{- $borderClasses := "border-green-700" -}}
+    {{- $shadowClasses := "shadow-green-500/20" -}}
+    {{- $hoverShadowClasses := "hover:shadow-green-500/40" -}}
+    {{- $textColor := "text-green-600" -}}
+
+    {{- if eq $plan.ctaTheme "blue" -}}
+      {{- $bgClasses = "bg-gradient-to-br from-blue-600 to-blue-500" -}}
+      {{- $borderClasses = "border-blue-700" -}}
+      {{- $shadowClasses = "shadow-blue-500/20" -}}
+      {{- $hoverShadowClasses = "hover:shadow-blue-500/40" -}}
+      {{- $textColor = "text-blue-600" -}}
+    {{- else if eq $plan.ctaTheme "purple" -}}
+      {{- $bgClasses = "bg-gradient-to-br from-purple-600 to-purple-500" -}}
+      {{- $borderClasses = "border-purple-700" -}}
+      {{- $shadowClasses = "shadow-purple-500/20" -}}
+      {{- $hoverShadowClasses = "hover:shadow-purple-500/40" -}}
+      {{- $textColor = "text-purple-600" -}}
+    {{- else if eq $plan.ctaTheme "red" -}}
+      {{- $bgClasses = "bg-gradient-to-br from-red-600 to-red-500" -}}
+      {{- $borderClasses = "border-red-700" -}}
+      {{- $shadowClasses = "shadow-red-500/20" -}}
+      {{- $hoverShadowClasses = "hover:shadow-red-500/40" -}}
+      {{- $textColor = "text-red-600" -}}
+    {{- end -}}
+
+    <div class="pricing-card-minimal bg-white rounded-xl border-2 border-gray-200 {{ $padding }} hover:border-gray-300 hover:shadow-lg transition-all duration-300 text-center">
+
+      {{- /* 图标 */ -}}
+      {{- if and $showIcon $plan.icon -}}
+      <div class="text-4xl mb-3">{{ $plan.icon }}</div>
+      {{- end -}}
+
+      {{- /* 产品名称 */ -}}
+      <h3 class="text-lg font-bold text-gray-900 mb-2">{{ $plan.name }}</h3>
+
+      {{- /* 副标题（可选） */ -}}
+      {{- if and $showTagline $plan.tagline -}}
+      <p class="text-xs text-gray-500 mb-3">{{ $plan.tagline }}</p>
+      {{- end -}}
+
+      {{- /* 价格 */ -}}
+      <div class="pricing-amount mb-4">
+        {{- if $plan.originalPrice -}}
+        <div class="text-gray-400 line-through text-sm mb-1">
+          {{ $plan.currency | default "$" }}{{ $plan.originalPrice }}
+        </div>
+        {{- end -}}
+
+        <div class="text-3xl font-bold {{ $textColor }} mb-1">
+          {{ $plan.currency | default "$" }}{{ $plan.price }}
+        </div>
+
+        {{- if $plan.save -}}
+        <div class="text-xs text-gray-500">
+          Save {{ $plan.currency | default "$" }}{{ $plan.save }}
+        </div>
+        {{- end -}}
+      </div>
+
+      {{- /* CTA 按钮 */ -}}
+      <a href="{{ $plan.ctaLink }}"
+         class="block w-full text-center font-semibold rounded-lg transition-all duration-300 text-white py-3 px-4 text-sm {{ $bgClasses }} border-2 {{ $borderClasses }} shadow-md {{ $shadowClasses }} {{ $hoverShadowClasses }} hover:scale-105">
+        {{ $plan.ctaText }}
+      </a>
+
+    </div>
+
+    {{- end -}}
+
+  </div>
+</div>

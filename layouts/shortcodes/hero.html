@@ -1,0 +1,74 @@
+{{- /*
+  Hero Section Shortcode
+
+  Creates a hero/banner section in content
+
+  Parameters:
+    title (string) - Main heading
+    subtitle (string) - Subheading
+    primaryBtn (string) - Primary button text
+    primaryUrl (string) - Primary button URL
+    primaryTheme (string) - Primary button theme: green|blue|purple|red
+    secondaryBtn (string) - Secondary button text
+    secondaryUrl (string) - Secondary button URL
+    bg (string) - Background image URL
+    bgColor (string) - Background color (if no image)
+    align (string) - Text alignment: left|center|right
+    size (string) - Section size: small|medium|large
+
+  Usage:
+    {{< hero
+      title="Welcome to Our Site"
+      subtitle="Amazing products await"
+      primaryBtn="Get Started"
+      primaryUrl="/signup"
+      primaryTheme="green"
+      secondaryBtn="Learn More"
+      secondaryUrl="#about"
+    >}}
+
+    {{< hero
+      title="Special Offer"
+      subtitle="Limited time only"
+      primaryBtn="Shop Now"
+      primaryUrl="/shop"
+      bg="/images/hero-bg.jpg"
+      size="large"
+    >}}
+    Optional description text...
+    {{< /hero >}}
+*/ -}}
+
+{{- $title := .Get "title" -}}
+{{- $subtitle := .Get "subtitle" -}}
+{{- $description := .Inner | markdownify -}}
+{{- $primaryBtn := .Get "primaryBtn" -}}
+{{- $primaryUrl := .Get "primaryUrl" -}}
+{{- $primaryTheme := .Get "primaryTheme" | default "green" -}}
+{{- $secondaryBtn := .Get "secondaryBtn" -}}
+{{- $secondaryUrl := .Get "secondaryUrl" -}}
+{{- $bg := .Get "bg" -}}
+{{- $bgColor := .Get "bgColor" -}}
+{{- $align := .Get "align" | default "center" -}}
+{{- $size := .Get "size" | default "medium" -}}
+
+{{- $primaryButton := dict -}}
+{{- if $primaryBtn -}}
+  {{- $primaryButton = dict "text" $primaryBtn "url" $primaryUrl "theme" $primaryTheme -}}
+{{- end -}}
+
+{{- $secondaryButton := dict -}}
+{{- if $secondaryBtn -}}
+  {{- $secondaryButton = dict "text" $secondaryBtn "url" $secondaryUrl -}}
+{{- end -}}
+
+{{- partial "components/hero" (dict
+  "title" $title
+  "subtitle" $subtitle
+  "description" $description
+  "primaryButton" $primaryButton
+  "secondaryButton" $secondaryButton
+  "backgroundImage" $bg
+  "backgroundColor" $bgColor
+  "align" $align
+  "size" $size) -}}

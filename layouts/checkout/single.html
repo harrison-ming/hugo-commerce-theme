@@ -1,0 +1,241 @@
+{{ define "main" }}
+
+<!-- Navigation Bar -->
+<div style="background: #f9fafb; padding: 1rem 0; margin-bottom: 2rem; border-bottom: 1px solid #e5e7eb;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center;">
+    <a href="/" style="color: #3FA026; text-decoration: none; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: opacity 0.2s;">
+      <span>←</span>
+      <span>View Product Details</span>
+    </a>
+    <span style="color: #6b7280; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
+      <span style="font-size: 1.1rem;">🔒</span>
+      <span>Secure Checkout</span>
+    </span>
+  </div>
+</div>
+
+<div class="checkout-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+
+  <!-- Header -->
+  <div class="checkout-header" style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
+    <p style="color: #666;">Complete your order securely</p>
+  </div>
+
+  <div class="checkout-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+
+    <!-- Left Column: Product Info & Features -->
+    <div class="product-section">
+
+      <!-- Product Image & Name -->
+      <div class="product-info" style="margin-bottom: 2rem;">
+        <img src="{{ .Params.product_image }}" alt="{{ .Params.product_name }}"
+             style="width: 100%; max-width: 400px; border-radius: 8px; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">{{ .Params.product_name }}</h2>
+        <div style="color: #666; margin-bottom: 1rem;">
+          ⭐⭐⭐⭐⭐ <span>({{ len .Params.testimonials }} reviews)</span>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="features" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">What's Included</h3>
+        <ul style="list-style: none; padding: 0;">
+          {{ range .Params.features }}
+          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <!-- Guarantees -->
+      <div class="guarantees" style="background: #fef5c4; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #facc15;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Our Guarantee</h3>
+        <ul style="list-style: none; padding: 0;">
+          {{ range .Params.guarantees }}
+          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
+          {{ end }}
+        </ul>
+      </div>
+
+      <!-- Testimonials -->
+      <div class="testimonials">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Customer Reviews</h3>
+        {{ range .Params.testimonials }}
+        <div style="background: #fff; border: 1px solid #e5e7eb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+          <div style="color: #facc15; margin-bottom: 0.5rem;">
+            {{ range (seq .rating) }}⭐{{ end }}
+          </div>
+          <p style="margin-bottom: 0.5rem;">"{{ .text }}"</p>
+          <p style="color: #666; font-size: 0.875rem;">— {{ .name }}</p>
+        </div>
+        {{ end }}
+      </div>
+
+    </div>
+
+    <!-- Right Column: Order Form -->
+    <div class="order-section">
+
+      <!-- STEP 1: Plan Selection -->
+      <div class="plan-selection" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: bold;">STEP 1: SELECT YOUR BLESSING</h3>
+
+        {{ range $key, $value := .Params.plans }}
+        <div class="plan-option {{ if eq $key "family" }}plan-popular{{ end }}"
+             data-plan="{{ $key }}"
+             style="margin-bottom: 1rem; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; transition: all 0.3s; {{ if eq $key "family" }}background: #fef5c4; border-color: #f4cc5e;{{ end }}">
+          <label style="display: flex; align-items: center; cursor: pointer; width: 100%;">
+            <input type="radio" name="plan" value="{{ $key }}"
+                   {{ if eq $key "family" }}checked{{ end }}
+                   style="margin-right: 1rem; width: 20px; height: 20px; cursor: pointer;">
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                <span style="font-weight: bold; font-size: 1.125rem;">{{ $value.items_count }}x Celestial Decree{{ if gt $value.items_count 1 }}s{{ end }}</span>
+                <div style="text-align: right;">
+                  <span style="text-decoration: line-through; color: #999; font-size: 0.875rem; margin-right: 0.5rem;">${{ $value.original_price }}</span>
+                  <span style="color: #3FA026; font-weight: bold; font-size: 1.25rem;">${{ $value.price }}</span>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #666; font-size: 0.875rem;">{{ $value.description }}</span>
+                {{ if $value.badge }}
+                <span style="background: #dc2626; color: white; padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">{{ $value.badge }}</span>
+                {{ end }}
+              </div>
+              <div style="color: #3FA026; font-size: 0.875rem; font-weight: bold; margin-top: 0.25rem;">
+                Save ${{ $value.savings }}{{ if gt $value.items_count 1 }} - ${{ div $value.price $value.items_count }} each{{ end }}
+              </div>
+            </div>
+          </label>
+        </div>
+        {{ end }}
+
+        <p style="text-align: center; color: #666; font-size: 0.875rem; margin-top: 1rem;">
+          All Prices Are In USD<br>
+          Buy multiple units and save even more!
+        </p>
+      </div>
+
+      <!-- Payment Form -->
+      <div class="payment-form">
+
+        <div style="margin-bottom: 2rem;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: bold;">STEP 2: COMPLETE YOUR ORDER</h3>
+
+          <!-- Stripe Embedded Checkout will be mounted here -->
+          <!-- It handles: Email, Shipping Address, Payment Method, and Submit Button -->
+          <div id="checkout-container">
+            <!-- Loading state will be shown here initially -->
+          </div>
+        </div>
+
+        <!-- Security Notice -->
+        <div style="text-align: center; margin-top: 1.5rem; color: #666; font-size: 0.875rem;">
+          <p>🔒 Secure payment powered by Stripe</p>
+          <p>Your payment information is encrypted and secure</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Stripe.js -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- Pass configuration to JavaScript BEFORE loading checkout.js -->
+<script>
+  window.checkoutConfig = {
+    currency: '{{ lower .Params.currency }}',
+    productName: '{{ .Params.product_name }}',
+    workerUrl: '{{ site.Params.stripe.worker_url }}',
+    publishableKey: '{{ site.Params.stripe.publishable_key }}',
+    plans: {
+      {{ range $key, $value := .Params.plans }}
+      {{ $key }}: {
+        name: '{{ $value.name }}',
+        description: '{{ $value.description }}',
+        price: {{ $value.price }},
+        original_price: {{ $value.original_price }},
+        quantity: {{ $value.quantity }},
+        price_id: '{{ $value.price_id }}',
+        savings: {{ $value.savings }},
+        badge: '{{ $value.badge }}',
+        features: [
+          {{ range $value.features }}
+          '{{ . }}',
+          {{ end }}
+        ]
+      },
+      {{ end }}
+    }
+  };
+</script>
+
+<!-- Load checkout.js AFTER configuration -->
+<script src="/js/checkout.js?v={{ now.Unix }}"></script>
+
+<!-- Responsive CSS -->
+<style>
+@media (max-width: 768px) {
+  .checkout-content {
+    grid-template-columns: 1fr !important;
+  }
+  .product-section {
+    order: 2;
+  }
+  .order-section {
+    order: 1;
+  }
+  /* Mobile navigation */
+  .checkout-container {
+    padding: 1rem !important;
+  }
+}
+
+#submit-button:hover {
+  background-color: #5ED54B !important;
+}
+
+#submit-button:disabled {
+  background-color: #9ca3af !important;
+  cursor: not-allowed !important;
+}
+
+/* Plan selection styles */
+.plan-option:hover {
+  border-color: #3FA026 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(63, 160, 38, 0.15);
+}
+
+.plan-option input[type="radio"]:checked ~ div {
+  color: #000;
+}
+
+.plan-option input[type="radio"]:checked {
+  accent-color: #3FA026;
+}
+
+/* Popular plan highlight */
+.plan-popular {
+  position: relative;
+}
+
+.plan-popular::before {
+  content: "⭐ MOST POPULAR";
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: #dc2626;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  z-index: 1;
+}
+</style>
+
+{{ end }}

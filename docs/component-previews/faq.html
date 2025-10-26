@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Component - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; }
+        .preview-container { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', monospace; font-size: 0.875rem; }
+
+        /* Accordion animation */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">FAQ Component</h1>
+            <p class="text-gray-600">常见问题组件 - 数据驱动的交互式 FAQ 展示</p>
+            <div class="mt-4"><a href="index.html" class="text-blue-600 hover:underline">← 返回组件列表</a></div>
+        </div>
+
+        <!-- Default Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Default Layout（默认布局）</h2>
+            <p class="text-gray-600 mb-4">标准手风琴布局，带大标题和蓝色展开图标</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="faq-default space-y-4 my-8">
+                    <!-- Question 1 -->
+                    <details class="faq-item group bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 transition-all duration-300">
+                        <summary class="faq-question cursor-pointer px-6 py-5 font-bold text-lg text-gray-900 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="flex-1 pr-4">
+                                <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                                What exactly is a Celestial Decree?
+                            </span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-6 pb-6 pt-2 text-gray-700 leading-relaxed border-t border-gray-100">
+                            <p>A Celestial Decree is a handcrafted spiritual artifact blessed through ancient rituals. Each decree is carefully prepared by trained practitioners and infused with positive energy to help attract good fortune, protection, and abundance into your life.</p>
+                        </div>
+                    </details>
+
+                    <!-- Question 2 -->
+                    <details class="faq-item group bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 transition-all duration-300">
+                        <summary class="faq-question cursor-pointer px-6 py-5 font-bold text-lg text-gray-900 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="flex-1 pr-4">
+                                <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                                How does the Celestial Decree work?
+                            </span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-6 pb-6 pt-2 text-gray-700 leading-relaxed border-t border-gray-100">
+                            <p>The decree works through the principles of energy alignment and intention setting. When you place it in your home or workspace, it acts as a focal point for positive energy, helping to align your environment with your goals and aspirations.</p>
+                        </div>
+                    </details>
+
+                    <!-- Question 3 -->
+                    <details class="faq-item group bg-white border-2 border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 transition-all duration-300">
+                        <summary class="faq-question cursor-pointer px-6 py-5 font-bold text-lg text-gray-900 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                            <span class="flex-1 pr-4">
+                                Do you offer a money-back guarantee?
+                            </span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-6 pb-6 pt-2 text-gray-700 leading-relaxed border-t border-gray-100">
+                            <p>Yes! We offer a 60-day satisfaction guarantee. If you're not completely satisfied with your Celestial Decree for any reason, simply return it within 60 days for a full refund. No questions asked.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; faq &gt;}}
+
+# 只显示精选问题
+{{&lt; faq featuredOnly=true &gt;}}
+
+# 限制显示数量
+{{&lt; faq limit=5 &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Compact Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Compact Layout（紧凑布局）</h2>
+            <p class="text-gray-600 mb-4">简洁的手风琴布局，适合侧边栏或页脚</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="faq-compact space-y-3 my-8">
+                    <details class="faq-item group bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
+                        <summary class="faq-question cursor-pointer px-4 py-3 font-semibold text-gray-900 flex items-center justify-between hover:bg-gray-50 rounded-lg transition-colors">
+                            <span class="flex-1 pr-4">How long does shipping take?</span>
+                            <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-4 pb-4 pt-2 text-gray-700 text-sm leading-relaxed">
+                            We offer FREE worldwide shipping on all orders: USA: 5-10 business days, Canada: 7-14 business days, International: 10-21 business days.
+                        </div>
+                    </details>
+
+                    <details class="faq-item group bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
+                        <summary class="faq-question cursor-pointer px-4 py-3 font-semibold text-gray-900 flex items-center justify-between hover:bg-gray-50 rounded-lg transition-colors">
+                            <span class="flex-1 pr-4">What payment methods do you accept?</span>
+                            <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-4 pb-4 pt-2 text-gray-700 text-sm leading-relaxed">
+                            We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, Apple Pay, and Google Pay.
+                        </div>
+                    </details>
+
+                    <details class="faq-item group bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors">
+                        <summary class="faq-question cursor-pointer px-4 py-3 font-semibold text-gray-900 flex items-center justify-between hover:bg-gray-50 rounded-lg transition-colors">
+                            <span class="flex-1 pr-4">How can I contact support?</span>
+                            <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer px-4 pb-4 pt-2 text-gray-700 text-sm leading-relaxed">
+                            Email us at support@example.com or use our live chat (9am-9pm EST). We respond within 24 hours!
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; faq layout="compact" &gt;}}
+
+# 按分类筛选
+{{&lt; faq layout="compact" category="shipping" &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Card Layout -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Card Layout - 2 Columns（卡片布局 - 2列）</h2>
+            <p class="text-gray-600 mb-4">卡片式网格布局，适合 FAQ 页面</p>
+
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="faq-cards grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                    <details class="faq-card group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+                        <summary class="faq-question cursor-pointer font-bold text-lg text-gray-900 flex items-start justify-between mb-3">
+                            <span class="flex-1 pr-4">Where should I place my decree?</span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer text-gray-700 leading-relaxed">
+                            For best results, place your decree in a prominent location: above your front door for protection, on your desk for career success, or in your bedroom for harmony.
+                        </div>
+                    </details>
+
+                    <details class="faq-card group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+                        <summary class="faq-question cursor-pointer font-bold text-lg text-gray-900 flex items-start justify-between mb-3">
+                            <span class="flex-1 pr-4">Can I order multiple decrees?</span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer text-gray-700 leading-relaxed">
+                            Yes! Many customers order multiple decrees to protect different areas or give as gifts. Check out our Family Packs for savings!
+                        </div>
+                    </details>
+
+                    <details class="faq-card group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+                        <summary class="faq-question cursor-pointer font-bold text-lg text-gray-900 flex items-start justify-between mb-3">
+                            <span class="flex-1 pr-4">How long does it last?</span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer text-gray-700 leading-relaxed">
+                            With proper care, your decree will last indefinitely. The blessings are permanent and do not expire.
+                        </div>
+                    </details>
+
+                    <details class="faq-card group bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-blue-400 hover:shadow-lg transition-all duration-300">
+                        <summary class="faq-question cursor-pointer font-bold text-lg text-gray-900 flex items-start justify-between mb-3">
+                            <span class="flex-1 pr-4">Do you ship internationally?</span>
+                            <svg class="w-6 h-6 text-blue-600 group-open:rotate-180 transition-transform flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </summary>
+                        <div class="faq-answer text-gray-700 leading-relaxed">
+                            Yes! We ship to over 150 countries with FREE shipping. Delivery takes 10-21 business days internationally.
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; faq layout="card" &gt;}}
+
+# 3列网格
+{{&lt; faq layout="card" columns=3 &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Component Parameters -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">组件参数说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">参数</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">类型</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">默认值</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">说明</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr><td class="px-6 py-4 text-sm font-mono">layout</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">"default"</td><td class="px-6 py-4 text-sm">default | compact | card</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">category</td><td class="px-6 py-4 text-sm">string</td><td class="px-6 py-4 text-sm">""</td><td class="px-6 py-4 text-sm">product | shipping | payment | support | general</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">featuredOnly</td><td class="px-6 py-4 text-sm">bool</td><td class="px-6 py-4 text-sm">false</td><td class="px-6 py-4 text-sm">只显示精选问题</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">limit</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">999</td><td class="px-6 py-4 text-sm">限制显示数量</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">showCategory</td><td class="px-6 py-4 text-sm">bool</td><td class="px-6 py-4 text-sm">false</td><td class="px-6 py-4 text-sm">显示分类标签</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">columns</td><td class="px-6 py-4 text-sm">int</td><td class="px-6 py-4 text-sm">2</td><td class="px-6 py-4 text-sm">卡片布局的列数（2|3）</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Features -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">核心特性</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">数据驱动</strong>
+                        <p class="text-gray-600 text-sm">所有问题集中在 data/faq.toml，支持分类和排序</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">3种布局</strong>
+                        <p class="text-gray-600 text-sm">Default（标准）、Compact（紧凑）、Card（卡片）</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">手风琴交互</strong>
+                        <p class="text-gray-600 text-sm">使用原生 HTML details 元素，无需 JavaScript</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">分类筛选</strong>
+                        <p class="text-gray-600 text-sm">支持按产品、物流、支付、客服等分类筛选</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">响应式设计</strong>
+                        <p class="text-gray-600 text-sm">卡片布局自动适配移动端、平板、桌面</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-3 text-xl">✅</span>
+                    <div>
+                        <strong class="text-gray-900">精选标记</strong>
+                        <p class="text-gray-600 text-sm">支持标记精选问题，蓝点提示</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Data Structure -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">数据结构示例</h2>
+            <p class="text-gray-600 mb-4">在 data/faq.toml 中配置问题：</p>
+            <div class="code-block">[[items]]
+id = "what-is-decree"
+question = "What exactly is a Celestial Decree?"
+answer = """
+A Celestial Decree is a handcrafted spiritual artifact...
+"""
+category = "product"
+featured = true
+order = 1</div>
+        </div>
+
+    </div>
+</body>
+</html>

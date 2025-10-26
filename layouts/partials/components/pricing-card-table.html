@@ -1,0 +1,173 @@
+{{- /*
+Pricing Table Layout Component
+表格布局的价格对比组件
+
+用法：
+  {{< pricing-section layout="table" >}}
+  {{< pricing-section layout="table" showIcon=false >}}
+
+参数：
+  - showIcon: 是否显示图标 (默认: true)
+  - showBadge: 是否显示徽章 (默认: true)
+  - showTagline: 是否显示标语 (默认: true)
+*/ -}}
+
+{{- /* 参数获取 - 从传入的字典中获取 plans */ -}}
+{{- $plans := .plans -}}
+{{- if not $plans -}}
+  {{- /* 如果没有传入 plans，尝试从 Site.Data 获取 */ -}}
+  {{- if .Site.Data.pricing -}}
+    {{- $plans = .Site.Data.pricing.plans -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 其他参数获取 */ -}}
+{{- $showIcon := true -}}
+{{- if isset . "showIcon" -}}
+  {{- $showIcon = .showIcon -}}
+{{- end -}}
+
+{{- $showBadge := true -}}
+{{- if isset . "showBadge" -}}
+  {{- $showBadge = .showBadge -}}
+{{- end -}}
+
+{{- $showTagline := true -}}
+{{- if isset . "showTagline" -}}
+  {{- $showTagline = .showTagline -}}
+{{- end -}}
+
+<div class="pricing-table-wrapper overflow-x-auto -mx-4 sm:mx-0">
+  <table class="pricing-table w-full min-w-[800px] border-collapse bg-white rounded-xl shadow-lg overflow-hidden">
+    <thead>
+      <tr class="bg-gradient-to-r from-gray-50 to-gray-100">
+        <th class="p-6 text-left align-top w-1/4 border-b-2 border-gray-200">
+          <div class="text-lg font-bold text-gray-900">Plans Comparison</div>
+          <div class="text-sm text-gray-500 mt-1">Choose the perfect plan for you</div>
+        </th>
+        {{- range $plan := $plans -}}
+        <th class="p-6 text-center align-top border-b-2 border-gray-200 {{ if $plan.highlight }}bg-blue-50 border-blue-300{{ end }}">
+          {{- /* 徽章 */ -}}
+          {{- if and $showBadge $plan.badge -}}
+          <div class="inline-block px-3 py-1 rounded-full text-xs font-bold mb-3
+            {{- if eq $plan.badgeColor "blue" }} bg-blue-600 text-white
+            {{- else if eq $plan.badgeColor "purple" }} bg-purple-600 text-white
+            {{- else if eq $plan.badgeColor "green" }} bg-green-600 text-white
+            {{- else }} bg-gray-800 text-white
+            {{- end }}">
+            {{ $plan.badge }}
+          </div>
+          {{- end -}}
+
+          {{- /* 图标 */ -}}
+          {{- if and $showIcon $plan.icon -}}
+          <div class="text-4xl mb-2">{{ $plan.icon }}</div>
+          {{- end -}}
+
+          {{- /* 方案名称 */ -}}
+          <div class="font-bold text-xl text-gray-900 mb-1">{{ $plan.name }}</div>
+
+          {{- /* 标语 */ -}}
+          {{- if and $showTagline $plan.tagline -}}
+          <div class="text-sm text-gray-500 mb-3">{{ $plan.tagline }}</div>
+          {{- end -}}
+
+          {{- /* 价格 */ -}}
+          <div class="my-4">
+            {{- if $plan.originalPrice -}}
+            <div class="text-sm text-gray-400 line-through">{{ $plan.currency }}{{ $plan.originalPrice }}</div>
+            {{- end -}}
+            <div class="text-4xl font-bold text-gray-900">
+              {{ $plan.currency }}{{ $plan.price }}
+            </div>
+            {{- if $plan.save -}}
+            <div class="text-sm font-semibold text-green-600 mt-1">
+              Save {{ $plan.currency }}{{ $plan.save }}
+            </div>
+            {{- end -}}
+          </div>
+        </th>
+        {{- end -}}
+      </tr>
+    </thead>
+
+    <tbody>
+      {{- /* 获取最长的 features 列表长度 */ -}}
+      {{- $maxFeatures := 0 -}}
+      {{- range $plan := $plans -}}
+        {{- if $plan.features -}}
+          {{- $featureCount := len $plan.features -}}
+          {{- if gt $featureCount $maxFeatures -}}
+            {{- $maxFeatures = $featureCount -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- /* 遍历每个功能行 */ -}}
+      {{- if gt $maxFeatures 0 -}}
+      {{- range $i := (seq 0 (sub $maxFeatures 1)) -}}
+      <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+        <td class="p-4 text-left font-medium text-gray-700">
+          {{- /* 使用第一个方案的功能名作为行标题 */ -}}
+          {{- if gt (len $plans) 0 -}}
+            {{- $firstPlan := index $plans 0 -}}
+            {{- if and $firstPlan $firstPlan.features -}}
+              {{- if lt $i (len $firstPlan.features) -}}
+                {{ index $firstPlan.features $i }}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+        </td>
+
+        {{- /* 检查每个方案是否包含此功能 */ -}}
+        {{- range $plan := $plans -}}
+        <td class="p-4 text-center {{ if $plan.highlight }}bg-blue-50/50{{ end }}">
+          {{- if lt $i (len $plan.features) -}}
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </span>
+          {{- else -}}
+            <span class="text-gray-300">—</span>
+          {{- end -}}
+        </td>
+        {{- end -}}
+      </tr>
+      {{- end -}}
+      {{- end -}}
+
+      {{- /* CTA 按钮行 */ -}}
+      <tr class="bg-gray-50">
+        <td class="p-6"></td>
+        {{- range $plan := $plans -}}
+        <td class="p-6 text-center {{ if $plan.highlight }}bg-blue-50{{ end }}">
+          {{- $btnBg := "bg-gradient-to-br from-green-600 to-green-500 border-green-700 shadow-green-500/30 hover:shadow-green-500/50" -}}
+          {{- $textColor := "text-white" -}}
+
+          {{- if eq $plan.ctaTheme "blue" -}}
+            {{- $btnBg = "bg-gradient-to-br from-blue-600 to-blue-500 border-blue-700 shadow-blue-500/30 hover:shadow-blue-500/50" -}}
+          {{- else if eq $plan.ctaTheme "purple" -}}
+            {{- $btnBg = "bg-gradient-to-br from-purple-600 to-purple-500 border-purple-700 shadow-purple-500/30 hover:shadow-purple-500/50" -}}
+          {{- else if eq $plan.ctaTheme "red" -}}
+            {{- $btnBg = "bg-gradient-to-br from-red-600 to-red-500 border-red-700 shadow-red-500/30 hover:shadow-red-500/50" -}}
+          {{- end -}}
+
+          <a href="{{ $plan.ctaLink }}"
+             class="block w-full px-6 py-4 {{ $textColor }} font-bold rounded-lg {{ $btnBg }} border-2 shadow-lg hover:scale-105 transition-all duration-300 text-center">
+            {{ $plan.ctaText }}
+          </a>
+        </td>
+        {{- end -}}
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+{{- /* 移动端提示 */ -}}
+<div class="mt-4 text-center text-sm text-gray-500 sm:hidden">
+  <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+  </svg>
+  Swipe left to see all plans
+</div>

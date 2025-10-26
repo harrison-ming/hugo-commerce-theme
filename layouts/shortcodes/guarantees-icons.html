@@ -1,0 +1,99 @@
+{{- /*
+  Guarantees Icons Shortcode
+
+  Displays a row of guarantee/trust icons with text
+
+  Usage:
+    {{< guarantees-icons items='
+      - icon: "🚚"
+        text: "Free Shipping"
+      - icon: "🛡️"
+        text: "90-Day Guarantee"
+      - icon: "🔒"
+        text: "Secure Checkout"
+    ' >}}
+
+  Or using inline format:
+    {{< guarantees-icons >}}
+      {{< guarantee-icon icon="🚚" text="Free Shipping" / >}}
+      {{< guarantee-icon icon="🛡️" text="90-Day Guarantee" / >}}
+      {{< guarantee-icon icon="🔒" text="Secure Checkout" / >}}
+    {{< /guarantees-icons >}}
+*/ -}}
+
+{{- $items := slice -}}
+
+{{- if .Get "items" -}}
+  {{- $items = .Get "items" | transform.Unmarshal -}}
+{{- end -}}
+
+<div class="guarantees-icons">
+  {{- if $items -}}
+    {{- range $items -}}
+      <div class="guarantee-item">
+        <div class="guarantee-icon">{{ .icon }}</div>
+        <span class="guarantee-text">{{ .text }}</span>
+      </div>
+    {{- end -}}
+  {{- else -}}
+    {{- .Inner -}}
+  {{- end -}}
+</div>
+
+<style>
+.guarantees-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 30px 0;
+}
+
+.guarantee-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.guarantee-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.guarantee-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #3FA026;
+}
+
+.guarantee-text {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .guarantees-icons {
+    gap: 20px;
+  }
+
+  .guarantee-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+  }
+
+  .guarantee-icon {
+    font-size: 24px;
+  }
+
+  .guarantee-text {
+    font-size: 13px;
+  }
+}
+</style>

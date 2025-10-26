@@ -1,0 +1,131 @@
+{{- /*
+  Steps Shortcode
+
+  Displays a "How It Works" style numbered steps grid
+
+  Usage:
+    {{< steps columns="4" >}}
+      {{< step number="1" title="Cleanse Your Bracelet" image="/images/step1.jpg" >}}
+      Place it under moonlight overnight
+      {{< /step >}}
+      {{< step number="2" title="Wear on Left Wrist" image="/images/step2.jpg" >}}
+      The left side attracts positive energy
+      {{< /step >}}
+    {{< /steps >}}
+
+  Or using data parameter:
+    {{< steps columns="3" items='
+      - number: 1
+        title: "Cleanse"
+        description: "Place under moonlight"
+        image: "/images/step1.jpg"
+      - number: 2
+        title: "Wear Left"
+        description: "Attracts energy"
+        image: "/images/step2.jpg"
+    ' >}}
+*/ -}}
+
+{{- $columns := .Get "columns" | default "3" -}}
+{{- $items := slice -}}
+
+{{- if .Get "items" -}}
+  {{- $items = .Get "items" | transform.Unmarshal -}}
+{{- end -}}
+
+<div class="steps-container">
+  <div class="steps-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+    {{- if $items -}}
+      {{- range $items -}}
+        <div class="step-item">
+          <div class="step-number">{{ .number }}</div>
+          {{- with .image -}}
+            <div class="step-image">
+              <img src="{{ . }}" alt="{{ $.title }}" loading="lazy">
+            </div>
+          {{- end -}}
+          <h3 class="step-title">{{ .title }}</h3>
+          <p class="step-description">{{ .description }}</p>
+        </div>
+      {{- end -}}
+    {{- else -}}
+      {{- .Inner -}}
+    {{- end -}}
+  </div>
+</div>
+
+<style>
+.steps-container {
+  margin: 40px 0;
+}
+
+.steps-grid {
+  display: grid;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step-item {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #3FA026 0%, #2d7a1a 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 10px rgba(63, 160, 38, 0.3);
+}
+
+.step-image {
+  margin: 20px 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.step-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.step-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin: 15px 0 10px 0;
+}
+
+.step-description {
+  font-size: 15px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .steps-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+}
+</style>

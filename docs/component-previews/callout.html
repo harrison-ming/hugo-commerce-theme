@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callout Component - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; }
+        .preview-container { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', monospace; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Callout Component</h1>
+            <p class="text-gray-600">多功能提示框 - 5种颜色变体</p>
+            <div class="mt-4"><a href="index.html" class="text-blue-600 hover:underline">← 返回组件列表</a></div>
+        </div>
+
+        <!-- Warning (Yellow) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Warning - 警告提示（黄色）</h2>
+            <div class="callout callout-warning bg-yellow-50 border-yellow-400 border-2 rounded-lg p-4 md:p-5 my-6 shadow-md">
+                <div class="callout-header flex items-start gap-3 mb-3">
+                    <div class="callout-icon text-yellow-600 text-2xl flex-shrink-0">⚠️</div>
+                    <div class="callout-title font-bold text-base text-gray-800 flex-1">Important Notice</div>
+                </div>
+                <div class="callout-content text-base text-gray-800 leading-relaxed ml-0">
+                    <p><strong>A Message for Those Who Are Meant to Find This:</strong></p>
+                    <p>You didn't stumble upon this page by accident. This month's sacred blessing ritual can only consecrate <strong>73 remaining decrees</strong>.</p>
+                </div>
+            </div>
+            <div class="code-block">{{&lt; summary_box variant="warning" title="Important Notice" &gt;}}
+**A Message for Those Who Are Meant to Find This:**
+You didn't stumble upon this page by accident...
+{{&lt; /summary_box &gt;}}</div>
+        </div>
+
+        <!-- Info (Blue) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Info - 信息提示（蓝色）</h2>
+            <div class="callout callout-info bg-blue-50 border-blue-400 border-2 rounded-lg p-4 md:p-5 my-6 shadow-md">
+                <div class="callout-header flex items-start gap-3 mb-3">
+                    <div class="callout-icon text-blue-600 text-2xl flex-shrink-0">ℹ️</div>
+                    <div class="callout-title font-bold text-base text-gray-800 flex-1">Shipping Information</div>
+                </div>
+                <div class="callout-content text-base text-gray-800 leading-relaxed ml-0">
+                    <p>Free worldwide shipping on all orders. Delivery within 7-14 business days. Track your order anytime.</p>
+                </div>
+            </div>
+            <div class="code-block">{{&lt; summary_box variant="info" icon="ℹ️" title="Shipping Information" &gt;}}
+Free worldwide shipping on all orders...
+{{&lt; /summary_box &gt;}}</div>
+        </div>
+
+        <!-- Success (Green) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Success - 成功/保证（绿色）</h2>
+            <div class="callout callout-success bg-green-50 border-green-400 border-2 rounded-lg p-4 md:p-5 my-6 shadow-md">
+                <div class="callout-header flex items-start gap-3 mb-3">
+                    <div class="callout-icon text-green-600 text-2xl flex-shrink-0">✅</div>
+                    <div class="callout-title font-bold text-base text-gray-800 flex-1">Money-Back Guarantee</div>
+                </div>
+                <div class="callout-content text-base text-gray-800 leading-relaxed ml-0">
+                    <p>We offer a <strong>30-day money-back guarantee</strong>. If you're not satisfied, we'll refund 100% of your purchase. No questions asked!</p>
+                </div>
+            </div>
+            <div class="code-block">{{&lt; summary_box variant="success" icon="✅" title="Money-Back Guarantee" &gt;}}
+We offer a **30-day money-back guarantee**...
+{{&lt; /summary_box &gt;}}</div>
+        </div>
+
+        <!-- Danger (Red) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Danger - 紧急/限时（红色）</h2>
+            <div class="callout callout-danger bg-red-50 border-red-400 border-2 rounded-lg p-4 md:p-5 my-6 shadow-md">
+                <div class="callout-header flex items-start gap-3 mb-3">
+                    <div class="callout-icon text-red-600 text-2xl flex-shrink-0">🔥</div>
+                    <div class="callout-title font-bold text-base text-gray-800 flex-1">Limited Time Only!</div>
+                </div>
+                <div class="callout-content text-base text-gray-800 leading-relaxed ml-0">
+                    <p>Only <strong>73 decrees</strong> remaining! This sacred ritual can only consecrate a limited number each month. Don't miss out!</p>
+                </div>
+            </div>
+            <div class="code-block">{{&lt; summary_box variant="danger" icon="🔥" title="Limited Time Only!" &gt;}}
+Only **73 decrees** remaining!...
+{{&lt; /summary_box &gt;}}</div>
+        </div>
+
+        <!-- Highlight (Purple) -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Highlight - 重点强调（紫色）</h2>
+            <div class="callout callout-highlight bg-purple-50 border-purple-400 border-2 rounded-lg p-4 md:p-5 my-6 shadow-md">
+                <div class="callout-header flex items-start gap-3 mb-3">
+                    <div class="callout-icon text-purple-600 text-2xl flex-shrink-0">✨</div>
+                    <div class="callout-title font-bold text-base text-gray-800 flex-1">Special Bonus</div>
+                </div>
+                <div class="callout-content text-base text-gray-800 leading-relaxed ml-0">
+                    <p>Order today and receive a <strong>FREE blessing guide</strong> (worth $29)! Learn how to maximize your decree's power.</p>
+                </div>
+            </div>
+            <div class="code-block">{{&lt; summary_box variant="highlight" icon="✨" title="Special Bonus" &gt;}}
+Order today and receive a **FREE blessing guide**...
+{{&lt; /summary_box &gt;}}</div>
+        </div>
+
+        <!-- Parameters -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">参数说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">参数</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">默认值</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">选项</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr><td class="px-6 py-4 text-sm font-mono">variant</td><td class="px-6 py-4 text-sm">warning</td><td class="px-6 py-4 text-sm">warning | info | success | danger | highlight</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">icon</td><td class="px-6 py-4 text-sm">auto</td><td class="px-6 py-4 text-sm">任意 emoji（默认根据variant）</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">title</td><td class="px-6 py-4 text-sm">""</td><td class="px-6 py-4 text-sm">可选标题</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">size</td><td class="px-6 py-4 text-sm">normal</td><td class="px-6 py-4 text-sm">normal | large | compact</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

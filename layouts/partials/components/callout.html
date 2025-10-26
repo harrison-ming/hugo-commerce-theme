@@ -1,0 +1,144 @@
+{{- /*
+  Callout 组件 - 多功能提示框/高亮框
+
+  参数:
+    . (dict) - 参数字典
+      content (string) - 提示框内容 (required)
+      variant (string) - 样式变体: "warning" | "info" | "success" | "danger" | "highlight"，默认 "warning"
+      icon (string) - 图标/emoji，默认根据 variant 自动选择
+      title (string) - 可选标题
+      size (string) - 尺寸: "normal" | "large" | "compact"，默认 "normal"
+      shadow (bool) - 是否显示阴影，默认 true
+      border (string) - 边框样式: "solid" | "dashed" | "thick"，默认 "solid"
+      calloutClass (string) - 额外的 CSS 类名
+
+  用法示例:
+    {{- partial "components/callout" (dict
+      "content" "⚠️ **Important:** This is a warning message."
+      "variant" "warning"
+      "title" "Notice"
+      "size" "normal") -}}
+
+    {{- partial "components/callout" (dict
+      "content" .Inner
+      "variant" "success"
+      "icon" "✅") -}}
+*/ -}}
+
+{{- $content := .content -}}
+{{- $variant := .variant | default "warning" -}}
+{{- $icon := .icon | default "" -}}
+{{- $title := .title | default "" -}}
+{{- $size := .size | default "normal" -}}
+{{- $shadow := .shadow | default true -}}
+{{- $border := .border | default "solid" -}}
+{{- $calloutClass := .calloutClass | default "" -}}
+
+{{- /* 定义颜色主题 Tailwind 类 */ -}}
+{{- $bgClasses := "" -}}
+{{- $borderClasses := "" -}}
+{{- $textClasses := "" -}}
+{{- $iconClasses := "" -}}
+{{- $defaultIcon := "" -}}
+
+{{- if eq $variant "warning" -}}
+  {{- $bgClasses = "bg-yellow-50" -}}
+  {{- $borderClasses = "border-yellow-400" -}}
+  {{- $textClasses = "text-gray-800" -}}
+  {{- $iconClasses = "text-yellow-600" -}}
+  {{- $defaultIcon = "⚠️" -}}
+
+{{- else if eq $variant "info" -}}
+  {{- $bgClasses = "bg-blue-50" -}}
+  {{- $borderClasses = "border-blue-400" -}}
+  {{- $textClasses = "text-gray-800" -}}
+  {{- $iconClasses = "text-blue-600" -}}
+  {{- $defaultIcon = "ℹ️" -}}
+
+{{- else if eq $variant "success" -}}
+  {{- $bgClasses = "bg-green-50" -}}
+  {{- $borderClasses = "border-green-400" -}}
+  {{- $textClasses = "text-gray-800" -}}
+  {{- $iconClasses = "text-green-600" -}}
+  {{- $defaultIcon = "✅" -}}
+
+{{- else if eq $variant "danger" -}}
+  {{- $bgClasses = "bg-red-50" -}}
+  {{- $borderClasses = "border-red-400" -}}
+  {{- $textClasses = "text-gray-800" -}}
+  {{- $iconClasses = "text-red-600" -}}
+  {{- $defaultIcon = "🔥" -}}
+
+{{- else if eq $variant "highlight" -}}
+  {{- $bgClasses = "bg-purple-50" -}}
+  {{- $borderClasses = "border-purple-400" -}}
+  {{- $textClasses = "text-gray-800" -}}
+  {{- $iconClasses = "text-purple-600" -}}
+  {{- $defaultIcon = "✨" -}}
+{{- end -}}
+
+{{- /* 如果没有提供 icon，使用默认图标 */ -}}
+{{- if not $icon -}}
+  {{- $icon = $defaultIcon -}}
+{{- end -}}
+
+{{- /* 定义边框样式 */ -}}
+{{- $borderStyle := "" -}}
+{{- if eq $border "solid" -}}
+  {{- $borderStyle = "border-2" -}}
+{{- else if eq $border "dashed" -}}
+  {{- $borderStyle = "border-2 border-dashed" -}}
+{{- else if eq $border "thick" -}}
+  {{- $borderStyle = "border-l-4 border-t border-r border-b" -}}
+{{- end -}}
+
+{{- /* 定义尺寸 */ -}}
+{{- $padding := "" -}}
+{{- $fontSize := "" -}}
+{{- $iconSize := "" -}}
+{{- if eq $size "large" -}}
+  {{- $padding = "p-6 md:p-8" -}}
+  {{- $fontSize = "text-base md:text-lg" -}}
+  {{- $iconSize = "text-3xl" -}}
+{{- else if eq $size "compact" -}}
+  {{- $padding = "p-3 md:p-4" -}}
+  {{- $fontSize = "text-sm" -}}
+  {{- $iconSize = "text-xl" -}}
+{{- else -}}
+  {{- $padding = "p-4 md:p-5" -}}
+  {{- $fontSize = "text-base" -}}
+  {{- $iconSize = "text-2xl" -}}
+{{- end -}}
+
+{{- /* 定义阴影 */ -}}
+{{- $shadowClasses := "" -}}
+{{- if $shadow -}}
+  {{- $shadowClasses = "shadow-md" -}}
+{{- end -}}
+
+<!-- Callout Component -->
+<div class="callout callout-{{ $variant }} {{ $bgClasses }} {{ $borderClasses }} {{ $borderStyle }} rounded-lg {{ $padding }} my-6 {{ $shadowClasses }} {{ $calloutClass }}">
+
+  {{- /* 如果有标题或图标，显示标题栏 */ -}}
+  {{- if or $title $icon -}}
+  <div class="callout-header flex items-start gap-3 mb-3">
+    {{- if $icon -}}
+    <div class="callout-icon {{ $iconClasses }} {{ $iconSize }} flex-shrink-0">
+      {{ $icon }}
+    </div>
+    {{- end -}}
+
+    {{- if $title -}}
+    <div class="callout-title font-bold {{ $fontSize }} {{ $textClasses }} flex-1">
+      {{ $title }}
+    </div>
+    {{- end -}}
+  </div>
+  {{- end -}}
+
+  {{- /* 内容区域 */ -}}
+  <div class="callout-content {{ $fontSize }} {{ $textClasses }} leading-relaxed {{ if not (or $title $icon) }}{{ else }}ml-0{{ end }}">
+    {{ $content | markdownify }}
+  </div>
+
+</div>

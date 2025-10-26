@@ -1,0 +1,180 @@
+{{- /*
+  CTA 侧边栏组件 - 产品推荐侧边栏
+
+  参数:
+    . (dict) - 参数字典
+
+      === 核心参数 (required) ===
+      productName (string) - 产品名称
+      ctaLink (string) - CTA 按钮链接
+      ctaText (string) - CTA 按钮文字
+
+      === 评价部分 (optional) ===
+      showReviews (bool) - 是否显示评价，默认 true
+      rating (float) - 评分，如 4.9
+      reviewCount (int) - 评价数量
+      reviewText (string) - 评价文本，默认 "Reviews"
+      showStars (bool) - 是否显示星星，默认 true
+      starColor (string) - 星星颜色，默认 "#facc15"
+      headerText (string) - 顶部文字，如 "Recommended:"
+
+      === 功能列表 (optional) ===
+      features (slice) - 功能列表数组
+      featureIcon (string) - 功能图标，默认 "✓"
+      featureIconColor (string) - 图标颜色，默认 "#3FA026"
+
+      === 图片 (optional) ===
+      showImage (bool) - 是否显示图片，默认 true
+      imagePath (string) - 图片路径
+      imageAlt (string) - 图片 alt 文字
+
+      === 样式变体 (optional) ===
+      variant (string) - 样式变体: "default" | "compact" | "minimal"，默认 "default"
+
+      === 颜色主题 (optional) ===
+      buttonTheme (string) - 按钮主题: "green" | "blue" | "purple" | "custom"，默认 "green"
+      customButtonBg (string) - 自定义按钮背景色（仅当 buttonTheme="custom"）
+      customButtonBorder (string) - 自定义按钮边框色（仅当 buttonTheme="custom"）
+
+      === 自定义类名 (optional) ===
+      containerClass (string) - 容器额外类名
+      buttonClass (string) - 按钮额外类名
+
+  用法示例:
+    {{- partial "components/cta-sidebar" (dict
+      "productName" "Celestial Decree™"
+      "ctaLink" "/checkout"
+      "ctaText" "Claim Your Decree Now >>"
+      "rating" 4.9
+      "reviewCount" 12847
+      "headerText" "Recommended:"
+      "features" (slice
+        "Wealth & Fortune Blessing"
+        "Family Protection"
+        "Authentic Sacred Decree"
+        "90-day guarantee")
+      "imagePath" "/product/images/real-decree-main.jpg"
+      "imageAlt" "Celestial Decree"
+      "variant" "default"
+      "buttonTheme" "green") -}}
+*/ -}}
+
+{{- /* 核心参数 */ -}}
+{{- $productName := .productName -}}
+{{- $ctaLink := .ctaLink -}}
+{{- $ctaText := .ctaText -}}
+
+{{- /* 评价参数 */ -}}
+{{- $showReviews := .showReviews | default true -}}
+{{- $rating := .rating | default 0 -}}
+{{- $reviewCount := .reviewCount | default 0 -}}
+{{- $reviewText := .reviewText | default "Reviews" -}}
+{{- $showStars := .showStars | default true -}}
+{{- $starColor := .starColor | default "#facc15" -}}
+{{- $headerText := .headerText | default "" -}}
+
+{{- /* 功能列表参数 */ -}}
+{{- $features := .features -}}
+{{- $featureIcon := .featureIcon | default "✓" -}}
+{{- $featureIconColor := .featureIconColor | default "#3FA026" -}}
+
+{{- /* 图片参数 */ -}}
+{{- $showImage := .showImage | default true -}}
+{{- $imagePath := .imagePath -}}
+{{- $imageAlt := .imageAlt | default $productName -}}
+
+{{- /* 样式参数 */ -}}
+{{- $variant := .variant | default "default" -}}
+{{- $buttonTheme := .buttonTheme | default "green" -}}
+{{- $customButtonBg := .customButtonBg | default "" -}}
+{{- $customButtonBorder := .customButtonBorder | default "" -}}
+{{- $containerClass := .containerClass | default "" -}}
+{{- $buttonClass := .buttonClass | default "" -}}
+
+{{- /* 根据变体设置容器尺寸 */ -}}
+{{- $containerSize := "" -}}
+{{- $containerPadding := "" -}}
+{{- if eq $variant "minimal" -}}
+  {{- $containerSize = "max-w-xs" -}}
+  {{- $containerPadding = "p-3" -}}
+{{- else if eq $variant "compact" -}}
+  {{- $containerSize = "max-w-sm" -}}
+  {{- $containerPadding = "p-4" -}}
+{{- else -}}
+  {{- $containerSize = "max-w-sm lg:max-w-xs" -}}
+  {{- $containerPadding = "p-5" -}}
+{{- end -}}
+
+<!-- CTA Sidebar Component -->
+<div class="cta-sidebar sticky bg-white border-2 border-gray-200 rounded-xl shadow-lg {{ $containerSize }} {{ $containerPadding }} {{ $containerClass }}"
+     style="top: -30px; z-index: 100;">
+
+  {{- /* 评价徽章 */ -}}
+  {{- if and $showReviews (gt $rating 0) -}}
+    {{- partial "components/cta-sidebar/review-badge" (dict
+      "rating" $rating
+      "reviewCount" $reviewCount
+      "reviewText" $reviewText
+      "showStars" $showStars
+      "starColor" $starColor
+      "headerText" $headerText
+      "variant" $variant) -}}
+  {{- end -}}
+
+  {{- /* 产品名称 */ -}}
+  {{- if $productName -}}
+    {{- if eq $variant "minimal" -}}
+      <h4 class="text-base font-bold text-center text-green-600 mb-2">
+        {{ $productName }}
+      </h4>
+    {{- else if eq $variant "compact" -}}
+      <h4 class="text-lg font-bold text-center text-green-600 mb-3">
+        {{ $productName }}
+      </h4>
+    {{- else -}}
+      <h4 class="text-xl font-bold text-center text-green-600 mb-3">
+        {{ $productName }}
+      </h4>
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* 功能列表 */ -}}
+  {{- if $features -}}
+    {{- partial "components/cta-sidebar/feature-list" (dict
+      "features" $features
+      "icon" $featureIcon
+      "iconColor" $featureIconColor
+      "variant" $variant) -}}
+  {{- end -}}
+
+  {{- /* 产品图片 */ -}}
+  {{- if and $showImage $imagePath (ne $variant "minimal") -}}
+    <div class="text-center {{ if eq $variant "compact" }}mb-3{{ else }}mb-4{{ end }}">
+      <img src="{{ $imagePath }}"
+           alt="{{ $imageAlt }}"
+           class="inline-block rounded-lg shadow-md {{ if eq $variant "compact" }}max-w-[150px]{{ else }}max-w-[200px]{{ end }} w-full"
+           loading="lazy">
+    </div>
+  {{- end -}}
+
+  {{- /* CTA 按钮 */ -}}
+  {{- partial "components/cta-sidebar/cta-button" (dict
+    "text" $ctaText
+    "link" $ctaLink
+    "variant" $variant
+    "theme" $buttonTheme
+    "customBg" $customButtonBg
+    "customBorder" $customButtonBorder
+    "buttonClass" $buttonClass
+    "fullWidth" true) -}}
+
+</div>
+
+<!-- Mobile: Hide on small screens -->
+<style>
+@media (max-width: 1024px) {
+  .sidebar-container {
+    display: none !important;
+  }
+}
+</style>

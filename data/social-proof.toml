@@ -1,0 +1,140 @@
+# Social Proof Configuration
+# 社交证明配置文件
+#
+# 用于显示近期购买、评价等活动，增加信任感和紧迫感
+#
+# 使用方法：
+# 1. 浮动通知（右下角）：
+#    {{< social-proof >}}
+#
+# 2. 行内展示：
+#    {{< social-proof layout="inline" >}}
+#
+# 3. 统计数字展示：
+#    {{< social-proof layout="stats" >}}
+
+# 活动类型定义
+[types]
+purchase = "购买"
+review = "评价"
+signup = "注册"
+view = "浏览"
+
+# 近期活动列表
+[[activities]]
+id = "purchase-1"
+type = "purchase"
+name = "Sarah M."
+location = "New York, USA"
+product = "Family Protection Pack"
+avatar = "/product/images/avatars/avatar-sarah.jpg"
+timeAgo = "2 minutes ago"
+verified = true
+order = 1
+
+[[activities]]
+id = "review-1"
+type = "review"
+name = "John D."
+location = "California, USA"
+message = "This decree changed my life! Got a promotion within a week."
+rating = 5
+avatar = "/product/images/avatars/avatar-john.jpg"
+timeAgo = "5 minutes ago"
+verified = true
+order = 2
+
+[[activities]]
+id = "purchase-2"
+type = "purchase"
+name = "Michael P."
+location = "Texas, USA"
+product = "Ultimate Abundance Pack"
+avatar = "/product/images/avatars/avatar-michael.jpg"
+timeAgo = "12 minutes ago"
+verified = true
+order = 3
+
+[[activities]]
+id = "review-2"
+type = "review"
+name = "Emily R."
+location = "Florida, USA"
+message = "Skeptical at first, but now a believer! Amazing results."
+rating = 5
+avatar = "/product/images/avatars/avatar-emily.jpg"
+timeAgo = "18 minutes ago"
+verified = true
+order = 4
+
+[[activities]]
+id = "purchase-3"
+type = "purchase"
+name = "David L."
+location = "London, UK"
+product = "Single Decree"
+avatar = "/product/images/avatars/avatar-david.jpg"
+timeAgo = "25 minutes ago"
+verified = true
+order = 5
+
+[[activities]]
+id = "signup-1"
+type = "signup"
+name = "Jessica W."
+location = "Sydney, Australia"
+message = "Joined our newsletter for exclusive updates"
+timeAgo = "32 minutes ago"
+order = 6
+
+[[activities]]
+id = "purchase-4"
+type = "purchase"
+name = "Robert K."
+location = "Toronto, Canada"
+product = "Family Protection Pack"
+avatar = "/product/images/avatars/avatar-robert.jpg"
+timeAgo = "45 minutes ago"
+verified = true
+order = 7
+
+[[activities]]
+id = "review-3"
+type = "review"
+name = "Amanda S."
+location = "Washington, USA"
+message = "My marriage was saved! This is real magic."
+rating = 5
+avatar = "/product/images/avatars/avatar-amanda.jpg"
+timeAgo = "1 hour ago"
+verified = true
+order = 8
+
+[[activities]]
+id = "purchase-5"
+type = "purchase"
+name = "James L."
+location = "Nevada, USA"
+product = "Ultimate Abundance Pack"
+avatar = "/product/images/avatars/avatar-james.jpg"
+timeAgo = "1 hour ago"
+verified = true
+order = 9
+
+[[activities]]
+id = "view-1"
+type = "view"
+name = "127 people"
+location = "worldwide"
+message = "are viewing this page right now"
+timeAgo = "Live"
+order = 10
+
+# 统计数据（用于 stats 布局）
+[stats]
+totalOrders = 12847
+todayOrders = 234
+activeViewers = 127
+averageRating = 4.9
+totalReviews = 3842
+satisfactionRate = 99.2

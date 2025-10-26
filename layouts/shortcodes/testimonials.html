@@ -1,0 +1,58 @@
+{{- /*
+  Testimonials Shortcode
+
+  Renders testimonials from data/testimonials.toml
+
+  Parameters:
+    layout (string) - Layout style: "list" | "grid" | "cards", default "list"
+    columns (int) - Number of columns (grid/cards): 1 | 2 | 3, default 2
+    showAvatar (bool) - Show avatar images, default true
+    showRating (bool) - Show star ratings, default true
+    featuredOnly (bool) - Only show featured testimonials, default false
+    limit (int) - Limit number of items, default all
+
+  Usage:
+    {{< testimonials >}}
+    {{< testimonials layout="grid" columns=2 >}}
+    {{< testimonials layout="cards" columns=3 featuredOnly=true >}}
+    {{< testimonials layout="list" limit=3 >}}
+*/ -}}
+
+{{- $layout := .Get "layout" | default "list" -}}
+{{- $columns := .Get "columns" -}}
+{{- if not $columns -}}
+  {{- $columns = 2 -}}
+{{- end -}}
+
+{{- $showAvatar := .Get "showAvatar" -}}
+{{- $showAvatarBool := true -}}
+{{- if eq $showAvatar "false" -}}
+  {{- $showAvatarBool = false -}}
+{{- end -}}
+
+{{- $showRating := .Get "showRating" -}}
+{{- $showRatingBool := true -}}
+{{- if eq $showRating "false" -}}
+  {{- $showRatingBool = false -}}
+{{- end -}}
+
+{{- $featuredOnly := .Get "featuredOnly" -}}
+{{- $featuredOnlyBool := false -}}
+{{- if eq $featuredOnly "true" -}}
+  {{- $featuredOnlyBool = true -}}
+{{- end -}}
+
+{{- $limit := .Get "limit" -}}
+{{- $limitInt := 999 -}}
+{{- if $limit -}}
+  {{- $limitInt = int $limit -}}
+{{- end -}}
+
+{{- partial "components/testimonial" (dict
+  "items" site.Data.testimonials.items
+  "layout" $layout
+  "columns" (int $columns)
+  "showAvatar" $showAvatarBool
+  "showRating" $showRatingBool
+  "featuredOnly" $featuredOnlyBool
+  "limit" $limitInt) -}}

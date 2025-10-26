@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Commerce Theme - Component Previews</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .component-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .component-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12 text-white">
+            <h1 class="text-5xl font-bold mb-4">Hugo Commerce Theme</h1>
+            <p class="text-xl opacity-90">组件预览系统 - Component Previews</p>
+            <p class="text-sm opacity-75 mt-2">所有已模块化的组件可视化预览</p>
+        </div>
+
+        <!-- Component Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- CTA Sidebar -->
+            <a href="cta-sidebar.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">CTA Sidebar</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">侧边栏 CTA 组件<br/>固定在侧边的产品推荐框</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种变体：Default / Compact / Minimal</div>
+                    <div>✓ 3 种颜色主题</div>
+                    <div>✓ 评价徽章 + 功能列表</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- CTA Inline -->
+            <a href="cta-inline.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">CTA Inline</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">正文 CTA 组件<br/>用于内容中的行动号召按钮</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 2 种尺寸：Hero / Standard</div>
+                    <div>✓ 4 种颜色：Green / Blue / Red / Purple</div>
+                    <div>✓ 超大英雄按钮 + 强烈视觉冲击</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Callout -->
+            <a href="callout.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Callout</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">提示框组件<br/>多功能高亮框/提示框</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 5 种变体：Warning / Info / Success / Danger / Highlight</div>
+                    <div>✓ 3 种尺寸：Normal / Large / Compact</div>
+                    <div>✓ 自动图标 + 可选标题</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Pricing Card -->
+            <a href="pricing-card.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Pricing Card</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">定价卡片组件<br/>数据驱动的产品定价展示</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种布局：2列 / 3列 / 4列</div>
+                    <div>✓ 徽章系统：MOST POPULAR / MAXIMUM ENERGY</div>
+                    <div>✓ 价格对比 + 节省金额展示</div>
+                    <div>✓ 数据文件：data/pricing.toml</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Testimonials -->
+            <a href="testimonials.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Testimonials</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">客户评价组件<br/>数据驱动的客户反馈展示</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种布局：List / Grid / Cards</div>
+                    <div>✓ 头像 + 姓名 + 地点 + 星级</div>
+                    <div>✓ 精选筛选 + 数量限制</div>
+                    <div>✓ 数据文件：data/testimonials.toml</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Hero Section -->
+            <a href="hero.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Hero Section</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">首屏区域组件<br/>灵活配置的 Hero Banner</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种尺寸：Small / Medium / Large</div>
+                    <div>✓ 3 种对齐：Left / Center / Right</div>
+                    <div>✓ 背景图片 + 渐变色支持</div>
+                    <div>✓ 主按钮 + 次要按钮（4种主题）</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- FAQ -->
+            <a href="faq.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">FAQ</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">常见问题组件<br/>交互式手风琴 FAQ 展示</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种布局：Default / Compact / Card</div>
+                    <div>✓ 原生 HTML details 手风琴</div>
+                    <div>✓ 分类筛选 + 精选标记</div>
+                    <div>✓ 数据文件：data/faq.toml</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Social Proof -->
+            <a href="social-proof.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Social Proof</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">社交证明组件<br/>实时活动通知展示</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种布局：Popup / Inline / Stats</div>
+                    <div>✓ 浮动通知 + 活动列表 + 统计数据</div>
+                    <div>✓ 验证徽章 + 滑入动画</div>
+                    <div>✓ 数据文件：data/social-proof.toml</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+            <!-- Product Gallery -->
+            <a href="product-gallery.html" class="component-card block">
+                <div class="flex items-start justify-between mb-3">
+                    <h2 class="text-2xl font-bold text-gray-900">Product Gallery</h2>
+                    <span class="badge bg-green-100 text-green-800">✓ 完成</span>
+                </div>
+                <p class="text-gray-600 mb-4">产品图片画廊组件<br/>多种展示布局</p>
+                <div class="space-y-2 text-sm text-gray-500">
+                    <div>✓ 3 种布局：Thumbnail / Grid / Carousel</div>
+                    <div>✓ 缩略图切换 + 网格展示 + 轮播滚动</div>
+                    <div>✓ 响应式设计 + CSS Scroll Snap</div>
+                    <div>✓ 数据文件：data/product-gallery.toml</div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <span class="text-blue-600 hover:underline font-medium">查看预览 →</span>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Stats -->
+        <div class="mt-12 bg-white/10 backdrop-blur-md rounded-xl p-8 text-white">
+            <div class="grid md:grid-cols-4 gap-6 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">9</div>
+                    <div class="text-sm opacity-75">组件模块</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">32+</div>
+                    <div class="text-sm opacity-75">样式变体</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">7</div>
+                    <div class="text-sm opacity-75">颜色主题</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">100%</div>
+                    <div class="text-sm opacity-75">Tailwind CSS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentation Links -->
+        <div class="mt-8 bg-white rounded-xl p-6">
+            <h3 class="text-xl font-bold mb-4 text-gray-900">📚 相关文档</h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <a href="../ARCHITECTURE.md" class="text-blue-600 hover:underline">→ ARCHITECTURE.md - 架构文档</a>
+                <a href="../CONFIGURATION.md" class="text-blue-600 hover:underline">→ CONFIGURATION.md - 配置指南</a>
+                <a href="../GETTING_STARTED.md" class="text-blue-600 hover:underline">→ GETTING_STARTED.md - 快速开始</a>
+                <a href="../ROADMAP.md" class="text-blue-600 hover:underline">→ ROADMAP.md - 产品路线图</a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-white text-sm opacity-75">
+            <p>Hugo Commerce Theme - Component Preview System</p>
+            <p class="mt-2">所有组件使用 Tailwind CSS • 完全响应式 • 易于自定义</p>
+        </div>
+
+    </div>
+</body>
+</html>

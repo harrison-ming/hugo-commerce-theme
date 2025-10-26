@@ -1,0 +1,78 @@
+{{- /*
+  CTA 按钮组件 - 可复用的行动号召按钮
+
+  参数:
+    . (dict) - 参数字典
+      text (string) - 按钮文字 (required)
+      link (string) - 按钮链接 (required)
+      variant (string) - 样式变体: "default" | "compact" | "minimal"
+      theme (string) - 颜色主题: "green" | "blue" | "purple" | "custom"
+      customBg (string) - 自定义背景色（仅当 theme="custom" 时）
+      customBorder (string) - 自定义边框色（仅当 theme="custom" 时）
+      buttonClass (string) - 额外的 CSS 类名
+      fullWidth (bool) - 是否全宽，默认 true
+
+  用法示例:
+    {{- partial "components/cta-sidebar/cta-button" (dict
+      "text" "Claim Your Decree Now >>"
+      "link" "/checkout"
+      "theme" "green"
+      "variant" "default") -}}
+*/ -}}
+
+{{- $text := .text -}}
+{{- $link := .link -}}
+{{- $variant := .variant | default "default" -}}
+{{- $theme := .theme | default "green" -}}
+{{- $customBg := .customBg | default "" -}}
+{{- $customBorder := .customBorder | default "" -}}
+{{- $buttonClass := .buttonClass | default "" -}}
+{{- $fullWidth := .fullWidth | default true -}}
+
+{{- /* 定义颜色主题 Tailwind 类 */ -}}
+{{- $bgClasses := "" -}}
+{{- $borderClasses := "" -}}
+{{- $shadowClasses := "" -}}
+{{- $hoverClasses := "" -}}
+
+{{- if eq $theme "green" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-green-600 to-green-500" -}}
+  {{- $borderClasses = "border-2 border-green-700" -}}
+  {{- $shadowClasses = "shadow-lg shadow-green-500/30" -}}
+  {{- $hoverClasses = "hover:shadow-xl hover:shadow-green-500/40 hover:scale-105" -}}
+{{- else if eq $theme "blue" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-blue-600 to-blue-500" -}}
+  {{- $borderClasses = "border-2 border-blue-700" -}}
+  {{- $shadowClasses = "shadow-lg shadow-blue-500/30" -}}
+  {{- $hoverClasses = "hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105" -}}
+{{- else if eq $theme "purple" -}}
+  {{- $bgClasses = "bg-gradient-to-br from-purple-600 to-purple-500" -}}
+  {{- $borderClasses = "border-2 border-purple-700" -}}
+  {{- $shadowClasses = "shadow-lg shadow-purple-500/30" -}}
+  {{- $hoverClasses = "hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105" -}}
+{{- else -}}
+  {{- /* custom 主题：使用默认绿色 */ -}}
+  {{- $bgClasses = "bg-gradient-to-br from-green-600 to-green-500" -}}
+  {{- $borderClasses = "border-2 border-green-700" -}}
+  {{- $shadowClasses = "shadow-lg shadow-green-500/30" -}}
+  {{- $hoverClasses = "hover:shadow-xl hover:shadow-green-500/40 hover:scale-105" -}}
+{{- end -}}
+
+{{- /* 根据变体设置尺寸 */ -}}
+{{- $buttonSize := "" -}}
+{{- $fontSize := "" -}}
+{{- if eq $variant "minimal" -}}
+  {{- $buttonSize = "py-2 px-4" -}}
+  {{- $fontSize = "text-sm" -}}
+{{- else if eq $variant "compact" -}}
+  {{- $buttonSize = "py-3 px-5" -}}
+  {{- $fontSize = "text-base" -}}
+{{- else -}}
+  {{- $buttonSize = "py-3.5 px-6" -}}
+  {{- $fontSize = "text-base" -}}
+{{- end -}}
+
+<a href="{{ $link }}"
+   class="{{ if $fullWidth }}block{{ else }}inline-block{{ end }} text-center font-bold rounded-lg transition-all duration-300 text-white {{ $buttonSize }} {{ $fontSize }} {{ $bgClasses }} {{ $borderClasses }} {{ $shadowClasses }} {{ $hoverClasses }} {{ $buttonClass }}">
+  {{ $text }}
+</a>

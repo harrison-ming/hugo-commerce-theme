@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTA Inline Components - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f9fafb; }
+        .preview-container { background: white; padding: 2rem; margin: 1rem 0; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .code-block { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 6px; overflow-x: auto; font-family: 'Monaco', monospace; font-size: 0.875rem; }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-6xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">CTA Inline Components</h1>
+            <p class="text-gray-600">正文 CTA 组件 - 用于内容中的行动号召按钮</p>
+            <div class="mt-4"><a href="index.html" class="text-blue-600 hover:underline">← 返回组件列表</a></div>
+        </div>
+
+        <!-- Hero Button - Green -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Hero Button - Green（绿色英雄按钮）</h2>
+            <p class="text-gray-600 mb-4">超大尺寸，全宽，深阴影，强烈渐变</p>
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="cta-hero-wrapper my-10 text-center">
+                    <a href="#" class="cta-hero-button w-full block font-bold rounded-xl transition-all duration-300 text-white text-lg md:text-xl lg:text-2xl py-5 md:py-6 px-8 md:px-12 bg-gradient-to-r from-green-600 via-green-500 to-green-600 border-4 border-green-700 shadow-2xl shadow-green-600/50 hover:shadow-[0_20px_50px_rgba(34,197,94,0.6)] hover:scale-105">
+                        <span class="inline-block mr-2 text-2xl md:text-3xl">🛡️</span>
+                        <span>I Want Divine Protection and Abundance — Claim My Decree Now</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4"><h3 class="text-sm font-semibold text-gray-700 mb-2">Shortcode 用法：</h3>
+                <div class="code-block">{{&lt; cta_button icon="🛡️" theme="green" &gt;}}
+I Want Divine Protection and Abundance — Claim My Decree Now
+{{&lt; /cta_button &gt;}}</div>
+            </div>
+        </div>
+
+        <!-- Hero Button - Blue -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Hero Button - Blue（蓝色英雄按钮）</h2>
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="cta-hero-wrapper my-10 text-center">
+                    <a href="#" class="cta-hero-button w-full block font-bold rounded-xl transition-all duration-300 text-white text-lg md:text-xl lg:text-2xl py-5 md:py-6 px-8 md:px-12 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 border-4 border-blue-700 shadow-2xl shadow-blue-600/50 hover:shadow-[0_20px_50px_rgba(37,99,235,0.6)] hover:scale-105">
+                        <span class="inline-block mr-2 text-2xl md:text-3xl">✨</span>
+                        <span>Start Your Transformation Journey Today</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4"><div class="code-block">{{&lt; cta_button icon="✨" theme="blue" &gt;}}
+Start Your Transformation Journey Today
+{{&lt; /cta_button &gt;}}</div></div>
+        </div>
+
+        <!-- Hero Button - Red -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Hero Button - Red（红色紧急按钮）</h2>
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="cta-hero-wrapper my-10 text-center">
+                    <a href="#" class="cta-hero-button w-full block font-bold rounded-xl transition-all duration-300 text-white text-lg md:text-xl lg:text-2xl py-5 md:py-6 px-8 md:px-12 bg-gradient-to-r from-red-600 via-red-500 to-red-600 border-4 border-red-700 shadow-2xl shadow-red-600/50 hover:shadow-[0_20px_50px_rgba(220,38,38,0.6)] hover:scale-105">
+                        <span class="inline-block mr-2 text-2xl md:text-3xl">🔥</span>
+                        <span>Only 24 Hours Left — Don't Miss Out!</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4"><div class="code-block">{{&lt; cta_button icon="🔥" theme="red" &gt;}}
+Only 24 Hours Left — Don't Miss Out!
+{{&lt; /cta_button &gt;}}</div></div>
+        </div>
+
+        <!-- Standard Button -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">Standard Button（标准按钮）</h2>
+            <p class="text-gray-600 mb-4">中等尺寸，自适应宽度</p>
+            <div class="bg-gray-50 p-6 rounded">
+                <div class="cta-standard-wrapper my-8 text-center">
+                    <a href="#" class="cta-standard-button inline-block font-bold rounded-lg transition-all duration-300 text-white text-base md:text-lg py-4 px-8 bg-gradient-to-br from-green-600 to-green-500 border-3 border-green-700 shadow-xl shadow-green-500/40 hover:shadow-2xl hover:shadow-green-500/50 hover:scale-105">
+                        <span class="inline-block mr-2 text-xl">⚡</span>
+                        <span>Claim Your Decree Now</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-4"><div class="code-block">{{&lt; cta_button size="standard" icon="⚡" &gt;}}
+Claim Your Decree Now
+{{&lt; /cta_button &gt;}}</div></div>
+        </div>
+
+        <!-- Parameters -->
+        <div class="preview-container">
+            <h2 class="text-2xl font-bold mb-4">参数说明</h2>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">参数</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">默认值</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">选项</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr><td class="px-6 py-4 text-sm font-mono">size</td><td class="px-6 py-4 text-sm">hero</td><td class="px-6 py-4 text-sm">hero | standard</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">theme</td><td class="px-6 py-4 text-sm">green</td><td class="px-6 py-4 text-sm">green | blue | red | purple</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">icon</td><td class="px-6 py-4 text-sm">""</td><td class="px-6 py-4 text-sm">任意 emoji</td></tr>
+                    <tr><td class="px-6 py-4 text-sm font-mono">url</td><td class="px-6 py-4 text-sm">/checkout</td><td class="px-6 py-4 text-sm">任意 URL</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
