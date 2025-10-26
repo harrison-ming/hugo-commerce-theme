@@ -30,11 +30,18 @@
     <a href="{{ .Site.Params.advertorial.checkout_url | default "/checkout" }}" class="cta-button">
         <span>🎯 LAST CHANCE - CLAIM 70% DISCOUNT NOW ➤➤</span>
     </a>
+
     <div class="footer-links">
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Service</a>
     </div>
+
     <p>Copyright {{ now.Year }}. All rights reserved.</p>
-    <p style="margin-top: 20px;">This site is not a part of the Facebook website or Facebook Inc. Additionally, This site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+
+    <p style="margin-top: 20px;">Disclaimer: Results may vary. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+
+    <p style="margin-top: 15px;">This site is not a part of the Facebook website or Facebook Inc. Additionally, This site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of FACEBOOK, Inc.</p>
+
+    <p style="margin-top: 15px;">{{ .Site.Params.advertorial.company_domain | default "fengshuibracelets.co" }} - {{ .Site.Params.advertorial.company_address | default "30 N Gould St Ste R, Sheridan, WY 82801" }}</p>
 </div>
 {{ end }}
