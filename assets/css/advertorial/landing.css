@@ -792,4 +792,12 @@
                 margin: 15px 0;
             }
         }
-    
+
+/* Override: Limit page width on large screens */
+@media (min-width: 1400px) {
+    body {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+}
+
