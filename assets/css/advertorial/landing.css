@@ -793,10 +793,10 @@
             }
         }
 
-/* Override: Limit page width on large screens */
-@media (min-width: 1400px) {
+/* Override: Limit page width on large screens to match checkout page */
+@media (min-width: 1200px) {
     body {
-        max-width: 1400px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 }
