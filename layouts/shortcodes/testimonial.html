@@ -1,0 +1,141 @@
+{{- /*
+  Single Testimonial Shortcode (used within testimonials container)
+
+  Usage:
+    {{< testimonial name="John Doe" rating="5" verified="true" >}}
+    This product changed my life! Highly recommended.
+    {{< /testimonial >}}
+
+  Parameters:
+    - name: Customer name (required)
+    - rating: Star rating 1-5 (optional, default: 5)
+    - verified: Show verified badge (optional, default: false)
+    - image: Customer avatar URL (optional)
+*/ -}}
+
+{{- $name := .Get "name" -}}
+{{- $rating := .Get "rating" | default "5" -}}
+{{- $verified := .Get "verified" | default "false" -}}
+{{- $image := .Get "image" -}}
+{{- $content := .Inner | markdownify -}}
+
+<div class="testimonial-card">
+  <div class="testimonial-header">
+    {{- if $image -}}
+      <img src="{{ $image }}" alt="{{ $name }}" class="testimonial-avatar" loading="lazy">
+    {{- else -}}
+      <div class="testimonial-avatar-placeholder">
+        {{ substr $name 0 1 }}
+      </div>
+    {{- end -}}
+    <div class="testimonial-meta">
+      <h4 class="testimonial-name">{{ $name }}</h4>
+      <div class="testimonial-rating">
+        {{- range seq (int $rating) -}}★{{- end -}}
+        {{- range seq (sub 5 (int $rating)) -}}☆{{- end -}}
+      </div>
+    </div>
+  </div>
+  <div class="testimonial-content">
+    {{ $content }}
+  </div>
+  {{- if eq $verified "true" -}}
+    <div class="testimonial-verified">✓ Verified Purchase</div>
+  {{- end -}}
+</div>
+
+<style>
+.testimonial-card {
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.testimonial-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3FA026 0%, #2d7a1a 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.testimonial-meta {
+  flex: 1;
+}
+
+.testimonial-name {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.testimonial-rating {
+  color: #FFA500;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.testimonial-content {
+  color: #666;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.testimonial-content p:last-child {
+  margin-bottom: 0;
+}
+
+.testimonial-verified {
+  margin-top: 10px;
+  color: #3FA026;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 15px;
+  }
+
+  .testimonial-avatar,
+  .testimonial-avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .testimonial-name {
+    font-size: 16px;
+  }
+
+  .testimonial-rating {
+    font-size: 14px;
+  }
+
+  .testimonial-content {
+    font-size: 14px;
+  }
+}
+</style>
