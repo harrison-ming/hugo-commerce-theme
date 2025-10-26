@@ -1,0 +1,37 @@
+{{- $checkoutURL := .Site.Params.advertorial.checkout_url | default "/checkout" -}}
+
+<div class="advertorial">Advertorial</div>
+
+<div class="hero">
+    <div class="container">
+        <h1>{{ .Params.hero_title | default .Title | markdownify }}</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="author-info">
+        <div style="width: 50px; height: 50px; border-radius: 50%; background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 18px; margin-right: 12px;">
+            {{ .Params.author_initials | default "MP" }}
+        </div>
+        <p>By <strong>{{ .Params.author_name | default "Mark Peterson" }}</strong> - <span id="current-date">Loading date...</span></p>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="main-content">
+            {{ .Content }}
+        </div>
+
+        <div class="sidebar">
+            {{- partial "advertorial/sidebar.html" . -}}
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <p>&copy; {{ now.Year }} {{ .Site.Title }}. All rights reserved.</p>
+        <p style="font-size: 12px; color: #999; margin-top: 10px;">
+            Disclaimer: Results may vary. This product is not intended to diagnose, treat, cure, or prevent any disease.
+        </p>
+    </div>
+</div>

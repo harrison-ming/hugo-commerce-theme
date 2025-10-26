@@ -1,4 +1,8 @@
 {{ define "main" }}
-  {{- partial "header.html" . -}}
-  {{- partial "content.html" . -}}
+  {{- if eq .Params.layout "advertorial" -}}
+    {{- partial "advertorial/content.html" . -}}
+  {{- else -}}
+    {{- partial "header.html" . -}}
+    {{- partial "content.html" . -}}
+  {{- end -}}
 {{ end }}

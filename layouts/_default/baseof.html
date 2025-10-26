@@ -2,7 +2,50 @@
 <html class="bg-white antialiased">
   {{- partial "head.html" . -}}
   <body>
+    {{- if eq .Params.layout "advertorial" -}}
+      {{- partial "advertorial/sticky-header.html" . -}}
+    {{- end -}}
     {{- block "main" . }}{{- end }}
-    {{- partial "footer.html" . -}}
+    {{- if ne .Params.layout "advertorial" -}}
+      {{- partial "footer.html" . -}}
+    {{- end -}}
+    {{- if eq .Params.layout "advertorial" -}}
+      <script>
+        // Sticky header visibility on scroll
+        window.addEventListener('scroll', function() {
+            const stickyHeader = document.getElementById('stickyHeader');
+            if (stickyHeader) {
+                if (window.scrollY > 300) {
+                    stickyHeader.classList.add('visible');
+                } else {
+                    stickyHeader.classList.remove('visible');
+                }
+            }
+        });
+
+        // Dynamic date
+        function updateDates() {
+            const date = new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric'
+            });
+
+            const dateElements = document.querySelectorAll('#current-date, #current-date-2');
+            dateElements.forEach(element => {
+                if (element) {
+                    element.textContent = date;
+                }
+            });
+        }
+
+        // Run on load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateDates);
+        } else {
+            updateDates();
+        }
+      </script>
+    {{- end -}}
   </body>
 </html>
