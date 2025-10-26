@@ -1,4 +1,4 @@
-module github.com/yourusername/hugo-commerce-theme
+module github.com/harrison-ming/hugo-commerce-theme
 
 go 1.24.2
 
