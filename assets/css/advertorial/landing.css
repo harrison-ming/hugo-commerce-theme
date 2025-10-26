@@ -177,7 +177,7 @@
         }
 
         .hero {
-            background: url('images/1759569923-Untitled_design__34_.png') center/cover no-repeat;
+            background: url('/images/1759569923-Untitled_design__34_.png') center/cover no-repeat;
             min-height: 420px;
             display: flex;
             align-items: flex-end;
