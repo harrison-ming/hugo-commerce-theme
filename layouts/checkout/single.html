@@ -1,119 +1,80 @@
 {{ define "main" }}
 
-<!-- Navigation Bar -->
-<div style="background: #f9fafb; padding: 1rem 0; margin-bottom: 2rem; border-bottom: 1px solid #e5e7eb;">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center;">
-    <a href="/" style="color: #3FA026; text-decoration: none; font-size: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: opacity 0.2s;">
-      <span>←</span>
-      <span>View Product Details</span>
-    </a>
-    <span style="color: #6b7280; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
-      <span style="font-size: 1.1rem;">🔒</span>
-      <span>Secure Checkout</span>
-    </span>
+<!-- Top Countdown Banner -->
+<div style="background: linear-gradient(to right, #fef3c7, #fde68a); padding: 1rem; text-align: center; border-bottom: 2px solid #f59e0b;">
+  <p style="margin: 0; font-size: 1rem; color: #78350f;">
+    🔥 <strong>The FengShui Bracelet is in high demand and inventory is limited.</strong> We have reserved your order for the next <span id="countdown-timer" style="color: #dc2626; font-weight: bold;">11:23</span> minutes.
+  </p>
+</div>
+
+<!-- Coupon Banner -->
+<div style="background: white; padding: 1.5rem; border: 3px dashed #3FA026; border-radius: 8px; margin: 1rem auto; max-width: 1200px;">
+  <div style="display: flex; align-items: center; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+    <div style="background: #dc2626; color: white; width: 120px; height: 120px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+      <div style="position: absolute; top: 10px; font-size: 1.5rem;">⭐⭐⭐</div>
+      <div style="font-size: 2.5rem; font-weight: bold; line-height: 1;">50%</div>
+      <div style="font-size: 1rem; font-weight: bold;">DISCOUNT</div>
+    </div>
+    <div style="text-align: center;">
+      <h2 style="color: #3FA026; font-size: 1.75rem; margin: 0 0 0.5rem 0; font-weight: bold;">Exclusive 50% OFF + FREE Delivery</h2>
+      <p style="margin: 0; font-size: 1.1rem; color: #059669;">Your Coupon <strong>(S67K5UE)</strong> has been applied > <span style="font-weight: bold;">50% Off</span></p>
+      <p style="margin: 0.5rem 0 0 0; font-size: 1rem; color: #dc2626; font-weight: bold;">Do NOT leave this page to avoid losing the discount</p>
+    </div>
   </div>
+</div>
+
+<!-- Special Offer Banner -->
+<div style="background: linear-gradient(to right, #22c55e, #16a34a); color: white; padding: 1rem; text-align: center; margin-bottom: 2rem;">
+  <p style="margin: 0; font-size: 1.1rem; font-weight: bold;">⭐ SPECIAL OFFER - Get A FREE FengShui Protection Bag With Every Order [LIMITED STOCK]</p>
 </div>
 
 <div class="checkout-container" style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
 
-  <!-- Header -->
-  <div class="checkout-header" style="text-align: center; margin-bottom: 3rem;">
-    <h1 style="font-size: 2rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
-    <p style="color: #666;">Complete your order securely</p>
-  </div>
+  <div class="checkout-content" style="display: grid; grid-template-columns: 45% 55%; gap: 2rem;">
 
-  <div class="checkout-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
-
-    <!-- Left Column: Product Info & Features -->
+    <!-- Left Column: Product Selection -->
     <div class="product-section">
 
-      <!-- Product Image & Name -->
-      <div class="product-info" style="margin-bottom: 2rem;">
-        <img src="{{ .Params.product_image }}" alt="{{ .Params.product_name }}"
-             style="width: 100%; max-width: 400px; border-radius: 8px; margin-bottom: 1rem;">
-        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">{{ .Params.product_name }}</h2>
-        <div style="color: #666; margin-bottom: 1rem;">
-          ⭐⭐⭐⭐⭐ <span>({{ len .Params.testimonials }} reviews)</span>
+      <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-weight: bold;">STEP 1: SELECT ORDER QUANTITY</h2>
+
+      <!-- Pricing Table -->
+      <div class="pricing-table" style="background: white; border: 2px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 2rem;">
+        <!-- Header -->
+        <div style="display: flex; background: #f3f4f6; border-bottom: 2px solid #e5e7eb; font-weight: bold; padding: 0.75rem 1rem;">
+          <div style="flex: 1;">Item</div>
+          <div style="width: 100px; text-align: right;">Price</div>
         </div>
-      </div>
 
-      <!-- Features -->
-      <div class="features" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">What's Included</h3>
-        <ul style="list-style: none; padding: 0;">
-          {{ range .Params.features }}
-          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
-          {{ end }}
-        </ul>
-      </div>
-
-      <!-- Guarantees -->
-      <div class="guarantees" style="background: #fef5c4; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #facc15;">
-        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Our Guarantee</h3>
-        <ul style="list-style: none; padding: 0;">
-          {{ range .Params.guarantees }}
-          <li style="margin-bottom: 0.75rem; padding-left: 0;">{{ . | markdownify }}</li>
-          {{ end }}
-        </ul>
-      </div>
-
-      <!-- Testimonials -->
-      <div class="testimonials">
-        <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Customer Reviews</h3>
-        {{ range .Params.testimonials }}
-        <div style="background: #fff; border: 1px solid #e5e7eb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-          <div style="color: #facc15; margin-bottom: 0.5rem;">
-            {{ range (seq .rating) }}⭐{{ end }}
-          </div>
-          <p style="margin-bottom: 0.5rem;">"{{ .text }}"</p>
-          <p style="color: #666; font-size: 0.875rem;">— {{ .name }}</p>
-        </div>
-        {{ end }}
-      </div>
-
-    </div>
-
-    <!-- Right Column: Order Form -->
-    <div class="order-section">
-
-      <!-- STEP 1: Plan Selection -->
-      <div class="plan-selection" style="background: #f9fafb; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
-        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: bold;">STEP 1: SELECT YOUR BLESSING</h3>
+        <!-- Plan Options -->
+        <div style="padding: 0.5rem;">
 
         {{ range $key, $value := .Params.plans }}
-        <div class="plan-option {{ if eq $key "family" }}plan-popular{{ end }}"
+        {{ $isPopular := eq $key "triple" }}
+        <div class="plan-option"
              data-plan="{{ $key }}"
-             style="margin-bottom: 1rem; padding: 1rem; border: 2px solid #e5e7eb; border-radius: 8px; cursor: pointer; transition: all 0.3s; {{ if eq $key "family" }}background: #fef5c4; border-color: #f4cc5e;{{ end }}">
-          <label style="display: flex; align-items: center; cursor: pointer; width: 100%;">
+             style="background: {{ if $isPopular }}#fef3c7{{ else }}#f3f4f6{{ end }}; padding: 1rem; margin-bottom: 0.75rem; border-radius: 4px; cursor: pointer; position: relative;">
+          <label style="display: flex; align-items: flex-start; cursor: pointer; width: 100%;">
             <input type="radio" name="plan" value="{{ $key }}"
-                   {{ if eq $key "family" }}checked{{ end }}
-                   style="margin-right: 1rem; width: 20px; height: 20px; cursor: pointer;">
-            <div style="flex: 1;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
-                <span style="font-weight: bold; font-size: 1.125rem;">{{ $value.items_count }}x Celestial Decree{{ if gt $value.items_count 1 }}s{{ end }}</span>
-                <div style="text-align: right;">
-                  <span style="text-decoration: line-through; color: #999; font-size: 0.875rem; margin-right: 0.5rem;">${{ $value.original_price }}</span>
-                  <span style="color: #3FA026; font-weight: bold; font-size: 1.25rem;">${{ $value.price }}</span>
+                   {{ if $isPopular }}checked{{ end }}
+                   style="margin-right: 1rem; margin-top: 0.25rem; width: 18px; height: 18px; cursor: pointer; flex-shrink: 0;">
+            <div style="flex: 1; display: flex; justify-content: space-between; align-items: flex-start;">
+              <div style="flex: 1;">
+                <div style="font-size: 1rem; margin-bottom: 0.25rem;">
+                  {{ $value.items_count }} x FengShui Bracelet{{ if gt $value.items_count 1 }}{{ if eq $value.items_count 2 }} + 1 FREE{{ else }} + {{ sub $value.items_count 1 }} FREE{{ end }} ({{ if eq $key "single" }}50{{ else if eq $key "double" }}67{{ else }}70{{ end }}% Discount ${{ div $value.price $value.items_count }} each!){{ else }} (50% Discount){{ end }}
                 </div>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: #666; font-size: 0.875rem;">{{ $value.description }}</span>
-                {{ if $value.badge }}
-                <span style="background: #dc2626; color: white; padding: 0.125rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">{{ $value.badge }}</span>
+                {{ if $isPopular }}
+                <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #dc2626; color: white; padding: 0.125rem 0.75rem; border-radius: 12px; font-size: 0.7rem; font-weight: bold; white-space: nowrap;">MOST POPULAR!</div>
                 {{ end }}
               </div>
-              <div style="color: #3FA026; font-size: 0.875rem; font-weight: bold; margin-top: 0.25rem;">
-                Save ${{ $value.savings }}{{ if gt $value.items_count 1 }} - ${{ div $value.price $value.items_count }} each{{ end }}
+              <div style="text-align: right; margin-left: 1rem;">
+                <div style="text-decoration: line-through; color: #999; font-size: 0.85rem;">${{ $value.original_price }}</div>
+                <div style="color: #22c55e; font-weight: bold; font-size: 1.25rem;">${{ $value.price }}</div>
               </div>
             </div>
           </label>
         </div>
         {{ end }}
-
-        <p style="text-align: center; color: #666; font-size: 0.875rem; margin-top: 1rem;">
-          All Prices Are In USD<br>
-          Buy multiple units and save even more!
-        </p>
+        </div>
       </div>
 
       <!-- Payment Form -->
